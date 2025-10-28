@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_estate_agent_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='bank_details']/page[@name='new_property_details']" position="after">
+                <page name="estate_agent" string="Estate Agent">
+                    <group>
+                        <field name="firm_name"/>
+                        <field name="firm_email"/>
+                        <field name="contactable_person"/>
+                        <field name="contactable_person_mobile"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

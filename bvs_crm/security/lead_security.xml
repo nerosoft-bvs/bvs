@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+
+        <record id="group_administrator" model="res.groups">
+            <field name="name">Administrator</field>
+            <!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="group_financial_advisor_internal" model="res.groups">
+            <field name="name">Financial Advisor (Internal)</field>
+            <!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_financial_advisor_external" model="res.groups">
+            <field name="name">Financial Advisor (External) - Own cases only</field>
+            <!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_admin_manager" model="res.groups">
+            <field name="name">Admin Manager</field>
+            <!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!--        <record id="group_client" model="res.groups">-->
+        <!--            <field name="name">Client</field>-->
+        <!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+        <!--        </record>-->
+
+        <record id="group_new_lead_team_leader" model="res.groups">
+            <field name="name">New Lead Team Leader</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_new_lead_team_member" model="res.groups">
+            <field name="name">New Lead Team Member</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_fma_team_leader" model="res.groups">
+            <field name="name">FMA Team Leader</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_fma_team_member" model="res.groups">
+            <field name="name">FMA Team Member</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_post_offer_team_leader" model="res.groups">
+            <field name="name">Post Offer Team Leader</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_post_offer_team_member" model="res.groups">
+            <field name="name">Post Offer Team Member</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_completion_team_leader" model="res.groups">
+            <field name="name">Completion Team Leader</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_completion_team_member" model="res.groups">
+            <field name="name">Completion Team member</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_protection_team_leader" model="res.groups">
+            <field name="name">Protection Team Leader</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_protection_team_member" model="res.groups">
+            <field name="name">Protection Team Member</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <record id="group_advisor_support" model="res.groups">
+            <field name="name">Advisor Support</field>
+<!--            <field name="category_id" ref="bvs_crm.bvs_lead"/>-->
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+    </data>
+</odoo>

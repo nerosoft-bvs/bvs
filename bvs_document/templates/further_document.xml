@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_further_document_request" name="Portal layout : application form menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'further_document_request'" t-attf-class="breadcrumb-item">
+                <t>Document Requests</t>
+            </li>
+        </xpath>
+    </template>
+
+
+    <template id="further_document_request" name="Further Document Form">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Further Document Submission</t>
+            </t>
+
+
+            <t t-if="document_submissions">
+                <t t-foreach="document_submissions" t-as="document">
+                    <div class="container">
+                        <form action="/document_id/form/submit" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="document_id" t-att-value="document.id"/>
+
+
+                            <div class="container">
+                                <div class="mb-0 py-2 col-12">
+                                    <div class="row s_col_no_resize s_col_no_bgcolor">
+                                        <label class="col-form-label col-sm-auto" style="width: 500px">
+                                            <span><t t-esc="document.document_list_id.document_name"/></span>
+                                        </label>
+                                        <div class="col-sm">
+                                            <input type="file" name="attachment_ids"
+                                                   multiple="multiple"
+                                                   class="form-control"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-0 py-2 col-12">
+                                <div class="text-end">
+                                    <button type="submit" class="btn btn-primary submit_btn">Submit
+                                        <span class="fa fa-arrow-right"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

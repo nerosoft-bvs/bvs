@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_portal_my_account" inherit_id="bvs_portal.portal_my_account" name="Custom My Account">
+        <xpath expr="//div[@class='container portal-content']" position="inside">
+            <!--fact find forms section-->
+            <t t-if="fact_find_forms">
+                <div class="row d-flex flex-wrap no-gutters mb64">
+                    <div class="col-12" style="opacity: 0.8;">
+                        <div class="profile_dashboard_box_header">
+                            <h2>Fact Find Forms</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-12 d-flex flex-column border-md-right report-card" style="opacity: 0.8;">
+                        <!--fact find forms-->
+                        <t t-foreach="fact_find_forms" t-as="fact_find_form">
+                            <a t-attf-href="/fact_find/form/{{ fact_find_form.id }}"
+                               class="d-flex flex-column profile_dashboard_line"
+                               style="background-color: grey; padding: 10px; margin-bottom: 5px; border-radius: 5px; text-decoration: none; color: black;">
+                                <div class="profile_dashboard_line_content">
+                                    <h5 class="profile_dashboard_line_title" style="margin: 0;">
+                                        <span t-esc="fact_find_form.partner_id.name"/>
+                                    </h5>
+                                </div>
+                            </a>
+                        </t>
+                    </div>
+
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

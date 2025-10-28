@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_protection" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='new_lead']" position="after">
+                <field name="product_type" invisible="1"/>
+                <field name="is_protection" invisible="1"/>
+                <field name="is_protection_leader" invisible="1"/>
+                <field name="is_protection_member" invisible="1"/>
+                <field name="is_advisor_support" invisible="1"/>
+                <page name="is_protection" string="Quote"
+                      attrs="{'invisible': ['|', ('is_protection', '=', False), ('product_type', '=', 'mortgage')]}">
+                    <group>
+                        <group string="Protection">
+                            <field name="create_case_assign_tm"  attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="check_on_accuracy_on_initial_docs"  attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="protection_quote_checklist"  attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="risk_assessment_decision"  attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="income_analysis"  attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="update_ch_mailchimp" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="upload_risk_calculator" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="advisor_approval" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="protection_quote_record" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="risk_calculator_acknowledgement" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Home Insurance">
+                            <field name="property_address" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="property_value" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="loan_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="monthly_payment" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="mortgage_term" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="rebuild_cost" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="home_insurance_quote" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="policy_booklet" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="approval_of_quote" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="hi_quote_record" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Protection Quotes Record Details" attrs="{'invisible': [('protection_quote_record', '=', False)]}">
+                            <field name="quote_date" readonly="1"/>
+                            <field name="upload_quote_ids" widget="many2many_binary"/>
+                            <field name="kfd_ids" widget="many2many_binary"/>
+                            <field name="quote_number" readonly="1"/>
+                            <field name="lives_assured" readonly="1"/>
+                            <field name="insurance_provider_list" readonly="1"/>
+                            <field name="cover" readonly="1"/>
+                            <field name="benefit_amount" readonly="1"/>
+                            <field name="benefit_frequency" readonly="1"/>
+                            <field name="monthly_premium" readonly="1"/>
+                            <field name="term" readonly="1"/>
+                            <field name="offer_exceptant_deadline" readonly="1"/>
+                            <field name="commission" readonly="1"/>
+                        </group>
+                        <group string="HI Quotes Record Details"  attrs="{'invisible': [('hi_quote_record', '=', False)]}">
+                            <field name="home_insurance_quote_acknowledgement" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="property_address" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="quote_number" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="quote_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="quote_expiry_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="insurance_type" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="monthly_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="annual_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="home_emergency" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="legal_expenses" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="accidental_damage" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="commission" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+
+                    <group string="(I) Protection Criteria CheckList"
+                           attrs="{'invisible': [('protection_quote_checklist', '=', False)]}">
+                        <group string="">
+                            <field name="occupation_correctly_selected" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="income_details_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="no_bonus_considered" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="single_life_cover" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Dta">
+                            <field name="dta_term_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dta_cover_amount_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dta_additional_borrowing_included" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dta_waiver_of_premium_included" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dta_ci_and_tpd_included" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="LTA">
+                            <field name="lta_term_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="lta_cic_term_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Family Income Benifit">
+                            <field name="fib_rent_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="fib_btl_property_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Income Protection">
+                            <field name="ip_uk_address_history" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="ip_indexation_rpi_selected" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="gp_registration" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="ip_employer_sick_benefit_matched" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Powered Base">
+                            <field name="exeter_address_history" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="guardian_address_history" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="zurich_wop_not_included" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="if_zurich_wop_not_included" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="aviva_wop_not_included" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="vitality_optimized_cover_not_selected" widget="selection_badge" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <group>
+                                <field name="protection_note" widget="html" placeholder="checklist" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_bvs_lead_kanban_protection" model="ir.ui.view">
+        <field name="name">bvs.lead.kanban</field>
+        <field name="model">bvs.lead</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column o_opportunity_kanban"
+                    on_create="quick_create" quick_create_view="bvs_crm.bvs_quick_create_opportunity_form_protection"
+                    sample="1">
+                <field name="registration_no"/>
+                <field name="partner_id"/>
+                <field name="priority"/>
+                <field name="email"/>
+                <field name="contact_number"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                            <div>
+                                <strong class="o_kanban_record_title">
+                                    <span>
+                                        <field name="registration_no"/>
+                                    </span>
+                                </strong>
+                            </div>
+                            <div>
+                                <field name="partner_id"/>
+                            </div>
+                            <div>
+                                <field name="email"/>
+                            </div>
+                            <div>
+                                <field name="contact_number"/>
+                            </div>
+                            <div>
+                                <field name="product_type"/>
+                            </div>
+                            <div>
+                                <field name="priority" widget="priority"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="bvs_quick_create_opportunity_form_protection" model="ir.ui.view">
+        <field name="name">bvs.lead.form.quick_create</field>
+        <field name="model">bvs.lead</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="registration_no" invisible="1"/>
+                    <field name="partner_id" widget="res_partner_many2one" required="1"/>
+                    <field name="email" string="Email" required="1"/>
+                    <field name="contact_number" string="Phone" required="1"/>
+                    <field name="product_type" required="1" readonly="1"/>
+                    <label for="priority"/>
+                    <div>
+                        <div class="o_row">
+                            <field name="priority" class="oe_inline" nolabel="1" widget="priority"/>
+                        </div>
+                    </div>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="bvs_lead_protection_action" model="ir.actions.act_window">
+        <field name="name">Protection</field>
+        <field name="res_model">bvs.lead</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban,form,tree</field>
+        <field name="domain">[('product_type', '=', 'protection')]</field>
+        <field name="context">{'default_product_type': 'protection'}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new record.
+            </p>
+        </field>
+    </record>
+
+    <record id="bvs_lead_protection_kanban" model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_bvs_lead_kanban_protection"/>
+        <field name="act_window_id" ref="bvs_lead_protection_action"/>
+    </record>
+</odoo>
+
+

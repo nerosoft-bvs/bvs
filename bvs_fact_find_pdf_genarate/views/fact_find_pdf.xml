@@ -1,0 +1,1294 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="report_fact_find_template">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <t t-if="docs and docs[0]">
+                    <t t-set="doc" t-value="docs[0]"/>
+                    <div class="page">
+                        <h1>Fact Find Report</h1>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Title:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.title_customer or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>First Name:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.first_name or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Middle Names:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.middle_names or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Surname:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.surname or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Partner:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.partner_id.name or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Known By Another Name:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.known_by_another_name and 'Yes' or 'No'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Do you have credit commitments:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.credit_comment and 'Yes' or 'No'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Previous Name:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.previous_name or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Previous Surname:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.previous_surname or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Date of Name Change:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.date_of_name_change or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Date of Birth:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.date_of_birth or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Country of Birth:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.country_of_birth.name or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Gender:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.gender or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Nationality:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.nationality or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>If other Nationality:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.other_nationality or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Passport Expiry Date:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.passport_expiry_date or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Second / Dual Nationality:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.dual_nationality or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>When do you start continue living in UK:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.start_continue_living_in_uk or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Do you hold Indefinite Leave to Remain (ILR)?:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.indefinite_leave_to_remain and 'Yes' or 'No'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Are you Settled or Pre-Settled?:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.settled_status or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Visa Category:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.visa_category or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Marital Status:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.marital_status or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Employment Status:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.employment_status or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Do you have Financial Dependants:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.financial_dependants and 'Yes' or 'No'"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Email Address:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.email_address or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Mobile Number:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.mobile_number or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Home Telephone Number:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.home_telephone_number or ''"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>Number of Dependents:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc" t-esc="doc.number_of_dependents or ''"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page-break"></div>
+                    <div class="page">
+                        <h2>Address History</h2>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Number of Addresses:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc"
+                                           t-esc="doc.address_history_ids and len(doc.address_history_ids) or 0"/>
+                                    </td>
+                                </tr>
+                                <!-- Loop through address_history_ids -->
+                                <t t-if="doc.address_history_ids">
+                                    <t t-foreach="doc.address_history_ids" t-as="address">
+                                        <tr>
+                                            <td>
+                                                <strong>Residential Status:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.residential_status or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>House Number:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.house_number or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Post Code:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.post_code or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Address:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.address or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Country:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.country.name or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Date Moved In:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.date_moved_in or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Date Moved Out:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="address.date_moved_out or ''"/>
+                                            </td>
+                                        </tr>
+                                        <!-- Additional fields -->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Current Landlord Name:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.current_landlord_name or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Current Landlord Address:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.current_landlord_address or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Current Landlord Postcode:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.current_landlord_postcode or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Current Landlord Contact No:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.current_landlord_contact_no or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Local Authority Name:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.local_authority_name or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Local Authority Postcode:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.local_authority_postcode or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Local Authority Address:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.local_authority_address or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Local Authority Type:</strong>-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <t t-esc="address.local_authority_type or ''"/>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page-break"></div>
+                    <div class="page">
+                        <h2>Financial Dependents</h2>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>Number of Dependents:</strong>
+                                    </td>
+                                    <td>
+                                        <t t-if="doc"
+                                           t-esc="doc.financial_depend_ids and len(doc.financial_depend_ids) or 0"/>
+                                    </td>
+                                </tr>
+                                <!-- Loop through the financial_depend_ids -->
+                                <t t-if="doc.financial_depend_ids">
+                                    <t t-foreach="doc.financial_depend_ids" t-as="dependent">
+                                        <tr>
+                                            <td>
+                                                <strong>Full Name:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.full_name or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Relationship:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.relationship or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Date of Birth:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.date_of_birth or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Dependency Type:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.dependency_type or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Monthly Childcare Cost:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.monthly_childcare_cost or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Reason for Childcare Cost:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.childcare_cost_reason or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Additional Cost for Adults:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.additional_cost or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Additional Cost for Adults:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-esc="dependent.has_additional_cost and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="page-break"></div> <!-- Add a page break after Financial Dependents -->
+                        <div class="page">
+                            <h2>Employment Details</h2>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Employments:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc"
+                                               t-esc="doc.employment_ids and len(doc.employment_ids) or 0"/>
+                                        </td>
+                                    </tr>
+                                    <!-- Loop through employment_ids -->
+                                    <t t-if="doc.employment_ids">
+                                        <t t-foreach="doc.employment_ids" t-as="employment">
+                                            <!-- Existing fields continued -->
+                                            <tr>
+                                                <td>
+                                                    <strong>Employment Status:</strong>
+                                                    <t t-esc="employment.employment_status or ''"/>
+                                                </td>
+                                                <td>
+                                                    <strong>NI Number:</strong>
+                                                    <t t-esc="employment.ni_number or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Anticipated Retirement Age:</strong>
+                                                    <t t-esc="employment.anticipated_retirement_age or ''"/>
+                                                </td>
+                                                <td>
+                                                    <strong>Employment Basis:</strong>
+                                                    <t t-esc="employment.employment_basis or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Occupation:</strong>
+                                                    <t t-esc="employment.occupation or ''"/>
+                                                </td>
+                                                <td>
+                                                    <strong>Occupation Type:</strong>
+                                                    <t t-esc="employment.occupation_sector or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Employment Type:</strong>
+                                                    <t t-esc="employment.employment_type or ''"/>
+                                                </td>
+                                                <td>
+                                                    <strong>Employer Name:</strong>
+                                                    <t t-esc="employment.employer_name or ''"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong>Address of Working Place:</strong>
+                                                    <t t-esc="employment.address_of_working_place or ''"/>
+                                                </td>
+                                                <td>
+                                                    <strong>Work Telephone:</strong>
+                                                    <t t-esc="employment.work_telephone or ''"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="page-break"></div> <!-- Add a page break after Employment Details -->
+                        <div class="page">
+                            <h2>Self Employment Details</h2>
+                            <t t-foreach="doc.self_employment_ids" t-as="self_employment">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong>Is Self Employed:</strong>
+                                                <t t-esc="self_employment.is_self_employed and 'Yes' or 'No'"/>
+                                            </td>
+                                            <td>
+                                                <strong>Business Name:</strong>
+                                                <t t-esc="self_employment.business_name or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Occupation:</strong>
+                                                <t t-esc="self_employment.self_employed_occupation or ''"/>
+                                            </td>
+                                            <td>
+                                                <strong>Self Employment Start Date:</strong>
+                                                <t t-esc="self_employment.self_employment_start_date or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Tax Year 1:</strong>
+                                                <t t-esc="self_employment.tax_year_1 or ''"/>
+                                            </td>
+                                            <td>
+                                                <strong>Year 1 Tax Income:</strong>
+                                                <t t-esc="self_employment.year_1_tax_income or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Tax Year 2:</strong>
+                                                <t t-esc="self_employment.tax_year_2 or ''"/>
+                                            </td>
+                                            <td>
+                                                <strong>Year 2 Tax Income:</strong>
+                                                <t t-esc="self_employment.year_2_tax_income or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Business Address:</strong>
+                                                <t t-esc="self_employment.business_address or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Business Contact No:</strong>
+                                                <t t-esc="self_employment.business_contact_no or ''"/>
+                                            </td>
+                                            <td>
+                                                <strong>Business Bank Account:</strong>
+                                                <t t-esc="self_employment.has_business_bank_account and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Accountant for Tax Purposes:</strong>
+                                                <t t-esc="self_employment.has_accountant and 'Yes' or 'No'"/>
+                                            </td>
+                                            <td>
+                                                <strong>Accountant Firm Name:</strong>
+                                                <t t-esc="self_employment.accountant_firm_name or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <strong>Accountant Address:</strong>
+                                                <t t-esc="self_employment.accountant_address or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Accountant Contact No:</strong>
+                                                <t t-esc="self_employment.accountant_contact_no or ''"/>
+                                            </td>
+                                            <td>
+                                                <strong>Accountant Qualification:</strong>
+                                                <t t-esc="self_employment.accountant_qualification or ''"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Number of Let Properties Currently Owned:</strong>
+                                                <t t-esc="self_employment.let_properties_count or ''"/>
+                                            </td>
+                                            <td>
+                                                <strong>Self Employment Type:</strong>
+                                                <t t-esc="self_employment.self_employment_type or ''"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="page-break"></div> <!-- Page break between each record -->
+                            </t>
+                        </div>
+
+                        <div class="page-break"></div> <!-- Add a page break after Self Employment Details -->
+                        <div class="page">
+                            <h2>Other Income Details</h2>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Income Type:</strong>
+                                            <t t-esc="doc.income_type or ''"/>
+                                        </td>
+                                        <td>
+                                            <strong>Monthly Income:</strong>
+                                            <t t-esc="doc.monthly_income or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <strong>Annual Income:</strong>
+                                            <t t-esc="doc.annual_income or ''"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="page-break"></div> <!-- Add a page break after Other Income Details -->
+                            <div class="page">
+                                <h2>Adverse Credit Details</h2>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <strong>Had a county court judgement (CCJ) against you?:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-if="doc" t-esc="doc.ccj_against_you and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Made arrangements with creditors (IVA)?:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-if="doc"
+                                                   t-esc="doc.arrangements_with_creditors and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Been in a debt management plan?:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-if="doc" t-esc="doc.debt_management_plan and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Had any default registered against you or your business?:
+                                                </strong>
+                                            </td>
+                                            <td>
+                                                <t t-if="doc" t-esc="doc.default_registered and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Failed to keep up mortgage second charge repayments?:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-if="doc"
+                                                   t-esc="doc.failed_to_keep_up_repayments and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>Been bankrupt?:</strong>
+                                            </td>
+                                            <td>
+                                                <t t-if="doc" t-esc="doc.bankruptcy and 'Yes' or 'No'"/>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Adverse Credit Type</th>
+                                            <th>Total Count</th>
+                                            <th>Loan Type</th>
+                                            <th>Lender</th>
+                                            <th>Amount</th>
+                                            <th>Reported On</th>
+                                            <th>Settled On</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-if="doc.adverse_credit_details">
+                                            <t t-foreach="doc.adverse_credit_details" t-as="detail">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="detail.adverse_credit_type or ''"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="detail.total_count or ''"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="detail.loan_type or ''"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="detail.lender or ''"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="detail.amount or ''"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="detail.reported_on or ''"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="detail.settled_on or ''"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <h2>Monthly Expenses</h2>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>Rent (Main Residence or Second Property):</td>
+                                        <td>
+                                            <t t-esc="doc.rent or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Food:</td>
+                                        <td>
+                                            <t t-esc="doc.food or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Utilities (Gas, Electricity, Water):</td>
+                                        <td>
+                                            <t t-esc="doc.utilities or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phone Internet:</td>
+                                        <td>
+                                            <t t-esc="doc.phone_internet or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Transport:</td>
+                                        <td>
+                                            <t t-esc="doc.transport or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Clothing:</td>
+                                        <td>
+                                            <t t-esc="doc.clothing or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medicine:</td>
+                                        <td>
+                                            <t t-esc="doc.medicine or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Personal Goods:</td>
+                                        <td>
+                                            <t t-esc="doc.personal_goods or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Household Goods:</td>
+                                        <td>
+                                            <t t-esc="doc.household_goods or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Entertainment:</td>
+                                        <td>
+                                            <t t-esc="doc.entertainment or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Childcare:</td>
+                                        <td>
+                                            <t t-esc="doc.childcare or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Annual Council Tax:</td>
+                                        <td>
+                                            <t t-esc="doc.annual_council_tax or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Home Insurance:</td>
+                                        <td>
+                                            <t t-esc="doc.home_insurance or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Life Insurance:</td>
+                                        <td>
+                                            <t t-esc="doc.life_insurance or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Car Insurance:</td>
+                                        <td>
+                                            <t t-esc="doc.car_insurance or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ground Rent:</td>
+                                        <td>
+                                            <t t-esc="doc.ground_rent or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Service Charge:</td>
+                                        <td>
+                                            <t t-esc="doc.service_charge or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Education Fees:</td>
+                                        <td>
+                                            <t t-esc="doc.education_fees or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total Monthly Expenses:</td>
+                                        <td>
+                                            <t t-esc="doc.total_monthly_expenses or ''"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <h2>Bank Accounts</h2>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Account Type</th>
+                                    <th>Sort Code</th>
+                                    <th>Bank Name Address</th>
+                                    <th>Account No</th>
+                                    <th>Account Holder's Name</th>
+                                    <th>Account Open Date</th>
+                                    <th>Direct Debit for Mortgage Payment</th>
+                                    <th>Preferred Date for Direct Debit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.bank_account_ids" t-as="account">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="account.account_type or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.sort_code or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.bank_name_address or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.account_no or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.account_holder_name or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.account_open_date or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.direct_debit_for_mortgage or ''"/>
+                                        </td>
+                                        <td>
+                                            <t t-esc="account.preferred_dd_date or ''"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        <div class="page-break"></div>
+                        <div class="page">
+                            <h2>New Property Details Details</h2>
+                            <table class="table table-condensed">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Building Name:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.building_name or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Street Address:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.street_address or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>County:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.county or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Market Price:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.market_price or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Do you spend more than one hour to travel from new property to
+                                                current
+                                                employment address?
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.commute_over_one_hour and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Monthly Commute Cost:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.monthly_commute_cost or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Property Type:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.property_type or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Tenure:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.tenure or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>No of Bedrooms:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.no_bedrooms or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>No of Bathrooms:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.no_bathrooms or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Kitchen:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.kitchen or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Living Rooms:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.living_rooms or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Garage Space:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.garage_space or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Parking:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.parking or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>No of Stories in the Building:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.no_stories_in_building or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Estimated Built Year:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.estimated_built_year or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Warranty Providers Name:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.warranty_providers_name or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>EPC / Predicted EPC Rate:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.epc_predicted_epc_rate or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>PEA Rate:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.pea_rate or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Ex-Council:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.ex_council and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Annual Service Charge:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.annual_service_charge or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Wall Construction Type:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.wall_construction_type or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Roof Construction Type:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.roof_construction_type or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Remaining Lease Term in Years:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.remaining_lease_term_in_years or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Flat in Floor:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.flat_in_floor and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>How many flats are in the same floor?</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.flats_same_floor_count or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Is the flat situated above a commercial property?</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.above_commercial_property or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Ground Rent:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.ground_rent or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Is this property in Shared Ownership Scheme?</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.shared_ownership and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Ownership % of yours:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.ownership_percentage or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Do you have Help to Buy Loan for this property?</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.help_to_buy_loan and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Loan type:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.help_to_buy_loan_type or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Estimated monthly rental income:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.estimated_monthly_rental_income or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Current Monthly rental income:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.current_monthly_rental_income or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>HMO:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.hmo and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>How many occupants in this property?</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.occupants_count or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Company Name:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.company_name or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Are you a company director?</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.company_director or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Do you want to borrow any additional amount from this mortgage?
+                                            </strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.additional_borrowing and 'Yes' or 'No'"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>The reason for additional borrowing:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.additional_borrowing_reason or ''"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>The additional borrowing amount:</strong>
+                                        </td>
+                                        <td>
+                                            <t t-if="doc" t-esc="doc.additional_borrowing_amount or ''"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <p>No data available for the report.</p>
+                </t>
+            </t>
+        </t>
+
+    </template>
+
+    <record id="action_pdf_genarate" model="ir.actions.report">
+        <field name="name">Fact Find PDF Generate</field>
+        <field name="model">fact.find</field>
+        <field name="binding_model_id" ref="bvs_fact_find.model_fact_find"/>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">bvs_fact_find_pdf_genarate.report_fact_find_template</field>
+        <field name="report_file">bvs_fact_find_pdf_genarate.report_fact_find_template</field>
+    </record>
+</odoo>

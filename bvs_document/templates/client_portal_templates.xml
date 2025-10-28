@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_portal_my_account" inherit_id="bvs_portal.portal_my_account" name="Custom My Account">
+        <xpath expr="//div[@class='container portal-content']" position="inside">
+            <!--Further Document section-->
+            <t t-if="ff_partner_ids">
+                <div class="row d-flex flex-wrap no-gutters mb64">
+                    <div class="col-12" style="opacity: 0.8;">
+                        <div class="profile_dashboard_box_header">
+                            <h2>Further Document Submission</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-12 d-flex flex-column border-md-right report-card" style="opacity: 0.8;">
+                        <!--fact find forms-->
+                        <t t-foreach="ff_partner_ids" t-as="partner">
+                            <div class="d-flex flex-column profile_dashboard_box">
+                                <h5 class="profile_dashboard_box_title"><span class="m-0" t-esc="partner.name"/></h5>
+                                <div class="profile_dashboard_box_body">
+                                    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                                </div>
+                                <div class="profile_dashboard_box_footer">
+                                    <a t-attf-href="/partner/{{partner.id}}/documents" class="btn btn-outline-dark"><i class="fa fa-arrow-right mr8"></i>Submit Further Documents</a>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

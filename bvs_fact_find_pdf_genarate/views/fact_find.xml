@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <header>
+                        <button name="generate_pdf_report" string="Generate PDF Report" type="object" invisible="1"/>
+                    </header>
+                </xpath>
+        </field>
+    </record>
+</odoo>
+

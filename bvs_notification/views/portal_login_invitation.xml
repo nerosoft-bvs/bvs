@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <!-- Other data files -->
+        <record id="email_template_portal_invitation" model="mail.template">
+            <field name="name">Portal Invitation Email</field>
+            <field name="model_id" ref="bvs_crm.model_bvs_lead"/>
+            <field name="subject">Portal Access Granted</field>
+            <field name="email_from">${object.user_id.email or ''}</field>
+            <field name="email_to">${object.partner_id.email}</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear ${object.partner_id.name},</p>
+                <p>Portal access has been granted to you. You can log in to the portal using the following link:</p>
+                <p><a href="${object.portal_url}">Click here to access the portal</a></p>
+                <p>Best regards,</p>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

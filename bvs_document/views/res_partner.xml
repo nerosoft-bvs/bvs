@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- STAGES TREE VIEW + MUTI_EDIT -->
+    <record id="res_partner_inherit_form" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='contact_addresses']" position="after">
+                <page string="Initial Documents">
+                    <group>
+                        <field name="fee_agreement_date" readonly="1"/>
+                        <field name="insurance_proposition_summary_date" readonly="1"/>
+                        <field name="joint_client_data_protection_date" readonly="1"/>
+                        <field name="mortgage_provider_list_date" readonly="1"/>
+                        <field name="our_mortgage_protection_brochure_date" readonly="1"/>
+                        <field name="support_for_when_date" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

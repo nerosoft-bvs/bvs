@@ -1,0 +1,152 @@
+#userDocuments {
+  // UTILS
+  // VARIABLES
+  // _colors
+  $white: #fff;
+
+  $primary: #ff5455;
+
+  $typography-200: #e4eaea;
+  $typography-700: #1a2e36;
+
+  $border-radius: 0.375rem;
+
+  $font-size-sm: 14px;
+  $font-size-md: 16px;
+  $font-family: "Montserrat", sans-serif;
+  $breakpoints: (
+          xs: 416px,
+          sm: 576px,
+          md: 768px
+  );
+
+  %btn {
+    padding: 0.475rem;
+    border: 1px solid;
+    border-radius: $border-radius;
+    font-family: $font-family;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+
+  @mixin media-max-width($size) {
+    @if (map-has-key($breakpoints, $size)) {
+      @media (max-width: map-get($breakpoints, $size)) {
+        @content;
+      }
+    } @else {
+      @error "Property #{$size} not found in $breakpoints list.";
+    }
+  }
+
+  %btn-primary {
+    @extend %btn;
+
+    border-color: $primary;
+
+    &:hover {
+      border-color: darken($primary, 6);
+      background-color: darken($primary, 6);
+    }
+  }
+
+  .btn-primary-outline {
+    @extend %btn-primary;
+
+    background-color: $white;
+    color: $primary;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .animated-btn-continue {
+    .button {
+      width: 134px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      padding: 0px 15px;
+      background-color: rgb(66, 66, 66);
+      border-radius: 10px;
+      color: white;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      transition-duration: .2s;
+      @include media-max-width(md) {
+        width: 117px;
+        height: 36px;
+        font-size: 13px;
+      }
+    }
+
+    .bell {
+      width: 13px;
+    }
+
+    .bell path {
+      fill: rgb(0, 206, 62);
+    }
+
+    .arrow {
+      position: absolute;
+      right: 0;
+      width: 30px;
+      height: 100%;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px
+    }
+
+    .button:hover {
+      background-color: rgb(77, 77, 77);
+      transition-duration: .2s;
+    }
+
+    .button:hover .arrow {
+      animation: slide-right .6s ease-out both;
+    }
+    /* arrow animation */
+    @keyframes slide-right {
+      0% {
+        transform: translateX(-10px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .button:active {
+      transform: translate(1px , 1px);
+      transition-duration: .2s;
+    }
+
+  }
+
+  .modal-portal-user-doc {
+    width: 95%;
+    height: 90vh;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 100%;
+      margin: 1.75rem auto;
+    }
+  }
+
+}

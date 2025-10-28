@@ -1,0 +1,25 @@
+{
+    'name': 'BVS Documents',
+    'version': '1.0',
+    'category': '',
+    'sequence': 1,
+    'author': 'Nerosoft Solutions',
+    'website': 'https://nerosoftsolutions.com/',
+    'summary': 'BVS Documents',
+    'description': """Create Fact Find & Manage KYC""",
+    'depends': ['base', 'bvs_crm', 'bvs_fact_find', 'bvs_portal'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/list_of_document.xml',
+        'views/bvs_document.xml',
+        'views/bvs_lead.xml',
+        'views/res_partner.xml',
+        'templates/client_portal_templates.xml',
+        'templates/further_document.xml',
+
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

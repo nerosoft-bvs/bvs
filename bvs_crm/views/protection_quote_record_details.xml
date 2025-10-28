@@ -1,0 +1,63 @@
+<odoo>
+    <data>
+        <record id="view_protection_quote_record_details_form" model="ir.ui.view">
+            <field name="name">protection.quote.record.details.form</field>
+            <field name="model">protection.quote.record.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Confirm" type="object" class="oe_highlight"
+                                name="action_confirm" attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
+
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Protection Quotes Record Details">
+                                <field name="quote_date" required="1"/>
+                                <field name="kfd_ids" widget="many2many_binary"/>
+                                <field name="upload_quote_ids" widget="many2many_binary"/>
+                                <field name="quote_number"/>
+                                <field name="lives_assured"/>
+                                <field name="insurance_provider_list"/>
+                                <field name="quote_date"/>
+                                <field name="cover"/>
+                                <field name="benefit_amount"/>
+                                <field name="benefit_frequency"/>
+                                <field name="monthly_premium"/>
+                                <field name="term"/>
+                                <field name="offer_exceptant_deadline"/>
+                                <field name="commission"/>
+                                <field name="lead_id" readonly="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_protection_quote_record_details_tree" model="ir.ui.view">
+            <field name="name">protection.quote.record.details.tree</field>
+            <field name="model">protection.quote.record.details</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="quote_date"/>
+                    <field name="quote_number"/>
+                    <field name="lives_assured"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="protection_quote_record_details_action" model="ir.actions.act_window">
+            <field name="name">Protection Quote Record Details</field>
+            <field name="res_model">protection.quote.record.details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new record.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

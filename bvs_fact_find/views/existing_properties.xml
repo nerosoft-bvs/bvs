@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_existing_properties_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='bank_details']/page[@name='solicitor']" position="after">
+                <page name="existing_properties" string="Existing Properties">
+                    <field name="property_details_ids" widget="one2many_list">
+                        <tree>
+                            <field name="house_number"/>
+                            <field name="postcode"/>
+                            <field name="street_address"/>
+                            <field name="county"/>
+                            <field name="property_usage"/>
+                            <field name="property_type"/>
+                            <field name="bedrooms"/>
+                            <field name="current_property_valuation"/>
+                            <field name="tenure"/>
+                            <field name="has_mortgage"/>
+                            <field name="ground_rent"/>
+                            <field name="service_charge"/>
+                            <field name="first_let_date"
+                                   attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                            <field name="monthly_rental_income"
+                                   attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                            <field name="is_hmo"
+                                   attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="house_number"/>
+                                <field name="postcode"/>
+                                <field name="street_address"/>
+                                <field name="county"/>
+                                <field name="property_usage"/>
+                                <field name="property_type"/>
+                                <field name="bedrooms"/>
+                                <field name="current_property_valuation"/>
+                                <field name="tenure"/>
+                                <field name="has_mortgage"/>
+                                <field name="ground_rent"/>
+                                <field name="service_charge"/>
+                                <field name="first_let_date"
+                                       attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                                <field name="monthly_rental_income"
+                                       attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                                <field name="is_hmo"
+                                       attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                                <field name="htb_scheme_available"/>
+                                <field name="htb_scheme_location"/>
+                                <field name="redeem_htb_loan"/>
+                                <field name="shared_ownership_available"/>
+                                <field name="ownership_percentage"/>
+                                <field name="second_charge_property"/>
+                                <field name="second_charge_details"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

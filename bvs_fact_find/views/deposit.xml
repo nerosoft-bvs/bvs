@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_deposit_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='bank_details']" position="after">
+                <page name="deposit_fact" string="Deposit">
+                    <group>
+                        <field name="deposit_from_savings"/>
+                        <field name="gifted_deposit_from_friend"/>
+                        <field name="gifted_deposit_from_family"/>
+                        <field name="deposit_from_another_loan"/>
+                        <field name="deposit_from_equity_of_property"/>
+                        <field name="loan_amount_from_director"/>
+                        <field name="gifted_deposit_amount_from_director"/>
+                        <field name="total_deposit_amount"/>
+                    </group>
+                        <field name="gifted_family_details" widget="one2many_list">
+                            <tree>
+                                <field name="relationship"/>
+                                <field name="name"/>
+                                <field name="date_of_birth"/>
+                                <field name="gifted_amount"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="relationship"/>
+                                    <field name="name"/>
+                                    <field name="date_of_birth"/>
+                                    <field name="gifted_amount"/>
+                                </group>
+                            </form>
+                        </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

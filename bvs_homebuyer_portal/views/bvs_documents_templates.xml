@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--BVS portal documents template-->
+    <template id="bvs_portal_documents" name="BVS Portal: Documents">
+        <main class="content px-3 py-2 d-none" id="ff_further_documents">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <div class="main-container mc-documents">
+                        <div class="container-fluid" >
+                            <h1 class="doc-heading">Documents</h1>
+                            <div class="folder" data-id="financial">
+                                Financial Documents
+                                <i class="fa fa-arrow-down f-right"/>
+                            </div>
+                            <div id="financial" class="content financial-document-content">
+                                <!-- Content for Financial Documents -->
+                            </div>
+
+                            <div class="folder" data-id="identity">
+                                Identity Documents
+                                <i class="fa fa-arrow-down f-right"/>
+                            </div>
+                            <div id="identity" class="content identity-document-content">
+                                <!-- Content for Identity Documents -->
+                            </div>
+
+                            <div class="folder" data-id="address">
+                                Proof Of Address
+                                <i class="fa fa-arrow-down f-right"/>
+                            </div>
+                            <div id="address" class="content address-document-content">
+                                <!-- Content for Proof Of Address -->
+                            </div>
+
+                            <div class="folder" data-id="mortgage">
+                                Mortgage Documents
+                                <i class="fa fa-arrow-down f-right"/>
+                            </div>
+                            <div id="mortgage" class="content mortgage-document-content">
+                                <!-- Content for Mortgage Documents -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </template>
+
+    <!--BVS portal further documents template-->
+    <template id="bvs_portal_further_documents" name="BVS Portal: Further Documents">
+        <main class="content px-3 py-2 d-none" id="further_documents_2">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <div class="main-container mc-documents mc-further-documents">
+                        <div class="container">
+                            <div class="header-container">
+                                <div class="row documents-header-row">
+                                    <div class="col-md-12">
+                                        <h1 class="doc-heading">Further Documents</h1>
+                                    </div>
+                                    <div class="col-md-12 further-documents-upload-container"/>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="card-container mt-3">
+                                <div class="row further-doc-card-container">
+                                    <t t-foreach="leads" t-as="lead">
+                                        <t t-set="document_request_ids" t-value="lead.mapped('document_ids')"/>
+                                        <t t-if="document_request_ids">
+                                            <t t-foreach="document_request_ids" t-as="document_request">
+                                                <div class="col-sm-4">
+                                                    <div class="card text-center">
+                                                        <div class="card-header"><t t-esc="document_request.document_list_id.document_name"/></div>
+                                                        <div class="card-body">
+                                                            <!--TODO: Add the lead name-->
+                                                            <p class="card-text"><strong>Lead: </strong><span t-esc="document_request.lead_id.registration_no"/></p>
+                                                            <t t-foreach="document_request.mapped('attachment_ids')" t-as="doc">
+                                                                <a t-attf-href="/web/content/#{doc.id}?download=true"
+                                                                   class="btn btn-warning btn-sm">
+                                                                    <i class="fa fa-arrow-circle-o-down me-1"/>
+                                                                    <t t-esc="doc.display_name"/>
+                                                                </a>
+                                                            </t>
+                                                            <button type="button"
+                                                                    t-attf-class="btn btn-dark btn-sm upload-request-document rd-{{ document_request.id }}"
+                                                                    data-type="further"
+                                                                    t-att-data-doc-request-id="document_request.id"
+                                                                    t-att-data-doc-name="document_request.document_list_id.document_name"
+                                                            >
+                                                                <i class="fa fa-cloud-upload me-1"/>
+                                                                Upload
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="col-md-12">
+                                                <div class="card text-center no-document-card">
+                                                    <div class="card-body">
+                                                        <h6 class="card-title">No further requested documents found.</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </t>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </template>
+
+    <!--BVS portal initial documents template-->
+    <template id="bvs_portal_initial_documents" name="BVS Portal: Initial Documents">
+        <main class="content px-3 py-2 d-none" id="initial_documents">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <div class="main-container mc-documents mc-further-documents">
+                        <div class="container">
+                            <div class="header-container">
+                                <div class="row documents-header-row">
+                                    <div class="col-md-9">
+                                        <h1 class="doc-heading">Initial Documents</h1>
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                            <div class="card-container mt-3">
+                                <div class="row initial-doc-card-container">
+                                    <t t-if="initial_documents">
+                                        <t t-foreach="initial_documents" t-as="doc">
+                                            <div class="col-sm-4">
+                                                <div class="card text-center">
+                                                    <div class="card-header"><t t-esc="doc.display_name"/></div>
+                                                    <div class="card-body">
+                                                        <a t-attf-href="/web/content/#{doc.id}?download=true" class="btn btn-warning btn-sm"><i class="fa fa-arrow-circle-o-down me-1"/>Download</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="col-md-12">
+                                            <div class="card text-center no-document-card">
+                                                <div class="card-body">
+                                                    <h6 class="card-title">No Documents Found</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </template>
+
+</odoo>

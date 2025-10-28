@@ -1,0 +1,141 @@
+<odoo>
+
+    <template id="portal_my_account" name="My Account">
+        <t t-call="portal.frontend_layout">
+            <t t-set="is_portal" t-value="True"/>
+            <div id="wrap" class="oe_structure oe_empty bvs_portal_home">
+                <div id="profile_dashboard">
+                    <div id="background-image"></div>
+                    <section class="profile_dashboard_banner"
+                             style="background-color: black; background-size: cover; background-position: 80% 20%">
+                        <div class="container py-3">
+                            <h1 class="display-4 mb-0 text-white mt32 mb32">My Account</h1>
+                        </div>
+                    </section>
+
+                    <section>
+                        <div class="container portal-content">
+                            <div class="row d-lg-flex mt48">
+                                <div class="col-lg-7 d-flex flex-column mb64" style="opacity: 0.8;">
+                                    <div class="profile_dashboard_box_header">
+                                        <h2>My Profile</h2>
+                                    </div>
+                                    <div class="d-flex flex-column profile_dashboard_box">
+                                        <h5 class="profile_dashboard_box_title">
+                                            <span class="mt0 mb0">
+                                                <b>
+                                                    <div t-field="user_id.partner_id"/>
+                                                </b>
+                                            </span>
+                                        </h5>
+                                        <div class="profile_dashboard_box_body">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <span t-field="user_id.partner_id"
+                                                          t-options='{"widget": "contact", "fields": ["email", "phone", "address"]}'/>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="profile_dashboard_avatar">
+                                                        <img t-if="user_id.partner_id.avatar_256"
+                                                             t-att-src="image_data_uri(user_id.partner_id.avatar_256)"
+                                                             class="small-avatar"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="profile_dashboard_box_footer">
+                                            <a t-if="request.env.user == user_id or request.env.user._is_admin()"
+                                               t-attf-href="/profile/edit?url_param=#{edit_button_url_param}&amp;user_id=#{user_id.id}"
+                                               class="btn btn-outline-primary"><i class="fa fa-pencil mr8"></i>Edit
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-5 d-flex flex-column mb64" style="opacity: 0.8;">
+                                    <div class="profile_dashboard_box_header">
+                                        <h2>Summary</h2>
+                                    </div>
+                                    <div class="d-flex flex-column profile_dashboard_box">
+                                        <h5 class="profile_dashboard_box_title">
+                                            <span class="mt0 mb0">
+                                                (<span t-esc="leads_count"/>)
+                                                <span class="ml-2">Leads</span>
+                                            </span>
+                                        </h5>
+                                        <div class="profile_dashboard_box_body">
+                                            <t t-if="not leads">
+                                                <p>There are currently no records for your account.</p>
+                                            </t>
+                                            <t t-if="leads">
+                                                <table class="table table-sm">
+                                                    <t t-foreach="leads" t-as="lead">
+                                                        <tr>
+                                                            <td>
+                                                                <b>#
+                                                                    <span class="m-0" t-esc="lead.registration_no"/>
+                                                                </b>
+                                                            </td>
+                                                            <td>
+                                                                <span class="m-0"
+                                                                      t-esc="{False: False, 'mortgage': 'Mortgage', 'protection': 'Protection'}[lead.product_type]"/>
+                                                            </td>
+                                                            <td class="text-end">
+                                                                <span class="m-0 badge rounded-pill text-bg-light border">
+                                                                    <span t-esc="lead.stage_id.name"/>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </t>
+                                                </table>
+                                            </t>
+                                        </div>
+                                        <div class="profile_dashboard_box_footer">
+                                            <a href="#" class="btn btn-outline-dark"><i
+                                                    class="fa fa-arrow-right mr8"></i>View More
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--my lead section-->
+                            <t t-if="leads">
+                                <div class="row d-flex flex-wrap no-gutters mb64">
+                                    <div class="col-12" style="opacity: 0.8;">
+                                        <div class="profile_dashboard_box_header">
+                                            <h2>My Leads</h2>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-lg-12 d-flex flex-column border-md-right report-card"
+                                         style="opacity: 0.8;">
+                                        <!--leads-->
+                                        <t t-foreach="leads" t-as="lead">
+                                            <a t-attf-href="/application/form/{{ lead.id }}"
+                                               class="d-flex flex-column profile_dashboard_line"
+                                               style="background-color: grey; padding: 10px; margin-bottom: 5px; border-radius: 5px; text-decoration: none; color: black;">
+                                                <div class="profile_dashboard_line_content">
+                                                    <h5 class="profile_dashboard_line_title" style="margin: 0;">
+                                                        <span t-esc="lead.registration_no"/>
+                                                    </h5>
+                                                </div>
+                                            </a>
+                                        </t>
+                                    </div>
+
+
+                                </div>
+                            </t>
+                        </div>
+                    </section>
+
+                    <section class="container hide">
+                        <div class="o_portal_docs row">
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

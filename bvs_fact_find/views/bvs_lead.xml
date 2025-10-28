@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_inherit" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="view_fact_find" icon="fa-file-text">
+                    <field string="Fact Find" name="fact_find_count" widget="statinfo"/>
+                </button>
+            </div>
+            <xpath expr='//header' position="inside">
+                <button name="get_first_fact_find_data" string="Retrieve Data From Fact Find" type="object" class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

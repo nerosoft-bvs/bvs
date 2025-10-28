@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_illustration" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='dip']" position="after">
+                <field name="product_type" invisible="1"/>
+                <field name="is_fma_team_leader" invisible="1"/>
+                <field name="is_fma_team_member" invisible="1"/>
+                <field name="is_advisor_support" invisible="1"/>
+                <field name="is_illustration" invisible="1"/>
+                <page name="illustration" string="Illustration"
+                      attrs="{'invisible': ['|', ('is_illustration', '=', False), ('product_type', '=', 'protection')]}">
+                    <group>
+                        <group>
+                            <field name="team_leader_illustration"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="fma_tl_allocation"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="state_agent_id"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="fa_ill"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="solicitor_type"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="referral_fee_amount"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="illustration_checklist"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="solicitor_request_checklist"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="illustration_record_details"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="solicitor_record_details"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group name="change_solicitor" string="">
+                            <field name="change_solicitor"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="solicitor_name_list"
+                                   attrs="{'invisible': [('change_solicitor', '!=', 'yes')], 'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="client_acknowledgment_ill"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group string="Solicitor Request Checklist"
+                           attrs="{'invisible': [('solicitor_request_checklist', '=', False)]}">
+                        <field name="house_or_flat" string="House Or Flat" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="freehold_leasehold" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="first_time_buyer" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="btl" string="BTL" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="limited_company_btl" string="Limited Com BTL" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="new_build" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="second_property" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="rtb_htb_shared_ownership_second_charge" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="gifted_deposit" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="htb_isa_lifetime_isa" widget="selection_badge"
+                               attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                    </group>
+                    <group string="">
+                        <field name="solicitor_cl_note" widget="html" placeholder="Solicitor Checklist Note"
+                               attrs="{'invisible': [('solicitor_request_checklist', '=', False)], 'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                    </group>
+                    <group string="(E) Mortgage Illustration CheckList"
+                           attrs="{'invisible': [('illustration_checklist', '=', False)]}">
+                        <group string="">
+                            <field name="advisor_correct" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="proc_fee_correctly_mentioned" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="advisor_fee_available" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="mortgage_type_residential_btl" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="correct_client_names_passport" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="correct_income_details" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="client_type_ftb_hm_remortgage" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="valuation_fee" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="is_the_client" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="application_fee" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="legal_fee" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Client Details">
+                            <field name="source_of_deposit" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="cheapest_lender" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="if_not_why" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="reason_for_additional_borrowing" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="early_repayment_charges" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="retirement_age_correct" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="rate_type_different_from_fixed" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="repayment_strategy_1" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="not_stepped_selected" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="why_pt_without_remortgage" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Property  Attributes">
+                            <field name="house_or_flat" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="correct_property_address" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="new_build_product" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="htb_shared_equity" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="shared_ownership" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="ex_council_house" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Verify Details">
+                            <field name="source_of_deposit" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="cheapest_lender" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="lender_selection_reason" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="reason_for_additional_borrowing" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="valuation_fee_paid" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="add_product_fee_to_loan" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="application_fee_paid" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="legal_fee" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+
+                        </group>
+                        <group string="If the Client is BTL">
+                            <field name="ltb" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="portfolio_landlord" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="joint_clients_same_tax_rate" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="hmo" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="company_let" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="holiday_let" widget="selection_badge"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group string="">
+                        <field name="moill_cl_note" widget="html" placeholder="Mortgage Illustration Checklist Note"
+                               attrs="{'invisible': [('illustration_checklist', '=', False)], 'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('illustration_record_details', '=', False)]}">
+                        <group string="ESIS Record details">
+                            <field name="single_joint_application" string="Applicant" readonly="1"/>
+                            <field name="property_value" readonly="1"/>
+                            <field name="loan_amount" readonly="1"/>
+                            <field name="deposit" readonly="1"/>
+                            <field name="ltv" readonly="1"/>
+                            <field name="mortgage_term" readonly="1"/>
+                            <field name="illustration_date" readonly="1"/>
+                            <field name="procuration_fee" readonly="1"/>
+                            <field name="lender" readonly="1"/>
+                            <field name="repayment_method" readonly="1"/>
+                            <field name="product_term" readonly="1"/>
+                            <field name="rate_type" readonly="1"/>
+                            <field name="initial_rate" readonly="1"/>
+                            <field name="monthly_payment" readonly="1"/>
+                        </group>
+                        <group string="">
+                            <field name="product_fee" readonly="1"/>
+                            <field name="valuation_fee_paid" readonly="1"/>
+                            <field name="application_fee_paid" readonly="1"/>
+                            <field name="cashback" readonly="1"/>
+                            <field name="remarks" placeholder="Note" readonly="1"/>
+                            <field name="dta_life_cover_included" readonly="1"/>
+                            <field name="cover_term" attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}"
+                                   readonly="1"/>
+                            <field name="upload_dc" attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}"
+                                   readonly="1"/>
+                            <field name="upload_dc" attrs="{'invisible': [('dta_life_cover_included', '!=', 'no')]}"
+                                   readonly="1"/>
+                            <field name="monthly_premium"
+                                   attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}" readonly="1"/>
+                            <field name="cover_expiry_date"
+                                   attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}" readonly="1"/>
+                            <field name="upload_esis" readonly="1"/>
+                            <field name="upload_filters" readonly="1"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('solicitor_record_details', '=', False)]}">
+                        <group string="Solicitor">
+                            <field name="solicitor_quotation_ids" widget="many2many_binary"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="selection_by"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="quote_number_index"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="solicitor_firm"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="address" attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="contact_no"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="email" attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="quote_date"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="quote_ref"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="property_address"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="total_cost"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="quote_expiry_date"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="commission"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                        </group>
+                        <group string="">
+                            <field name="case_handler"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="instructed"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="instructed_date"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="instruction_ref_no"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="invoice_received"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="by_lender_field"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="only_if_instructed_field"
+                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="illustration_note" widget="html" placeholder="Illustration Note"
+                               attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

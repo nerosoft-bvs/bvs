@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bvs_advisor_approval_wizard_view" model="ir.ui.view">
+        <field name="name">bvs.advisor.approval.wizard.form</field>
+        <field name="model">bvs.advisor.approval.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="user_id" required="1"/>
+                    <field name="approval_decision"/>
+                </group>
+                <footer>
+                    <button string="Request" type="object" class="oe_highlight"
+                            name="action_request_approve"/>
+                    <button string="Cancel" class="oe_secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bvs_advisor_approval_wizard" model="ir.actions.act_window">
+        <field name="name">Advisor Approval</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bvs.advisor.approval.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="advisor_approval.bvs_advisor_approval_wizard_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

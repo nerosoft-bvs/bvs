@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_inherit" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <widget name="web_ribbon" title="On Hold" bg_color="bg-warning"
+                        attrs="{'invisible': [('hold', '=', False)]}"/>
+                <widget name="web_ribbon" title="Terminated" bg_color="bg-danger"
+                        attrs="{'invisible': [('terminate', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='%(bvs_crm.action_bvs_add_applicant_wizard)d']" position="after">
+                <button string="Advisor Approval" type="action" class="oe_highlight"
+                        name="%(action_bvs_advisor_approval_wizard)d"
+                        attrs="{'invisible': ['|',('risk_assessment_1', '=', 'requested'), ('approval_status', '=', 'requested'), ('dip_decision', '=', 'requested'), ('fa_ill', '=', 'requested')]}"/>
+                <button string="Approve" type="object" name="action_approve"
+                        attrs="{'invisible': ['|',('is_dip', '=', True), ('is_protection_application', '=', True), ('is_illustration', '=', False)]}"/>
+                <button string="Reject" type="object" name="action_reject"
+                        attrs="{'invisible': [('is_dip', '=', True), ('is_illustration', '=', False)]}"/>
+                <button string="Hold" type="object" name="action_hold"
+                        attrs="{'invisible': [('hold', '=', True)]}"/>
+                <button string="Terminate" type="object" name="action_terminate"
+                        attrs="{'invisible': [('terminate', '=', True)]}"/>
+                <field name="hold" invisible="1"/>
+                <field name="terminate" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_bvs_lead_search_inherit" model="ir.ui.view">
+        <field name="name">bvs.lead.search.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.view_bvs_lead_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='archive']" position="after">
+                <!-- Filter for hold records -->
+                <filter string="Hold" name="hold_filter" domain="[('hold', '=', True), ('active', '=', False)]"/>
+
+                <!-- Filter for terminated records -->
+                <filter string="Terminated" name="terminated_filter"
+                        domain="[('terminate', '=', True), ('active', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

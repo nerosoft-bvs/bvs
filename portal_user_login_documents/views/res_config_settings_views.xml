@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Res config settings form view customizations-->
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.portal_user_login_documents</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <div name="integration" position="after">
+
+                <h2>Portal User Documents</h2>
+                <div class="row mt16 o_settings_container" name="portal_user_documents">
+                    <div class="col-12 col-lg-6 o_setting_box" id="portal_user_documents_setting">
+                        <div class="o_setting_left_pane">
+                            <field name="check_portal_user_documents" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Enable Check Portal User Documents" for="check_portal_user_documents"/>
+                            <div class="text-muted">
+                                Activating this option will verify whether the portal user has read and agreed to the selected documents
+                            </div>
+                            <button type="object"
+                                    name="open_portal_user_documents"
+                                    string="Portal User Documents"
+                                    icon="fa-arrow-right"
+                                    class="btn-link"
+                                    attrs="{'invisible': [('check_portal_user_documents', '==', False)]}"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box"
+                         id="portal_user_documents_description"
+                         attrs="{'invisible': [('check_portal_user_documents', '==', False)]}">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Description</span>
+                            <div class="text-muted">
+                                Description for portal user documents
+                            </div>
+                            <div class="text-muted">
+                                <field name="portal_user_documents_description" Placeholder="Portal user document description"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </field>
+    </record>
+
+</odoo>

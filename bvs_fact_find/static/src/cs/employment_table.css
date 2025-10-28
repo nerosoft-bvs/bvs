@@ -1,0 +1,85 @@
+.table-responsive {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%; /* Ensures table fills the container width */
+}
+
+.table th,
+.table td {
+  white-space: nowrap; /* Prevent text wrapping within cells */
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 10%; /* Employment Status * */
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 15%; /* NI Number */
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 10%; /* Anticipated Retirement Age */
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 15%; /* Employment Basis */
+}
+
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 20%; /* Occupation */
+}
+
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  width: 15%; /* Occupation Type */
+}
+
+.table th:nth-child(7),
+.table td:nth-child(7) {
+  width: 20%; /* Employment Type */
+}
+
+.table th:nth-child(8),
+.table td:nth-child(8) {
+  width: 20%; /* Employer Name */
+}
+
+.table th:nth-child(9),
+.table td:nth-child(9) {
+  width: 30%; /* Address of Working Place */
+}
+
+.table th:nth-child(10),
+.table td:nth-child(10) {
+  width: 15%; /* Work Telephone */
+}
+
+.table th:nth-child(11),
+.table td:nth-child(11) {
+  width: 10%; /* Start Date */
+}
+
+.table th:nth-child(12),
+.table td:nth-child(12) {
+  width: 10%; /* End Date */
+}
+
+.table th:nth-child(13),
+.table td:nth-child(13) {
+  width: 10%; /* Current Contract Start Date */
+}
+
+.table th:nth-child(14),
+.table td:nth-child(14) {
+  width: 10%; /* Current Contract End Date */
+}
+
+.table th:nth-child(15),
+.table td:nth-child(1

@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <record id="view_esis_record_details_form" model="ir.ui.view">
+            <field name="name">esis.record.details.form</field>
+            <field name="model">esis.record.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button string="Confirm" type="object" class="oe_highlight"
+                                name="action_confirm" attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
+
+                        <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                    </header>
+                    <sheet>
+                        <group string="ESIS Record details">
+                            <field name="name" required="1"/>
+                            <field name="is_button_visible" invisible="1"/>
+                            <field name="single_joint_application"/>
+                            <field name="property_value" required="1"/>
+                            <field name="loan_amount" required="1"/>
+                            <field name="deposit"/>
+                            <field name="ltv"/>
+                            <field name="mortgage_term"/>
+                            <field name="illustration_date"/>
+                            <field name="procuration_fee"/>
+                            <field name="repayment_method"/>
+                            <field name="product_term"/>
+                            <field name="rate_type"/>
+                            <field name="initial_rate"/>
+                            <field name="monthly_payment"/>
+                            <field name="product_fee"/>
+                            <field name="valuation_fee"/>
+                            <field name="application_fee"/>
+                            <field name="cashback"/>
+                            <field name="remarks"/>
+                            <field name="upload_esis"/>
+                            <field name="lender"/>
+                            <field name="upload_filters"/>
+                            <field name="dta_life_cover_included"/>
+                            <field name="cover_term" attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}"/>
+                            <field name="monthly_premium" attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}"/>
+                            <field name="cover_expiry_date" attrs="{'invisible': [('dta_life_cover_included', '!=', 'yes')]}"/>
+                            <field name="lead_id" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_esis_record_details_tree" model="ir.ui.view">
+            <field name="name">esis.record.details.tree</field>
+            <field name="model">esis.record.details</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="property_value"/>
+                    <field name="loan_amount"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="esis_record_details_action" model="ir.actions.act_window">
+            <field name="name">ESIS Record Details</field>
+            <field name="res_model">esis.record.details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new record.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

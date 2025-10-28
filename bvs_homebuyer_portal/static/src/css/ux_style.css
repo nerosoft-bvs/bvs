@@ -1,0 +1,23 @@
+/* Red border */
+.is-invalid {
+  border: 0.5px solid #dc3545 !important;
+}
+
+/* Green border */
+.is-valid {
+  border: 1px solid #9B872B !important;
+}
+
+/* Error message */
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.6rem !important;
+  margin-top: 4px;
+  display: none;
+}
+
+.valued {
+    border: 1px solid #9B872B !important;
+}
+
+.hidden { display: none; }

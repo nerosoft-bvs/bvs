@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="external_layout_standard">
+        <div class="page">
+            <div class="header">
+                <h1>Fact Find Report</h1>
+            </div>
+            <div class="content">
+                <t t-raw="0"/>
+            </div>
+        </div>
+    </template>
+</odoo>

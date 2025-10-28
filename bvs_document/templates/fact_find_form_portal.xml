@@ -1,0 +1,1052 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_further_document_request" name="Portal layout : application form menu entries" inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'further_document_request'" t-attf-class="breadcrumb-item">
+                <t>Further Document Submission</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="further_document_request" name="Applicant Form">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>`
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title" >Further Document Submission</t>
+            </t>
+
+            <div class="container">
+                <form action="/further_document_request/form/submit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="fact_find_id" t-att-value="fact_find_id"/>
+
+                    <div class="container">
+                        <div id="myCollapse" class="accordion" role="tablist">
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_1" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Personal Details</a>
+                                <div t-attf-id="myCollapseTab_1" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <!-- Title -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Title</label>
+                                            <div class="col-sm">
+                                                <select name="title_customer" class="form-control">
+                                                    <option value="mr">Mr.</option>
+                                                    <option value="mrs">Mrs.</option>
+                                                    <option value="miss">Miss</option>
+                                                    <option value="ms">Ms</option>
+                                                    <option value="dr">Dr</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- First Name -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">First Name</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="first_name" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Middle Names -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Middle Names</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="middle_names" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Surname -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Surname</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="surname" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Known By Another Name -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Known By Another Name</label>
+                                            <div class="col-sm">
+                                                <input type="checkbox" name="known_by_another_name" class="form-check-input"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Date of Name Change -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Date of Name Change</label>
+                                            <div class="col-sm">
+                                                <input type="date" name="date_of_name_change" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Date of Birth -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Date of Birth</label>
+                                            <div class="col-sm">
+                                                <input type="date" name="date_of_birth" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Country of Birth -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Country of Birth</label>
+                                            <div class="col-sm">
+                                                <select name="country_of_birth" id="country_of_birth" class="mb-1 form-control">
+                                                    <option value="">Country</option>
+                                                    <t t-foreach="countries" t-as="country">
+                                                        <option t-att-value="country.id">
+                                                            <t t-esc="country.name"/>
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gender -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Gender</label>
+                                            <div class="col-sm">
+                                                <select name="gender" class="form-control">
+                                                    <option value="male">Male</option>
+                                                    <option value="female">Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Nationality -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Nationality</label>
+                                            <div class="col-sm">
+                                                <select name="nationality" class="form-control">
+                                                    <option value="british">British</option>
+                                                    <option value="eu">European Union</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Other Nationality -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">If other Nationality</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="other_nationality" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Passport Expiry Date -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Passport Expiry Date</label>
+                                            <div class="col-sm">
+                                                <input type="date" name="passport_expiry_date" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Dual Nationality -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Second / Dual Nationality</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="dual_nationality" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Start Continue Living in UK -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">When do you start continue living in UK</label>
+                                            <div class="col-sm">
+                                                <input type="date" name="start_continue_living_in_uk" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Indefinite Leave to Remain (ILR) -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Do you hold Indefinite Leave to Remain (ILR)?</label>
+                                            <div class="col-sm">
+                                                <select name="indefinite_leave_to_remain" class="form-control">
+                                                    <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Settled or Pre-Settled -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Are you Settled or Pre-Settled?</label>
+                                            <div class="col-sm">
+                                                <select name="settled_status" class="form-control">
+                                                    <option value="settled">Settled</option>
+                                                    <option value="pre_settled">Pre-Settled</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Visa Category -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Visa Category</label>
+                                            <div class="col-sm">
+                                                <select name="visa_category" class="form-control">
+                                                    <option value="work_visa">Work Visa (Tier 2)</option>
+                                                    <option value="spouse_dependent_visa">Spouse or Dependent Visa</option>
+                                                    <option value="refugee_visa">Refugee Visa</option>
+                                                    <option value="student_visa">Student Visa (Tier 4)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Marital Status -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Marital Status</label>
+                                            <div class="col-sm">
+                                                <select name="marital_status" class="form-control">
+                                                    <option value="married">Married</option>
+                                                    <option value="single">Single</option>
+                                                    <option value="civil_partnership">Civil Partnership</option>
+                                                    <option value="divorced">Divorced</option>
+                                                    <option value="separated">Separated</option>
+                                                    <option value="widowed">Widowed</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Email Address -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Email Address</label>
+                                            <div class="col-sm">
+                                                <input type="email" name="email_address" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Mobile Number -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Mobile Number</label>
+                                            <div class="col-sm">
+                                                <input type="tel" name="mobile_number" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Home Telephone Number -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Home Telephone Number</label>
+                                            <div class="col-sm">
+                                                <input type="tel" name="home_telephone_number" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_2" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Address History</a>
+                                <div t-attf-id="myCollapseTab_2" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <!-- Residential Status -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Residential Status</label>
+                                            <div class="col-sm">
+                                                <select name="residential_status" class="form-control">
+                                                    <option value="renting_private">Renting Private</option>
+                                                    <option value="living_with_family">Living with Family</option>
+                                                    <option value="living_with_friends">Living with Friends</option>
+                                                    <option value="owner_with_mortgage">Owner with Mortgage</option>
+                                                    <option value="owner_without_mortgage">Owner without Mortgage</option>
+                                                    <option value="renting_local_authority">Renting from Local Authority</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- House Number -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">House Number</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="house_number" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Post Code -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Post Code</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="post_code" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Address -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Address</label>
+                                            <div class="col-sm">
+                                                <textarea name="address" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Country -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Country</label>
+                                            <div class="col-sm">
+                                                <select name="country" class="form-control">
+                                                    <!-- Add options dynamically if needed -->
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Date Moved In -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Date Moved In</label>
+                                            <div class="col-sm">
+                                                <input type="date" name="date_moved_in" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Date Moved Out -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Date Moved Out</label>
+                                            <div class="col-sm">
+                                                <input type="date" name="date_moved_out" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Current Landlord Name -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Current Landlord Name</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="current_landlord_name" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Current Landlord Address -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Current Landlord Address</label>
+                                            <div class="col-sm">
+                                                <textarea name="current_landlord_address" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Current Landlord Postcode -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Current Landlord Postcode</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="current_landlord_postcode" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Current Landlord Contact No -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Current Landlord Contact No</label>
+                                            <div class="col-sm">
+                                                <input type="tel" name="current_landlord_contact_no" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Copy from Partner when Joint Application -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Copy from Partner when Joint Application</label>
+                                            <div class="col-sm">
+                                                <input type="checkbox" name="copy_from_partner" class="form-check-input"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Local Authority Name -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Local Authority Name</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="local_authority_name" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Local Authority Postcode -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Local Authority Postcode</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="local_authority_postcode" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Local Authority Address -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Local Authority Address</label>
+                                            <div class="col-sm">
+                                                <textarea name="local_authority_address" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Local Authority Type -->
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Local Authority Type</label>
+                                            <div class="col-sm">
+                                                <select name="local_authority_type" class="form-control">
+                                                    <option value="renting_private">Renting Private</option>
+                                                    <option value="living_with_family">Living with Family</option>
+                                                    <option value="living_with_friends">Living with Friends</option>
+                                                    <option value="owner_with_mortgage">Owner with Mortgage</option>
+                                                    <option value="owner_without_mortgage">Owner without Mortgage</option>
+                                                    <option value="renting_local_authority">Renting from Local Authority</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_3" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Bank Details</a>
+                                <div t-attf-id="myCollapseTab_3" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <!-- Bank Details -->
+                                        <div class="form-group">
+                                            <label for="account_type">Account Type</label>
+                                            <select class="form-control" id="account_type" name="account_type">
+                                                <option value="current">Current</option>
+                                                <option value="savings">Savings</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="sort_code">Sort Code</label>
+                                            <input type="text" class="form-control" id="sort_code" name="sort_code"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bank_name_address">Bank Name And Address</label>
+                                            <textarea class="form-control" id="bank_name_address" name="bank_name_address"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="account_no">Account No</label>
+                                            <input type="text" class="form-control" id="account_no" name="account_no"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="account_holder_name">Account Holder's Name</label>
+                                            <input type="text" class="form-control" id="account_holder_name" name="account_holder_name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="account_open_date">Account Open Date</label>
+                                            <input type="date" class="form-control" id="account_open_date" name="account_open_date"/>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="direct_debit_for_mortgage" name="direct_debit_for_mortgage"/>
+                                            <label class="form-check-label" for="direct_debit_for_mortgage">Direct Debit for Mortgage Payment</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_4" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Credit Commitment</a>
+                                <div t-attf-id="myCollapseTab_4" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="has_credit_commitments" name="has_credit_commitments"/>
+                                            <label class="form-check-label" for="has_credit_commitments">Do you have credit commitments?</label>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="commitment_type">Commitment Type</label>
+                                            <select class="form-control" id="commitment_type" name="commitment_type">
+                                                <option value="credit_card">Credit Card</option>
+                                                <option value="store_card">Store Card</option>
+                                                <option value="hire_purchase">Hire Purchase</option>
+                                                <!-- Add other options for commitment type -->
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="lender">Lender</label>
+                                            <input type="text" class="form-control" id="lender" name="lender"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="outstanding_amount">Outstanding Amount</label>
+                                            <input type="number" class="form-control" id="outstanding_amount" name="outstanding_amount"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="monthly_payment">Monthly Payment</label>
+                                            <input type="number" class="form-control" id="monthly_payment" name="monthly_payment"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="credit_limit">Credit Limit</label>
+                                            <input type="number" class="form-control" id="credit_limit" name="credit_limit"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="remaining_months">Remaining Months</label>
+                                            <input type="number" class="form-control" id="remaining_months" name="remaining_months"/>
+                                        </div>
+
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="intend_to_repay" name="intend_to_repay"/>
+                                            <label class="form-check-label" for="intend_to_repay">Intend to repay on or before completion of new mortgage?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_5" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Estate Agent</a>
+                                <div t-attf-id="myCollapseTab_5" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="name">Firm Name</label>
+                                            <input type="text" class="form-control" id="name" name="name"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="email" name="email"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="contactable_person">Contactable Person</label>
+                                            <input type="text" class="form-control" id="contactable_person" name="contactable_person"/>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="mobile">Contact Number</label>
+                                            <input type="tel" class="form-control" id="mobile" name="mobile"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_6" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Existing Mortgage</a>
+                                <div t-attf-id="myCollapseTab_6" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="property_address">Property Address</label>
+                                            <textarea class="form-control" id="property_address" name="property_address"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="usage">Usage</label>
+                                            <select class="form-control" id="usage" name="usage">
+                                                <option value="residential">Residential</option>
+                                                <option value="commercial">Commercial</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ownership_of_deed">Ownership of the Deed</label>
+                                            <select class="form-control" id="ownership_of_deed" name="ownership_of_deed">
+                                                <option value="sole_owner">Sole Owner</option>
+                                                <option value="joint_owners">Joint Owners</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="current_property_valuation">Current Property Valuation</label>
+                                            <input type="number" class="form-control" id="current_property_valuation" name="current_property_valuation"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="outstanding_mortgage_amount">Outstanding Mortgage Amount</label>
+                                            <input type="number" class="form-control" id="outstanding_mortgage_amount" name="outstanding_mortgage_amount"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="monthly_payment">Monthly Payment</label>
+                                            <input type="number" class="form-control" id="monthly_payment" name="monthly_payment"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lender">Lender</label>
+                                            <input type="text" class="form-control" id="lender" name="lender"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="account_no">Account No</label>
+                                            <input type="text" class="form-control" id="account_no" name="account_no"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rate_type">Rate Type</label>
+                                            <select class="form-control" id="rate_type" name="rate_type">
+                                                <option value="fixed">Fixed</option>
+                                                <option value="variable">Variable</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="current_rate">Current Rate</label>
+                                            <input type="number" class="form-control" id="current_rate" name="current_rate"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="remaining_term">Remaining Term (Months)</label>
+                                            <input type="number" class="form-control" id="remaining_term" name="remaining_term"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="repayment_method">Repayment Method</label>
+                                            <select class="form-control" id="repayment_method" name="repayment_method">
+                                                <option value="capital_interest">Capital and Interest</option>
+                                                <option value="interest_only">Interest Only</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="remortgage_date">Remortgage Date</label>
+                                            <input type="date" class="form-control" id="remortgage_date" name="remortgage_date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mortgage_case_number">Mortgage Case Number</label>
+                                            <input type="text" class="form-control" id="mortgage_case_number" name="mortgage_case_number"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="property_purchased_date">Property Purchased Date</label>
+                                            <input type="date" class="form-control" id="property_purchased_date" name="property_purchased_date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="property_purchased_price">Property Purchased Price</label>
+                                            <input type="number" class="form-control" id="property_purchased_price" name="property_purchased_price"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_7" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Existing Properties</a>
+                                <div t-attf-id="myCollapseTab_7" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="house_number">House Number</label>
+                                            <input type="text" class="form-control" id="house_number" name="house_number"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="postcode">Postcode</label>
+                                            <input type="text" class="form-control" id="postcode" name="postcode"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="street_address">Street Address</label>
+                                            <textarea class="form-control" id="street_address" name="street_address"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="county">County</label>
+                                            <input type="text" class="form-control" id="county" name="county"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="property_usage">Property Usage</label>
+                                            <select class="form-control" id="property_usage" name="property_usage">
+                                                <option value="residential">Residential</option>
+                                                <option value="commercial">Commercial</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="property_type">Property Type</label>
+                                            <select class="form-control" id="property_type" name="property_type">
+                                                <option value="house">House</option>
+                                                <option value="apartment">Apartment</option>
+                                                <option value="bungalow">Bungalow</option>
+                                                <option value="flat">Flat</option>
+                                                <option value="studio">Studio</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="bedrooms">Bedrooms</label>
+                                            <input type="number" class="form-control" id="bedrooms" name="bedrooms"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="current_property_valuation">Current Property Valuation</label>
+                                            <input type="number" class="form-control" id="current_property_valuation" name="current_property_valuation"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="tenure">Tenure</label>
+                                            <select class="form-control" id="tenure" name="tenure">
+                                                <option value="freehold">Freehold</option>
+                                                <option value="leasehold">Leasehold</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="has_mortgage" name="has_mortgage"/>
+                                            <label class="form-check-label" for="has_mortgage">Does the property have a Mortgage?</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ground_rent">Ground Rent</label>
+                                            <input type="number" class="form-control" id="ground_rent" name="ground_rent"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="service_charge">Service Charge</label>
+                                            <input type="number" class="form-control" id="service_charge" name="service_charge"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="first_let_date">First Let Date</label>
+                                            <input type="date" class="form-control" id="first_let_date" name="first_let_date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="monthly_rental_income">Monthly Rental Income</label>
+                                            <input type="number" class="form-control" id="monthly_rental_income" name="monthly_rental_income"/>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="is_hmo" name="is_hmo"/>
+                                            <label class="form-check-label" for="is_hmo">Is this HMO?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_8" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Monthly Expenses</a>
+                                <div t-attf-id="myCollapseTab_8" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="rent">Rent (Main Residence or Second Property)</label>
+                                            <input type="number" class="form-control" id="rent" name="rent"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="food">Food</label>
+                                            <input type="number" class="form-control" id="food" name="food"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="utilities">Utilities (Gas, Electricity, Water)</label>
+                                            <input type="number" class="form-control" id="utilities" name="utilities"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone_internet">Phone and Internet</label>
+                                            <input type="number" class="form-control" id="phone_internet" name="phone_internet"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="transport">Transport</label>
+                                            <input type="number" class="form-control" id="transport" name="transport"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="clothing">Clothing</label>
+                                            <input type="number" class="form-control" id="clothing" name="clothing"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="medicine">Medicine</label>
+                                            <input type="number" class="form-control" id="medicine" name="medicine"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="personal_goods">Personal Goods</label>
+                                            <input type="number" class="form-control" id="personal_goods" name="personal_goods"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="household_goods">Household Goods</label>
+                                            <input type="number" class="form-control" id="household_goods" name="household_goods"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="entertainment">Entertainment</label>
+                                            <input type="number" class="form-control" id="entertainment" name="entertainment"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="childcare">Childcare</label>
+                                            <input type="number" class="form-control" id="childcare" name="childcare"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="annual_council_tax">Annual Council Tax</label>
+                                            <input type="number" class="form-control" id="annual_council_tax" name="annual_council_tax"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="home_insurance">Home Insurance</label>
+                                            <input type="number" class="form-control" id="home_insurance" name="home_insurance"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="life_insurance">Life Insurance</label>
+                                            <input type="number" class="form-control" id="life_insurance" name="life_insurance"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="car_insurance">Car Insurance</label>
+                                            <input type="number" class="form-control" id="car_insurance" name="car_insurance"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="education_fees">Education Fees</label>
+                                            <input type="number" class="form-control" id="education_fees" name="education_fees"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_9" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Property Portfolio</a>
+                                <div t-attf-id="myCollapseTab_9" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="property_address">Property Address</label>
+                                            <textarea class="form-control" id="property_address" name="property_address"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="post_code">Post Code</label>
+                                            <input type="text" class="form-control" id="post_code" name="post_code"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="borrower_type">Borrower Type</label>
+                                            <select class="form-control" id="borrower_type" name="borrower_type">
+                                                <option value="individual">Individual</option>
+                                                <option value="joint">Joint</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mortgage_type">Mortgage Type</label>
+                                            <select class="form-control" id="mortgage_type" name="mortgage_type">
+                                                <option value="residential">Residential</option>
+                                                <option value="buy_to_let">Buy to Let</option>
+                                                <option value="commercial">Commercial</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="rate">Rate</label>
+                                            <input type="text" class="form-control" id="rate" name="rate"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lender_name">Lender Name</label>
+                                            <input type="text" class="form-control" id="lender_name" name="lender_name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="property_value">Property Value</label>
+                                            <input type="number" class="form-control" id="property_value" name="property_value"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="outstanding_amount">Outstanding Amount</label>
+                                            <input type="number" class="form-control" id="outstanding_amount" name="outstanding_amount"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="monthly_mortgage_payment">Monthly Mortgage Payment</label>
+                                            <input type="number" class="form-control" id="monthly_mortgage_payment" name="monthly_mortgage_payment"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="monthly_rental_btl">Monthly Rental if BTL</label>
+                                            <input type="number" class="form-control" id="monthly_rental_btl" name="monthly_rental_btl"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="product_end_date">Product End Date</label>
+                                            <input type="date" class="form-control" id="product_end_date" name="product_end_date"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mortgage_term">Mortgage Term</label>
+                                            <input type="number" class="form-control" id="mortgage_term" name="mortgage_term"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="latest_case_number">Latest Case No of the Property</label>
+                                            <input type="text" class="form-control" id="latest_case_number" name="latest_case_number"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_9" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Protection</a>
+                                <div t-attf-id="myCollapseTab_9" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="existing_protection_cover" name="existing_protection_cover"/>
+                                            <label class="form-check-label" for="existing_protection_cover">Do you have any existing protection cover?</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="insurance_provider">Insurance Provider</label>
+                                            <input type="text" class="form-control" id="insurance_provider" name="insurance_provider"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="monthly_premium">Monthly Premium</label>
+                                            <input type="number" class="form-control" id="monthly_premium" name="monthly_premium"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="protection_type">Protection Type</label>
+                                            <select class="form-control" id="protection_type" name="protection_type">
+                                                <option value="life_cover">Life Cover Only</option>
+                                                <option value="critical_illness">Critical Illness Cover Only</option>
+                                                <option value="life_and_cic">Both Life and Critical Illness Cover</option>
+                                                <option value="income_protection">Income Protection</option>
+                                                <option value="family_income_benefit">Family Income Benefit</option>
+                                                <option value="accident_cover">Accident Cover</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Employer Sick Pay Benefit -->
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="employer_sick_pay_benefit" name="employer_sick_pay_benefit"/>
+                                            <label class="form-check-label" for="employer_sick_pay_benefit">Do you have any existing employer sick pay benefit?</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="claim_months">How many months can you claim?</label>
+                                            <select class="form-control" id="claim_months" name="claim_months">
+                                                <option value="3">3 Months</option>
+                                                <option value="6">6 Months</option>
+                                                <option value="12">12 Months</option>
+                                                <option value="24">24 Months</option>
+                                                <option value="60">Until Retirement Age</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Health Details -->
+                                        <div class="form-group">
+                                            <label for="height">Height</label>
+                                            <input type="number" class="form-control" id="height" name="height"/>
+                                        </div>
+
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="valid_will" name="valid_will"/>
+                                            <label class="form-check-label" for="valid_will">Valid Will</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="smoking">Are you smoking?</label>
+                                            <select class="form-control" id="smoking" name="smoking">
+                                                <option value="never_smoked">No, I have never smoked or used e-cigarettes</option>
+                                                <option value="stopped_smoking">I have stopped smoking</option>
+                                                <option value="currently_smoking">Yes, I do smoking (on special occasions/ regularly)</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="stop_smoking_date">When did you stop smoking?</label>
+                                            <select class="form-control" id="stop_smoking_date" name="stop_smoking_date">
+                                                <option value="within_one_year">Within a year</option>
+                                                <option value="within_12_36_months">Within 12 - 36 months</option>
+                                                <option value="before_36_months">Before 36 months</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cigarettes_per_day">How many cigarettes are you using?</label>
+                                            <input type="text" class="form-control" id="cigarettes_per_day" name="cigarettes_per_day"/>
+                                        </div>
+
+                                        <!-- Alcohol Consumption Details -->
+                                        <div class="form-group">
+                                            <label for="alcohol_consumption_comment">Please comment on your alcohol consumption</label>
+                                            <textarea class="form-control" id="alcohol_consumption_comment" name="alcohol_consumption_comment"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="stop_drinking_date">When did you stop drinking?</label>
+                                            <select class="form-control" id="stop_drinking_date" name="stop_drinking_date">
+                                                <option value="within_one_year">Within a year</option>
+                                                <option value="within_12_36_months">Within 12 - 36 months</option>
+                                                <option value="before_36_months">Before 36 months</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="alcohol_consumption_amount">How much are you drinking alcohol?</label>
+                                            <textarea class="form-control" id="alcohol_consumption_amount" name="alcohol_consumption_amount"></textarea>
+                                        </div>
+
+                                        <!-- Medical Details -->
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="medical_conditions" name="medical_conditions"/>
+                                            <label class="form-check-label" for="medical_conditions">Do you have any medical conditions?</label>
+                                        </div>
+
+
+                                        <!-- Currently Taking Medicines -->
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="currently_taking_medicines" name="currently_taking_medicines"/>
+                                            <label class="form-check-label" for="currently_taking_medicines">Currently are you taking any medicines?</label>
+                                        </div>
+
+                                        <!-- Waiting for GP/Hospital Referral Report -->
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="waiting_for_gp_hospital_referral_report" name="waiting_for_gp_hospital_referral_report"/>
+                                            <label class="form-check-label" for="waiting_for_gp_hospital_referral_report">Are you waiting for a GP / hospital referral / report?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_10" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Self Employed</a>
+                                <div t-attf-id="myCollapseTab_10" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="is_self_employed" name="is_self_employed"/>
+                                            <label class="form-check-label" for="is_self_employed">Is Self Employed?</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="business_name">Business Name</label>
+                                            <input type="text" class="form-control" id="business_name" name="business_name"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="self_employed_occupation">Occupation</label>
+                                            <input type="text" class="form-control" id="self_employed_occupation" name="self_employed_occupation"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="self_employment_start_date">Self Employment Start Date</label>
+                                            <input type="date" class="form-control" id="self_employment_start_date" name="self_employment_start_date"/>
+                                        </div>
+
+                                        <!-- Tax Year 1 Details -->
+                                        <div class="form-group">
+                                            <label for="tax_year_1">Tax Year 1</label>
+                                            <input type="text" class="form-control" id="tax_year_1" name="tax_year_1"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="year_1_tax_income">Year 1 Tax Income</label>
+                                            <input type="number" class="form-control" id="year_1_tax_income" name="year_1_tax_income"/>
+                                        </div>
+
+                                        <!-- Tax Year 2 Details -->
+                                        <div class="form-group">
+                                            <label for="tax_year_2">Tax Year 2</label>
+                                            <input type="text" class="form-control" id="tax_year_2" name="tax_year_2"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="year_2_tax_income">Year 2 Tax Income</label>
+                                            <input type="number" class="form-control" id="year_2_tax_income" name="year_2_tax_income"/>
+                                        </div>
+
+                                        <!-- Business Details -->
+                                        <div class="form-group">
+                                            <label for="business_address">Business Address</label>
+                                            <textarea class="form-control" id="business_address" name="business_address"></textarea>
+                                        </div>
+
+                                        <!-- Accountant Details -->
+                                        <div class="form-group form-check">
+                                            <input type="checkbox" class="form-check-input" id="has_accountant" name="has_accountant"/>
+                                            <label class="form-check-label" for="has_accountant">Do you have an accountant for tax purposes?</label>
+                                        </div>
+
+                                        <!-- Let Properties Count -->
+                                        <div class="form-group">
+                                            <label for="let_properties_count">Number of Let Properties Currently Owned</label>
+                                            <input type="number" class="form-control" id="let_properties_count" name="let_properties_count"/>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card bg-white" data-name="Item">
+                                <a href="#" t-attf-data-bs-target="#myCollapseTab_10" role="tab" data-bs-toggle="collapse" aria-expanded="true" class="card-header">Solicitor</a>
+                                <div t-attf-id="myCollapseTab_10" class="collapse" data-bs-parent="#myCollapse" role="tabpanel">
+                                    <div class="card-body">
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Firm Name</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="firm_name" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">House Number</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="house_number" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Post Code</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="post_code" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Address</label>
+                                            <div class="col-sm">
+                                                <textarea name="address" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Contact No</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="contact_no" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Solicitor Name</label>
+                                            <div class="col-sm">
+                                                <input type="text" name="solicitor_name" class="form-control"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-0 py-2 col-12">
+                                            <label class="col-form-label col-sm-auto" style="width: 500px">Email Address</label>
+                                            <div class="col-sm">
+                                                <input type="email" name="email_address" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-0 py-2 col-12">
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary submit_btn">Submit <span class="fa fa-arrow-right"/></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

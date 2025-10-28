@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_monthly_expenses_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='credit_comment']" position="after">
+                <page name="monthly_expenses" string="Monthly Expenses">
+                    <group>
+                        <field name="rent"/>
+                        <field name="food"/>
+                        <field name="utilities"/>
+                        <field name="phone_internet"/>
+                        <field name="transport"/>
+                        <field name="clothing"/>
+                        <field name="medicine"/>
+                        <field name="personal_goods"/>
+                        <field name="household_goods"/>
+                        <field name="entertainment"/>
+                         <field name="annual_council_tax"/>
+                         <field name="home_insurance"/>
+                         <field name="life_insurance"/>
+                         <field name="car_insurance"/>
+                        <field name="education_fees"/>
+                        <field name="ground_rent"/>
+                        <field name="service_charge"/>
+                        <field name="services_charge"/>
+                        <field name="total_monthly_expenses" readonly="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

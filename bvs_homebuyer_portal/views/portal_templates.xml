@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Frontend layout customizations-->
+    <template id="bvs_portal_frontend_layout" inherit_id="web.frontend_layout" primary="True">
+        <xpath expr="//header" position="before">
+            <t t-set="no_header" t-value="True"/>
+            <t t-set="no_footer" t-value="True"/>
+        </xpath>
+        <xpath expr="//header" position="after">
+            <div id="wrap" class="oe_structure oe_empty"/>
+        </xpath>
+    </template>
+
+    <!--Portal main page-->
+    <template id="bvs_portal_main_page" name="BVS Portal: main page">
+        <t t-call="bvs_homebuyer_portal.bvs_portal_frontend_layout">
+            <div class="homebuyer-portal">
+                <!--Content-->
+
+                <!-- Mobile Top Navigation Bar -->
+                <nav class="mobile-topbar d-block d-lg-none">
+                    <div class="topbar-content">
+                        <!-- Hamburger Menu Button -->
+                        <button class="hamburger-btn" id="mobileMenuToggle" aria-label="Toggle navigation">
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                            <span class="hamburger-line"></span>
+                        </button>
+
+                        <!-- Logo -->
+                        <div class="topbar-logo">
+                            <a href="/my">
+                                <img src="/bvs_homebuyer_portal/static/src/img/logo-bvs.png" alt="BVS Logo"/>
+                            </a>
+                        </div>
+
+                        <!-- User Avatar -->
+                        <div class="topbar-user">
+                            <img t-if="request.env.user.partner_id.avatar_256"
+                                 t-att-src="image_data_uri(request.env.user.partner_id.avatar_256)"
+                                 class="topbar-avatar"
+                                 alt="User Avatar"/>
+                            <div t-if="not request.env.user.partner_id.avatar_256" class="topbar-avatar-placeholder">
+                                <i class="fa fa-user"></i>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Mobile Navigation Dropdown -->
+                <div class="mobile-nav-dropdown d-block d-lg-none" id="mobileNavDropdown">
+                    <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+                    <div class="mobile-nav-panel">
+
+                        <!-- User Info Section -->
+                        <div class="mobile-nav-header">
+                            <div class="mobile-user-info d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <div class="mobile-user-avatar">
+                                        <img t-if="request.env.user.partner_id.avatar_256"
+                                             t-att-src="image_data_uri(request.env.user.partner_id.avatar_256)"
+                                             class="mobile-avatar"/>
+                                        <div t-if="not request.env.user.partner_id.avatar_256"
+                                             class="mobile-avatar-placeholder">
+                                            <i class="fa fa-user fa-lg"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mobile-user-details">
+                                        <span t-field="request.env.user.partner_id.name" class="mobile-user-name"/>
+                                    </div>
+                                </div>
+                                <!-- Mobile Logout Icon -->
+                                <a href="/web/session/logout?redirect=/" class="mobile-logout-icon-btn"
+                                   title="Sign Out">
+                                    <i class="fa fa-sign-out"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Items -->
+                        <div class="mobile-nav-items">
+                            <ul class="mobile-nav-list">
+                                <!--Home-->
+                                <li class="mobile-nav-item">
+                                    <a href="#home" class="mobile-nav-link" data-element="#home">
+                                        <i class="fa fa-home"></i>
+                                        <span>Home</span>
+                                    </a>
+                                </li>
+
+                                <!--Fact Find-->
+                                <li class="mobile-nav-item mobile-nav-expandable">
+                                    <a href="#" class="mobile-nav-link mobile-nav-toggle"
+                                       data-target="mobile-fact-find">
+                                        <i class="fa fa-hand-o-right"></i>
+                                        <span>Fact Find</span>
+                                        <i class="fa fa-chevron-right mobile-nav-arrow"></i>
+                                    </a>
+                                    <ul class="mobile-nav-submenu" id="mobile-fact-find">
+                                        <!-- Submenu items will be populated dynamically -->
+                                    </ul>
+                                </li>
+
+                                <!--Portfolio-->
+                                <li class="mobile-nav-item">
+                                    <a href="#portfolio" class="mobile-nav-link" data-element="#portfolio">
+                                        <i class="fa fa-user"></i>
+                                        <span>Portfolio</span>
+                                    </a>
+                                </li>
+
+                                <!--Applications-->
+                                <li class="mobile-nav-item">
+                                    <a href="#applications" class="mobile-nav-link" data-element="#applications">
+                                        <i class="fa fa-bars"></i>
+                                        <span>Applications</span>
+                                    </a>
+                                </li>
+
+                                <!--Further Documents-->
+                                <li class="mobile-nav-item">
+                                    <a href="#further_documents_2" class="mobile-nav-link"
+                                       data-element="#further_documents_2">
+                                        <i class="fa fa-file-text"></i>
+                                        <span>Further Documents</span>
+                                    </a>
+                                </li>
+
+                                <!--Initial Documents-->
+                                <li class="mobile-nav-item">
+                                    <a href="#initial_documents" class="mobile-nav-link"
+                                       data-element="#initial_documents">
+                                        <i class="fa fa-play"></i>
+                                        <span>Initial Documents</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="wrapper">
+                    <!-- Sidebar -->
+                    <aside id="sidebar" class="d-none d-lg-block">
+                        <div class="sidebar-container h-100">
+                            <div class="sticky-section">
+                                <div class="sidebar-logo">
+                                    <a href="/my">
+                                        <img src="/bvs_homebuyer_portal/static/src/img/logo-bvs.png"/>
+                                    </a>
+                                </div>
+                                <div class="user-info d-flex align-items-center justify-content-between p-2 border rounded">
+                                    <div class="d-flex align-items-center">
+                                        <div class="user-icon me-2">
+                                            <img t-if="request.env.user.partner_id.avatar_256"
+                                                 t-att-src="image_data_uri(request.env.user.partner_id.avatar_256)"
+                                                 class="rounded-circle border small-avatar"
+                                                 style="width: 48px; height: 48px; object-fit: cover;"/>
+                                            <div t-if="not request.env.user.partner_id.avatar_256"
+                                                 class="d-flex justify-content-center align-items-center rounded-circle bg-secondary text-white "
+                                                 style="width: 48px; height: 48px;">
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <div class="user-details" style="font-size:0.6rem;">
+                                            <div class="fw-bold text-dark">
+                                                <span t-field="request.env.user.partner_id.name" class="user-name"/>
+                                            </div>
+                                            <div class="text-muted small">
+                                                <span t-field="request.env.user.partner_id.email" class="user-email"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Logout Icon -->
+                                    <a href="/web/session/logout?redirect=/" class="logout-icon-btn" title="Sign Out">
+                                        <i class="fa fa-sign-out"></i>
+                                    </a>
+                                </div>
+
+
+                            </div>
+
+                            <!-- Sidebar Navigation -->
+                            <ul class="sidebar-nav mt-4">
+                                <!--Home-->
+                                <li class="sidebar-item sidebar-home" data-element="#home">
+                                    <a href="#home" class="sidebar-link">
+                                        <i class="fa fa-home pe-2"/>
+                                        Home
+                                    </a>
+                                </li>
+
+                                <!--Fact Find-->
+                                <li class="sidebar-item fact-find-item">
+                                    <a href="#" class="sidebar-link collapsed" data-bs-toggle="collapse"
+                                       data-bs-target="#fact-find"
+                                       aria-expanded="false" aria-controls="fact-find">
+                                        <i class="fa fa-hand-o-right pe-2"/>
+                                        Fact Find
+                                    </a>
+                                    <ul id="fact-find" class="sidebar-dropdown list-unstyled collapse fact-find-expand"
+                                        data-bs-parent="#sidebar">
+                                    </ul>
+                                </li>
+
+                                <!--Portfolio-->
+                                <li class="sidebar-item sidebar-portfolio" data-element="#portfolio">
+                                    <a href="#portfolio" class="sidebar-link">
+                                        <i class="fa fa-user pe-2"/>
+                                        Portfolio
+                                    </a>
+                                </li>
+
+                                <!--Applications-->
+                                <li class="sidebar-item sidebar-applications" data-element="#applications">
+                                    <a href="#applications" class="sidebar-link">
+                                        <i class="fa fa-bars pe-2"/>
+                                        Applications
+                                    </a>
+                                </li>
+
+                                <!--Further Documents-->
+                                <li class="sidebar-item sidebar-further-documents" data-element="#further_documents_2">
+                                    <a href="#further_documents_2" class="sidebar-link">
+                                        <i class="fa fa-file-text pe-2"/>
+                                        Further Documents
+                                    </a>
+                                </li>
+
+                                <!--Initial Documents-->
+                                <li class="sidebar-item sidebar-initial-documents" data-element="#initial_documents">
+                                    <a href="#initial_documents" class="sidebar-link">
+                                        <i class="fa fa-play pe-2"/>
+                                        Initial Documents
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </aside>
+                    <!-- Main Component -->
+                    <div class="main main-component main-content-section">
+                        <div class="loader" id="loader">
+                            <!--Loading animation-->
+                            <div id="wifi-loader">
+                                <svg class="circle-outer" viewBox="0 0 86 86">
+                                    <circle class="back" cx="43" cy="43" r="40"/>
+                                    <circle class="front" cx="43" cy="43" r="40"/>
+                                    <circle class="new" cx="43" cy="43" r="40"/>
+                                </svg>
+                                <svg class="circle-middle" viewBox="0 0 60 60">
+                                    <circle class="back" cx="30" cy="30" r="27"/>
+                                    <circle class="front" cx="30" cy="30" r="27"/>
+                                </svg>
+                                <svg class="circle-inner" viewBox="0 0 34 34">
+                                    <circle class="back" cx="17" cy="17" r="14"/>
+                                    <circle class="front" cx="17" cy="17" r="14"/>
+                                </svg>
+                                <div class="text" data-text="Loading..."/>
+                            </div>
+                        </div>
+
+                        <!--Portfolio-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_portfolio"/>
+                        <!--Applications-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_applications"/>
+                        <!--Further Documents-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_further_documents"/>
+                        <!--Initial Documents-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_initial_documents"/>
+
+                        <!--progress Bar content-->
+                        <t t-call="bvs_homebuyer_portal.bvs_ff_progress_bar"/>
+                        <!--Home-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_home"/>
+                        <!--FC Welcome-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_gs_welcome"/>
+                        <!--Documents-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_documents"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--About You-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--AY Personal Details-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ay_personal_details"/>
+                        <!--AY Address History-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ay_address_history"/>
+                        <!--AY Dependants-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ay_dependants"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--Your Finances-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--YF General Employment-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_general_employment"/>
+                        <!--YF Current Employment-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_current_employment"/>
+                        <!--YF Employment History-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_employment_history"/>
+                        <!--YF Other Monthly Income-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_other_monthly_income"/>
+                        <!--YF Credit History-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_credit_history"/>
+                        <!--YF Saving Arrangements-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_saving_arrangements"/>
+                        <!--YF Pensions-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_pensions"/>
+                        <!--YF Investments-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yf_investments"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--Your Outgoings-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--YO Expenditure-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yo_expenditure"/>
+                        <!--YO Credit Commitments-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yo_credit_commitments"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--Your Existing Properties-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--YEP Your Properties-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yep_your_properties"/>
+                        <!-- YEP Your Mortgages-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_yep_your_mortgages"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--Your New Mortgage-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--YNM Mortgage-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ynm_mortgage"/>
+                        <!--YNM Banking-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ynm_banking"/>
+                        <!--YNM Building & Contents Insurance-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ynm_building_n_contents_insurance"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--Get Verified-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--Estate Agent-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_gv_estate_agent"/>
+                        <!--Solicitor-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_gv_solicitor"/>
+
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+                        <!--Your Protection Policies-->
+                        <!--|||||||||||||||||||||||||||||||||||||||||||-->
+
+                        <!--Bank Statements-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_your_health_information"/>
+
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_existing_cover"/>
+                        <!--Protection Policies-->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_protection_policies"/>
+                        <!--foreign Travels -->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_foreign_travels"/>
+                        <!--Future foreign Travels -->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_protection_future_foreign_travels"/>
+
+                        <!--Critical Illness -->
+                        <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_protection_critical_illness"/>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- STAGES TREE VIEW + MUTI_EDIT -->
+    <record id="res_users_inherit_form" model="ir.ui.view">
+        <field name="name">res.users.inherit.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//h2[field[@name='login']]" position="after">
+                <label for="short_code" string="Short Code"/>
+                <h2>
+                    <field name="short_code" placeholder="e.g. ABC"/>
+                </h2>
+            </xpath>
+            <xpath expr="//group[1]/following-sibling::group[1]" position="after">
+                <group>
+                    <separator string="Role"/>
+                    <field name="is_mortgage_advisor"/>
+                    <field name="is_team_leader"/>
+                    <field name="lead_ids"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

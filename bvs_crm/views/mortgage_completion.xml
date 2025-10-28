@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_completion" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='post_offer']" position="after">
+                <field name="product_type" invisible="1"/>
+                <field name="is_completion" invisible="1"/>
+                <field name="is_completion_member" invisible="1"/>
+                <field name="is_completion_leader" invisible="1"/>
+                <field name="is_advisor_support" invisible="1"/>
+                <page string="Mortgage Completion" attrs="{'invisible': ['|', ('is_completion', '=', False), ('product_type', '=', 'protection')]}">
+                    <group string="">
+                        <field name="completion_team_leader"  attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="lender_offer_case_allocation" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="lender_offer_tm_acknowledgement" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="protection_check_risk_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="advisor_text" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="personal_risk_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="building_risk_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="suitability_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

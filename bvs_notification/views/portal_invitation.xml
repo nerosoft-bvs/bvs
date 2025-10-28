@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_portal_invite" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//header[1]' position="inside">
+                 <field name="portal_invitation_sent" invisible="1"/>
+<!--                <button name="action_send_portal_invitation" string="Send Portal Invitation" type="object" class="oe_highlight" attrs="{'invisible': [('portal_invitation_sent', '=', True)]}"/>-->
+                <button name="action_send_portal_invitation" string="Send Portal Invitation" type="object" class="oe_highlight" invisible="1"/>
+                <button name="action_resend_portal_invitation" string="Send Portal Login" type="object" class="oe_highlight" attrs="{'invisible': [('portal_invitation_sent', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_partner_inherit_form" model="ir.ui.view">
+        <field name="name">res.partner.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" type="object" name="view_leads" icon="fa-file-text" attrs="{'invisible': [('lead_count', '=', 0)]}">
+                    <field string="My Leads" name="lead_count" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button" type="object" name="view_reference_leads" icon="fa-file-text-o" attrs="{'invisible': [('reference_lead_count', '=', 0)]}">
+                    <field string="Ref Leads" name="reference_lead_count" widget="statinfo"/>
+                </button>
+<!--                <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o" attrs="{'invisible': [('applicant_form_count', '=', 0)]}">-->
+<!--                    <field string="Applications" name="applicant_form_count" widget="statinfo"/>-->
+<!--                </button>-->
+                <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o" invisible="1">
+                    <field string="Applications" name="applicant_form_count" widget="statinfo"/>
+                </button>
+
+            </div>
+            <xpath expr="//field[@name='street']" position='before'>
+                <field name="title"/>
+                <field name="first_name"/>
+                <field name="last_name"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='function']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='website']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='contact_addresses']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='sales_purchases']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

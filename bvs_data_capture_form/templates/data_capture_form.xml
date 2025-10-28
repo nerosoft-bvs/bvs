@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="portal_my_home_menu_data_capture_form" name="Portal layout : application form menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'data_capture_form'" t-attf-class="breadcrumb-item">
+                <t>Data Capture Form</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="data_capture_form" name="Data Capture Form">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Data Capture Form</t>
+            </t>
+
+            <div class="container">
+                <form action="/data_capture_form/form/submit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="lead_id" t-att-value="lead_id"/>
+
+                    <div class="mb-0 py-2 col-12">
+                        <div class="row s_col_no_resize s_col_no_bgcolor py-2" t-if="dc_attachment">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="data_capture_form">
+                                <span>Data Capture Form</span>
+                            </label>
+                            <div class="col-sm">
+                                <t t-if="dc_attachment.access_token">
+                                    <a t-attf-href="/web/content/#{dc_attachment.id}?download=true&amp;access_token=#{dc_attachment.access_token}"
+                                       target="_blank">
+                                        <div class="oe_attachment_embedded o_image" t-att-title="dc_attachment.name"
+                                             t-att-data-mimetype="dc_attachment.mimetype"
+                                             t-attf-data-src="/web/image/#{dc_attachment.id}/100x80?access_token=#{dc_attachment.access_token}"/>
+                                        <div class="oe_attachment_name">
+                                            <em>
+                                                <t t-esc="dc_attachment.name"/>
+                                            </em>
+                                        </div>
+                                    </a>
+                                </t>
+                                <t t-else="">
+                                    <a t-attf-href="/web/content/#{dc_attachment.id}?download=true" target="_blank">
+                                        <div class="oe_attachment_embedded o_image" t-att-title="dc_attachment.name"
+                                             t-att-data-mimetype="dc_attachment.mimetype"
+                                             t-attf-data-src="/web/image/#{dc_attachment.id}/100x80"/>
+                                        <div class="oe_attachment_name">
+                                            <em>
+                                                <t t-esc="dc_attachment.name"/>
+                                            </em>
+                                        </div>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px"
+                                   for="data_capture_form_submission">
+                                <span>Data Capture Form Submission</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <input type="file" name="data_capture_form_submission" id="data_capture_form_submission"
+                                       class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-0 py-2 col-12">
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary submit_btn">Submit
+                                <span class="fa fa-arrow-right"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+</odoo>

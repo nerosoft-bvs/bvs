@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_lead_mortgage" model="ir.sequence">
+            <field name="name">Lead Mortgage</field>
+            <field name="code">sequence.lead.mortgage</field>
+            <field name="prefix">M/</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="sequence_lead_protection" model="ir.sequence">
+            <field name="name">Lead Protection</field>
+            <field name="code">sequence.lead.protection</field>
+            <field name="prefix">P/</field>
+            <field name="padding">4</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+    </data>
+</odoo>
+

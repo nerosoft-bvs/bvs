@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_dip" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='affordability_assessment']" position="after">
+                <field name="product_type" invisible="1"/>
+                <field name="is_dip" invisible="1"/>
+                <page name="dip" string="DIP"
+                      attrs="{'invisible': ['|', ('is_dip', '=', False), ('product_type', '=', 'protection')]}">
+                    <group>
+                        <group>
+                            <label for="schedule_meeting"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="schedule_meeting"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            </div>
+
+                            <field name="dip_request"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dip_decision"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dip_upload"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dip_decision_declined"
+                                   attrs="{'invisible': [('dip_decision', '!=', 'declined')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="lender"
+                                   attrs="{'invisible': [('dip_decision', '!=', 'approved')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="upload_checklist" widget="many2many_binary"
+                                   attrs="{'invisible': [('dip_decision', '!=', 'approved')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="status_update_ch"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="status_update_mail_chimp"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dip_record_details"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="dip_checklist"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="mos_reservation_form_submissions" widget="many2many_binary"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+
+                        <group attrs="{'invisible': [('dip_checklist', '=', False)]}">
+                            <group string="(C) DIP CheckList">
+                                <field name="acceptable_retirement_age" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="acceptable_visa_status" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="remaining_months_in_visa" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="uk_address_history_enough" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="employment_criteria" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="acceptable_benefit_income" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="dla_pip_for_dependant" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="universal_tax" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="housing_benefits" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="fd_over_18" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="fd_below_18" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="credit_commitments" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="travel_cost" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="child_care_cost" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="adverse_credit_history" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="ground_rent" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="house_or_flat" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            </group>
+                            <group string="">
+                                <field name="new_build"
+                                       string="New Built or Not New Build (If a New built LTV % and Service charge may vary)"
+                                       widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="source_of_deposit_criteria"
+                                       string="Source of deposit from family or friend criteria"
+                                       widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="deposit_ready_at_application"
+                                       string="Deposit should be ready at the time of application"
+                                       widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="additional_borrowing_purpose" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="existing_mortgages_or_property" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="special_lender_criteria" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="final_stamp_duty_amount" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="latest_affordability_assessment" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="lender_calculator" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="client_confirmation_hard_print_credit_check" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="declined_dip_lender_names_reasons" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            </group>
+                        </group>
+
+                        <group attrs="{'invisible': [('dip_record_details', '=', False)]}">
+                            <group string="DIP Record Details">
+                                <field name="dip_number_index"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="reference_number"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="single_joint_application"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="property_value"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="loan_amount"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="deposit"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="ltv"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="mortgage_term"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="retirement_age"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="property_known"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="remarks"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="date_dip"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="date_expiry"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="rate_reserved"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="interest_rate"
+                                       attrs="{'invisible': [('property_known', '!=', 'yes')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="product_term"
+                                       attrs="{'invisible': [('property_known', '!=', 'yes')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="reserved_expiry_date"
+                                       attrs="{'invisible': [('property_known', '!=', 'yes')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="new_build_house_ltv"
+                                       attrs="{'invisible': [('property_known', '!=', 'yes')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="new_build_flat_ltv"
+                                       attrs="{'invisible': [('property_known', '!=', 'yes')], 'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            </group>
+                            <group string="Assumption">
+                                <field name="assumption_1_visa_status"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_2_uk_address_history"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_3_financial_dependents"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_4_employment_commute_cost"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_5_other_income_eligibility"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_6_credit_commitments"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_7_adverse_credit_history"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_8_house_or_flat"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_9_new_build"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="assumption_10_source_of_deposit"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="upload_mos_reservation_form"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="property_address"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="property_poc"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="property_value"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

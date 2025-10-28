@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_credit_comment_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='adverse_credit']" position="after">
+                <field name="credit_comment" invisible="1"/>
+                <page name="credit_comment" string="Credit Commitment">
+                    <field name="credit_comment_ids" widget="one2many_list">
+                        <tree>
+                            <field name="commitment_type"/>
+                            <field name="lender"/>
+                            <field name="outstanding_amount"/>
+                            <field name="monthly_payment"/>
+                            <field name="credit_limit"/>
+                            <field name="remaining_months"/>
+                            <field name="intend_to_repay"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="commitment_type"/>
+                                    <field name="lender"/>
+                                    <field name="outstanding_amount"/>
+                                    <field name="monthly_payment"/>
+                                    <field name="credit_limit"/>
+                                    <field name="remaining_months"/>
+                                    <field name="intend_to_repay"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

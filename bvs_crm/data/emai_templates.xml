@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_notify_mortgage_advisor" model="mail.template">
+            <field name="name">Mortgage Advisor Assignment</field>
+            <field name="model_id" ref="bvs_crm.model_bvs_lead"/>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{object.mortgage_advisor.login}}</field>
+            <field name="partner_to">{{ '' }}</field>
+            <field name="subject">You have been assigned to a case {{ object.display_name }}</field>
+            <field name="body_html" type="html">
+                <p>Hello
+                    <t t-out="object.mortgage_advisor.name "/>
+                </p>
+                <p>You have been assigned to case
+                    <b>
+                        <t t-out="object.display_name"/>
+                    </b>
+                    .
+                </p>
+                <p>Please check the system for details.</p>
+            </field>
+        </record>
+    </data>
+
+</odoo>

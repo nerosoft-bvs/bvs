@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Res users form view customizations-->
+    <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">res.users.view.form.inherit.portal_user_login_documents</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='preferences']" position="inside">
+                <group attrs="{'invisible': [('is_portal_user', '=', False)]}">
+                    <group string="Portal User Documents">
+                        <field name="is_portal_user" invisible="1"/>
+                        <field name="check_portal_user_documents" widget="boolean_toggle" force_save="1" default="True"/>
+                        <field name="portal_user_documents_approved"
+                               attrs="{'invisible': [('check_portal_user_documents', '=', False)]}"
+                               readonly="1"
+                               force_save="1"/>
+                        <div colspan="2">
+                            <button name="add_or_modify_documents" string="Add Or Modify Documents"
+                                    icon="fa-arrow-circle-o-right"
+                                    type="object" title="Add or modify the documents need to be checked on"
+                                    attrs="{'invisible': [('check_portal_user_documents', '=', False)]}"/>
+                        </div>
+                    </group>
+
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_property_portfolio_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='bank_details']/page[@name='protection']" position="after">
+                <page name="property_portfolio" string="Property Portfolio">
+                    <group>
+                        <field name="property_address" invisible="1"/>
+                        <field name="post_code" invisible="1"/>
+                        <field name="borrower_type" invisible="1"/>
+                        <field name="rate" invisible="1"/>
+                        <field name="lender_name" invisible="1"/>
+                        <field name="property_value" invisible="1"/>
+                        <field name="outstanding_amount" invisible="1"/>
+                        <field name="monthly_mortgage_payment" invisible="1"/>
+                        <field name="monthly_rental_btl" invisible="1"/>
+                        <field name="product_end_date" invisible="1"/>
+                        <field name="mortgage_term" invisible="1"/>
+                        <field name="latest_case_number" invisible="1"/>
+                    </group>
+                    <field name="case_history_ids" widget="one2many_list">
+                        <tree>
+                            <field name="property_address"/>
+                            <field name="post_code"/>
+                            <field name="borrower_type"/>
+                            <field name="rate"/>
+                            <field name="lender_name"/>
+                            <field name="property_value"/>
+                            <field name="outstanding_amount"/>
+                            <field name="monthly_mortgage_payment"/>
+                            <field name="monthly_rental_btl"/>
+                            <field name="product_end_date"/>
+                            <field name="mortgage_term"/>
+                            <field name="latest_case_number"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="property_address"/>
+                                <field name="post_code"/>
+                                <field name="borrower_type"/>
+                                <!--                                <field name="mortgage_type"/>-->
+                                <field name="rate"/>
+                                <field name="lender_name"/>
+                                <field name="property_value"/>
+                                <field name="outstanding_amount"/>
+                                <field name="monthly_mortgage_payment"/>
+                                <field name="latest_case_number"/>
+                            </group>
+                        </form>
+                    </field>
+
+                    <group>
+                        <field name="total_property_value" readonly="1" invisible="1"/>
+                        <field name="total_outstanding_amount" readonly="1" invisible="1"/>
+                        <field name="total_monthly_mortgage_payment" readonly="1" invisible="1"/>
+                        <field name="total_monthly_rental_btl" readonly="1" invisible="1"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

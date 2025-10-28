@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_home_menu_application_form" name="Portal layout : application form menu entries" inherit_id="portal.portal_breadcrumbs" priority="25">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'application_form'" t-attf-class="breadcrumb-item">
+                <t>Lead Form</t>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="application_form" name="Application Form">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title" >Lead Form</t>
+            </t>
+
+            <div class="container">
+                <form action="/application/form/submit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="lead_id" t-att-value="lead_id"/>
+
+                    <div class="p-2 row">
+                        <div class="col-6">
+                            Registration No : <strong>#<span t-esc="lead_registration_no"/></strong>
+                        </div>
+                        <div class="col-6 text-end">
+                            Status :<span class="m-0 badge rounded-pill text-bg-light border"><span t-esc="lead_state.name"/></span>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_affordability_assessment">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="client_acknowledgment">
+                                <span>Acknowledgment of Affordability Assessment</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input type="checkbox" name="client_acknowledgment" id="client_acknowledgment" class="form-check-input"/>
+                                    <label class="form-check-label" for="client_acknowledgment">Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_dip">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="mos_reservation_form_submissions">
+                                <span>MOS / Reservation Form Submit</span>
+                            </label>
+                            <div class="col-sm">
+                                <input type="file" name="mos_reservation_form_submissions" multiple="multiple" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_dip">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="dip_view_id">
+                                <span>Dip View</span>
+                            </label>
+                            <div class="col-sm">
+                                <t t-if="dip_attachment_ids">
+                                    <t t-foreach="dip_attachment_ids" t-as="attachment">
+                                        <a t-attf-href="/web/content/#{attachment.id}?download=true&amp;access_token=#{attachment.access_token}" target="_blank" class="btn btn-outline-secondary">
+                                            <span class="fa fa-download"/>
+                                        </a>
+                                        <span t-esc="attachment.name"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_illustration">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="client_acknowledgment_ill">
+                                <span>Illustration Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input type="checkbox" name="client_acknowledgment_ill" id="client_acknowledgment_ill" class="form-check-input"/>
+                                    <label class="form-check-label" for="client_acknowledgment_ill">Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_illustration">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="negative_evaluation_documents">
+                                <span>Further Documents</span>
+                            </label>
+                            <div class="col-sm">
+                                <input type="file" name="negative_evaluation_documents" multiple="multiple" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_pre_offer">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="negative_evaluation_acknowledgement">
+                                <span>Negative Evaluation Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input type="checkbox" name="Negative Evaluation Acknowledgement" id="negative_evaluation_acknowledgement" class="form-check-input"/>
+                                    <label class="form-check-label" for="negative_evaluation_acknowledgement">Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_post_offer">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="mortgage_offer_details_acknowledgement">
+                                <span>Mortgage Offer Details and Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input type="checkbox" name="mortgage_offer_details_acknowledgement" id="mortgage_offer_details_acknowledgement" class="form-check-input" />
+                                    <label class="form-check-label" for="mortgage_offer_details_acknowledgement">Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_post_offer">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="client_acknowledgement_of_new_offer">
+                                <span>Client Acknowledgement of New Offer</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input type="checkbox" name="client_acknowledgement_of_new_offer" id="client_acknowledgement_of_new_offer" class="form-check-input"/>
+                                    <label class="form-check-label" for="client_acknowledgement_of_new_offer">Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_post_offer">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="survey_acknowledgement">
+                                <span>Survey Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <div class="form-check">
+                                    <input type="checkbox" name="survey_acknowledgement" id="survey_acknowledgement" class="form-check-input"/>
+                                    <label class="form-check-label" for="survey_acknowledgement">Agree</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_protection">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="risk_calculator_acknowledgement">
+                                <span>Risk Calculator Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <select name="risk_calculator_acknowledgement" id="risk_calculator_acknowledgement" class="form-control">
+                                    <option value="agree">Agree</option>
+                                    <option value="disagree">Disagree</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_protection">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="medical_underwriting_acknowledgement">
+                                <span>Medical Underwriting Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <select name="medical_underwriting_acknowledgement" id="medical_underwriting_acknowledgement" class="form-control">
+                                    <option value="agree">Agree</option>
+                                    <option value="disagree">Disagree</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_protection">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="data_capture_form_submission">
+                                <span>Data Capture Form Submission</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <input type="file" name="data_capture_form_submission" id="data_capture_form_submission" class="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0 py-2 col-12" t-if="lead_state.is_protection">
+                        <div class="row s_col_no_resize s_col_no_bgcolor">
+                            <label class="col-form-label col-sm-auto" style="width: 500px" for="home_insurance_quote_acknowledgement">
+                                <span>Home Insurance Quote Acknowledgement</span>
+                                <span>*</span>
+                            </label>
+                            <div class="col-sm">
+                                <select name="home_insurance_quote_acknowledgement" id="home_insurance_quote_acknowledgement" class="form-control" required="">
+                                    <option value="approve">Approve</option>
+                                    <option value="decline">Decline</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-0 py-2 col-12">
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-primary submit_btn">Submit <span class="fa fa-arrow-right"/></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="application_form_submit_success" name="Application Form - Submit Success">
+        <t t-call="portal.portal_layout">
+            <div class="container">
+                <section>
+                    <div class="container">
+                        <span class="d-block fa fa-4x fa-thumbs-up mx-auto rounded-circle bg-primary"/><br/>
+                        <h1 class="text-center">Thank You!</h1>
+                        <div class="pb16 pt16 s_hr" data-snippet="s_hr" data-name="Separator">
+                            <hr class="mx-auto border-top w-50 border-dark text-center"/>
+                        </div>
+                        <h5 class="text-center">
+                            <span class="fa fa-check-circle"/>
+                            <span>Your submission has been received.</span>
+                        </h5>
+
+                        <div class="text-center">
+                            <a href="/my" class="btn btn-secondary" role="button">Go to Home</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

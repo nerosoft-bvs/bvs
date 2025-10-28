@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_fact_find_tree" model="ir.ui.view">
+            <field name="name">fact.find.tree</field>
+            <field name="model">fact.find</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <tree string="Fact Find">
+                    <field name="title_customer"/>
+                    <field name="first_name"/>
+                    <field name="surname"/>
+                    <field name="mobile_number"/>
+                    <field name="lead_id"/>
+                    <field name="id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_fact_find_form" model="ir.ui.view">
+            <field name="name">fact.find.form</field>
+            <field name="model">fact.find</field>
+            <field name="arch" type="xml">
+                <form string="Personal Information">
+                    <Sheet>
+                        <field name="customer_type" invisible="1"/>
+                         <group string="">
+                            <group>
+                                <field name="is_private_lead"/>
+                                <field name="title_customer"/>
+                                <field name="first_name"/>
+                                <field name="middle_names"/>
+                                <field name="surname"/>
+                                <field name="known_by_another_name"/>
+                               <field name="previous_surname"/>
+                                <field name="date_of_name_change"/>
+                                <field name="date_of_birth"/>
+                                <field name="country_of_birth"/>
+                                <field name="gender"/>
+                                <field name="nationality"/>
+                                <field name="other_nationality_id"/>
+                                <field name="dependant_status"/>
+                            </group>
+                            <group string="">
+                                <field name="email_address"/>
+                                <field name="mobile_number"/>
+                                <field name="home_telephone_number"/>
+                                <field name="passport_expiry_date"/>
+                                <field name="dual_nationality_id"/>
+                                <field name="eu_country_list"/>
+                                <field name="start_continue_living_in_ukn"/>
+                                <field name="start_continue_living_in_uk_month" invisible="1"/>
+                                <field name="start_continue_living_in_uk_year" invisible="1"/>
+                                <field name="indefinite_leave_to_remain"/>
+                                <field name="settled_status"/>
+                                <field name="visa_category"/>
+                                <field name="marital_status"/>
+                                <field name="employment_status"/>
+                                <field name="gross_monthly_retirement_income"/>
+                                <field name="annual_retirement_income"/>
+                            </group>
+                        </group>
+                    </Sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_fact_find_form" model="ir.actions.act_window">
+            <field name="name">Fact Find</field>
+            <field name="res_model">fact.find</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_fact_find"
+                  name="Fact Find"
+                  parent="bvs_crm.menu_bvs_main"
+                  action="action_fact_find_form"
+                  sequence="3"/>
+    </data>
+</odoo>

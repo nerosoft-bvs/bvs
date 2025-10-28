@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_existing_mortgage_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='bank_details']/page[@name='existing_properties']" position="after">
+                <page name="existing_mortgage" string="Existing Mortgage">
+                    <field name="existing_mortgages_ids" widget="one2many_list">
+                        <tree>
+                            <field name="property_address"/>
+                            <field name="usage"/>
+                            <field name="ownership_of_deed"/>
+                            <field name="current_property_valuation"/>
+                            <field name="outstanding_mortgage_amount"/>
+                            <field name="monthly_payment"/>
+                            <field name="lender"/>
+                            <field name="account_no"/>
+                            <field name="rate_type"/>
+                            <field name="current_rate"/>
+                            <field name="remaining_term"/>
+                            <field name="repayment_method"/>
+                            <field name="remortgage_date"/>
+                            <field name="mortgage_case_number"/>
+                            <field name="property_purchased_date"/>
+                            <field name="property_purchased_price"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="property_address"/>
+                                    <field name="usage"/>
+                                    <field name="ownership_of_deed"/>
+                                    <field name="current_property_valuation"/>
+                                    <field name="outstanding_mortgage_amount"/>
+                                    <field name="monthly_payment"/>
+                                    <field name="lender"/>
+                                    <field name="account_no"/>
+                                    <field name="rate_type"/>
+                                </group>
+                                <group>
+                                    <field name="current_rate"/>
+                                    <field name="remaining_term"/>
+                                    <field name="repayment_method"/>
+                                    <field name="remortgage_date"/>
+                                    <field name="mortgage_case_number"/>
+                                    <field name="property_purchased_date"/>
+                                    <field name="property_purchased_price"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

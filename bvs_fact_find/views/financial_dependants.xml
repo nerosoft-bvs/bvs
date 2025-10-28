@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_financial_dependants_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='address_history']" position="after">
+                <field name="financial_dependants" invisible="1"/>
+                <page name="financial_dependants" string="Financial Dependants">
+                    <field name="financial_depend_ids" widget="one2many_list">
+                        <tree>
+                            <field name="full_name"/>
+                            <field name="relationship"/>
+                            <field name="date_of_birth"/>
+                            <field name="date_of_birth_fd" invisible="1"/>
+                            <field name="dependency_type"/>
+                            <field name="monthly_childcare_cost"/>
+                            <field name="childcare_cost_reason"/>
+                            <field name="additional_cost"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="full_name"/>
+                                    <field name="relationship"/>
+                                    <field name="date_of_birth"/>
+                                </group>
+                                <group>
+                                    <field name="dependency_type"/>
+                                    <field name="monthly_childcare_cost"/>
+                                    <field name="childcare_cost_reason"/>
+                                    <field name="additional_cost"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

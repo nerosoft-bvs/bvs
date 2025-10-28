@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="menu_bvs_main"
+              name="Leads"
+              web_icon="bvs_crm,static/description/icon.png"
+              sequence="4"/>
+
+    <menuitem id="bvs_lead_mortgage_menu"
+              name="Mortgage"
+              parent="menu_bvs_main"
+              action="bvs_lead_mortgage_action"
+              sequence="1"/>
+
+    <menuitem id="bvs_lead_protection_menu"
+              name="Protection"
+              parent="menu_bvs_main"
+              action="bvs_lead_protection_action"
+              sequence="2"/>
+    <menuitem id="bvs_lead_protection_menu"
+              name="Protection"
+              parent="menu_bvs_main"
+              action="bvs_lead_protection_action"
+              sequence="2"/>
+
+    <menuitem id="menu_lead_configuration_data"
+              name="Configuration"
+              parent="menu_bvs_main"
+              sequence="99"/>
+    <menuitem id="menu_bvs_stage"
+              name="Stages"
+              parent="menu_lead_configuration_data"
+              action="bvs_stage_action"
+              sequence="1"/>
+
+    <menuitem id="menu_estate_agent"
+              name="Estate Agents"
+              parent="menu_lead_configuration_data"
+              action="estate_agent_action"
+              sequence="20"/>
+
+    <menuitem id="menu_solicitor"
+              name="Solicitor"
+              parent="menu_lead_configuration_data"
+              action="solicitor_action"
+              sequence="70"/>
+
+    <menuitem id="menu_event_list"
+              name="Event List"
+              parent="menu_lead_configuration_data"
+              action="event_list_action"
+              sequence="60"/>
+
+    <menuitem id="menu_esis_record_details"
+              name="ESIS Records"
+              parent="menu_lead_configuration_data"
+              action="esis_record_details_action"
+              sequence="30"/>
+    <menuitem id="menu_protection_quote_record_details"
+              name="Protection Quote Records"
+              parent="menu_lead_configuration_data"
+              action="protection_quote_record_details_action"
+              sequence="40"/>
+    <menuitem id="menu_applicants_form"
+              name="Applicant Forms"
+              parent="menu_lead_configuration_data"
+              action="bvs_applicants_form_action"
+              sequence="50"/>
+</odoo>

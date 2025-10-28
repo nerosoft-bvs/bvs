@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bvs_lead_tree" model="ir.ui.view">
+        <field name="name">bvs.lead.tree</field>
+        <field name="model">bvs.lead</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="registration_no"/>
+                <field name="partner_id"/>
+                <field name="email"/>
+                <field name="contact_number"/>
+                <field name="product_type" widget="badge" decoration-info="product_type == 'mortgage'"
+                       decoration-success="product_type == 'protection'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="bvs_lead_form" model="ir.ui.view">
+        <field name="name">bvs.lead.form</field>
+        <field name="model">bvs.lead</field>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
+                <header>
+                    <button string="Assign Case Number" type="object" class="oe_highlight"
+                            name="action_assign_case_no" attrs="{'invisible': [('registration_no', '!=', False)]}"/>
+                    <button string="Create Fact Find" type="object" class="oe_highlight"
+                            name="action_create_fact_find" invisible="1"/>
+                    <button name="create_protection_lead" string="Create a Protection" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': ['|', ('is_pre_offer', '=', False), ('lender_offer_request_button', '=', False)]}"/>
+                    <button string="Add Applicant" type="action" class="oe_highlight"
+                            name="%(action_bvs_add_applicant_wizard)d" attrs="{'invisible': [('is_new', '=', False)]}"/>
+                    <button string="Add ESIS Record" type="object" class="oe_highlight"
+                            name="action_add_esis_record"
+                            attrs="{'invisible': ['|', ('add_esis_record', '=', False), ('product_type', '=', 'protection')]}"/>
+                    <button string="Add Protection Quote Record" type="object" class="oe_highlight"
+                            name="action_add_prot_quote_record"
+                            attrs="{'invisible': ['|', ('add_prot_quote_record', '=', False), ('product_type', '=', 'mortgage'), ('is_protection_new', '=', False)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <field name="is_illustration" invisible="1"/>
+                        <field name="is_affordability_assessment" invisible="1"/>
+                        <field name="is_dip" invisible="1"/>
+                        <field name="is_illustration" invisible="1"/>
+                        <field name="is_pre_offer" invisible="1"/>
+                        <field name="is_post_offer" invisible="1"/>
+                        <field name="is_completion" invisible="1"/>
+
+                        <field name="is_protection" invisible="1"/>
+                        <field name="is_protection_new" invisible="1"/>
+                        <field name="is_protection_application" invisible="1"/>
+                        <field name="is_protection_completion" invisible="1"/>
+                        <field name="lender_offer_request_button" invisible="1"/>
+                        <field name="add_esis_record" invisible="1"/>
+                        <field name="add_prot_quote_record" invisible="1"/>
+                    </div>
+                    <div class="oe_title oe_inline">
+                        <h1>
+                            <field name="partner_id" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="first_name"/>
+                            <field name="last_name"/>
+                            <field name="email"/>
+                            <field name="contact_number"/>
+                            <field name="product_type" required="1" readonly="1"
+                                   attrs="{'invisible': [('is_illustration', '=', True)]}" widget="badge"
+                                   decoration-info="product_type == 'mortgage'"
+                                   decoration-success="product_type == 'protection'"/>
+                            <field name="customer_type"
+                                   attrs="{'invisible': [('is_illustration', '=', True)], 'required': [('product_type', '=', 'mortgage')]}"/>
+                            <field name="lender_reference_no" string="Lender Reference"
+                                   attrs="{'invisible': [('is_illustration', '=', False)]}" readonly="1"/>
+                            <field name="solicitor_name_list" string="Solicitor"
+                                   attrs="{'invisible': [('is_illustration', '=', False)]}" readonly="1"/>
+                            <field name="contact_no" string="Solicitor Contact Number"
+                                   attrs="{'invisible': [('is_illustration', '=', False)]}" readonly="1"/>
+                            <field name="estate_agent" attrs="{'invisible': [('is_illustration', '=', False)]}"
+                                   readonly="1"/>
+                            <field name="estate_agent_no" string="Estate Agent Contact Number"
+                                   attrs="{'invisible': [('is_illustration', '=', False)]}" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="advisor_fee"/>
+                            <field name="active" widget="boolean_toggle"/>
+                            <!--                            <field name="portal_user_document" widget="boolean_toggle"/>-->
+                            <field name="is_private" widget="boolean_toggle"/>
+                            <field name="priority" widget="priority"
+                                   attrs="{'invisible': [('is_illustration', '=', True)]}"/>
+                            <field name="property_found" attrs="{'invisible': [('is_illustration', '=', True)]}"/>
+                            <field name="property_address" attrs="{'invisible': [('is_illustration', '=', False)]}"
+                                   readonly="1"/>
+                            <field name="property_poc" attrs="{'invisible': [('is_illustration', '=', False)]}"
+                                   readonly="1"/>
+                            <field name="property_value" attrs="{'invisible': [('is_illustration', '=', False)]}"
+                                   readonly="1"/>
+                            <field name="loan_amount" attrs="{'invisible': [('is_illustration', '=', False)]}"
+                                   readonly="1"/>
+                            <field name="deposit" attrs="{'invisible': [('is_illustration', '=', False)]}"
+                                   readonly="1"/>
+                            <field name="lead_source" attrs="{'invisible': [('is_illustration', '=', True)]}"/>
+                            <field name="referral_customer"
+                                   attrs="{'invisible': [('lead_source', '!=', 'reffal_customer')]}"/>
+                            <field name="referral_bvs_advisor"
+                                   attrs="{'invisible': [('lead_source', '!=', 'reffal_advisor')]}"/>
+                            <field name="event_id" attrs="{'invisible': [('lead_source', '!=', 'event')]}"/>
+                            <field name="social_medea" widget="selection_badge"
+                                   attrs="{'invisible': [('lead_source', '!=', 'social_medea')]}"/>
+                            <field name="registration_no" readonly="1"
+                                   attrs="{'invisible': [('registration_no', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <field name="is_new_leader" invisible="1"/>
+                        <field name="is_new_member" invisible="1"/>
+                        <field name="is_financial_advisor" invisible="1"/>
+                        <field name="is_admin_manager" invisible="1"/>
+                        <field name="is_fma_team_leader" invisible="1"/>
+                        <field name="is_fma_team_member" invisible="1"/>
+                        <field name="is_post_offer_leader" invisible="1"/>
+                        <field name="is_post_offer_member" invisible="1"/>
+                        <field name="is_completion_member" invisible="1"/>
+                        <field name="is_completion_leader" invisible="1"/>
+                        <field name="is_protection_leader" invisible="1"/>
+                        <field name="is_protection_member" invisible="1"/>
+                        <field name="is_advisor_support" invisible="1"/>
+                        <field name="is_new" invisible="1"/>
+                        <field name="is_protection_new" invisible="1"/>
+                        <field name="notify_sent"/>
+                        <page name="new_lead" string="New Lead" attrs="{'readonly': [('is_new', '=', True)]}">
+
+                            <group>
+                                <field name="create_case_assign_pro_advisor"
+                                       attrs="{'invisible': [('is_protection_new', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="mortgage_advisor"
+                                           attrs="{'readonly': [('is_financial_advisor', '=', False), ('is_admin_manager', '=', False)]}"
+                                           class="oe_inline"/>
+                                </group>
+                                <div class="o_inline">
+                                    <button name="action_notify_mortgage_advisor"
+                                            type="object"
+                                            class="oe_highlight btn-sm"
+                                            attrs="{'invisible': [('mortgage_advisor','=',False)]}">
+                                        <field name="button_label" widget="statinfo"/>
+                                    </button>
+                                </div>
+                            </group>
+
+                            <group>
+                                <group>
+                                    <field name="team_leader"
+                                           attrs="{'readonly': [('is_financial_advisor', '=', False), ('is_admin_manager', '=', False)]}"/>
+                                    <field name="advisor_note" widget="html" placeholder="Advisor Note"
+                                           attrs="{'readonly': [('is_financial_advisor', '=', False), ('is_admin_manager', '=', False)]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bvs_lead_search" model="ir.ui.view">
+        <field name="name">bvs.lead.search</field>
+        <field name="model">bvs.lead</field>
+        <field name="arch" type="xml">
+            <search string="Leads">
+                <filter string="Archive" name="archive" domain="[('active', 'in', [False])]"/>
+                <separator/>
+            </search>
+        </field>
+    </record>
+
+    <record id="bvs_lead_action" model="ir.actions.act_window">
+        <field name="name">Leads</field>
+        <field name="res_model">bvs.lead</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'create': False}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new record.
+            </p>
+        </field>
+    </record>
+</odoo>
+
+

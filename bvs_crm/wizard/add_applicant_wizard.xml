@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bvs_add_applicant_wizard_view" model="ir.ui.view">
+        <field name="name">bvs.add.applicant.wizard.form</field>
+        <field name="model">bvs.add.applicant.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="partner_id" required="1"/>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="email" required="1"/>
+                    <field name="mobile" required="1"/>
+                </group>
+                <footer>
+                    <button string="Add" type="object" class="oe_highlight"
+                            name="action_add_applicant"/>
+                    <button string="Cancel" class="oe_secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bvs_add_applicant_wizard" model="ir.actions.act_window">
+        <field name="name">Add Applicant</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bvs.add.applicant.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="bvs_crm.bvs_add_applicant_wizard_view"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

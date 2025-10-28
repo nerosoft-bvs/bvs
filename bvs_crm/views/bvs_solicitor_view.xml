@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="solicitor_view_form" model="ir.ui.view">
+        <field name="name">bvs.solicitor.form</field>
+        <field name="model">bvs.solicitor</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="email"/>
+                            <field name="mobile"/>
+                            <field name="contactable_person"/>
+                        </group>
+                        <group>
+                            <field name="firm_name"/>
+                            <field name="lead_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="solicitor_view_tree" model="ir.ui.view">
+        <field name="name">bvs.solicitor.tree</field>
+        <field name="model">bvs.solicitor</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="mobile"/>
+                <field name="firm_name"/>
+                <field name="lead_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="solicitor_action" model="ir.actions.act_window">
+        <field name="name">Solicitors</field>
+        <field name="res_model">bvs.solicitor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new record.
+            </p>
+        </field>
+    </record>
+</odoo>

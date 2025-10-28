@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_inherit" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr='//header[1]' position="inside">
+                <button name="action_send_missing_document_emails" string="Request Documents" type="object"
+                        class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//group[@name='change_solicitor']" position="after">
+                <field name="document_ids" string="Further Document Request">
+                    <form>
+                        <group>
+                            <field name="partner_id" String="Client"/>
+                            <field name="document_list_id" required="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </form>
+                    <tree>
+                        <field name="document_list_id" required="1"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </tree>
+                </field>
+            </xpath>
+            <xpath expr="//group[@name='cl_note']" position="before">
+                <field name="document_ids" string="Further Document Request">
+                    <form>
+                        <group>
+                            <field name="partner_id" String="Client"/>
+                            <field name="document_list_id" required="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </form>
+                    <tree>
+                        <field name="document_list_id" required="1"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </tree>
+                </field>
+            </xpath>
+            <xpath expr="//field[@name='create_case_assign_tm']" position="after">
+                <field name="document_ids" string="Further Document Request">
+                    <form>
+                        <group>
+                            <field name="partner_id" String="Client"/>
+                            <field name="document_list_id" required="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </form>
+                    <tree>
+                        <field name="document_list_id" required="1"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </tree>
+                </field>
+            </xpath>
+            <xpath expr="//field[@name='lender_offer_date_picker']" position="after">
+                <field name="document_ids" string="Further Document Request">
+                    <form>
+                        <group>
+                            <field name="partner_id" invisble="1"/>
+                            <field name="document_list_id" required="1"/>
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </group>
+                    </form>
+                    <tree>
+                        <field name="document_list_id" required="1"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+

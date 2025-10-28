@@ -1,0 +1,166 @@
+# =====================================
+# BVS Homebuyer Portal - Git Ignore
+# =====================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Odoo specific
+*.pyc
+*.pyo
+.DS_Store
+.svn
+CVS
+.bzr
+.hg
+.git
+.idea
+*.swp
+*.swo
+*~
+
+# Odoo filestore and sessions
+filestore/
+sessions/
+
+# Configuration files (may contain sensitive data)
+*.conf
+!*.conf.example
+
+# Logs
+*.log
+logs/
+log/
+
+# Database
+*.db
+*.sqlite3
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-*
+.atom/
+*.vim
+.emacs*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Desktop.ini
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Third party
+thirdparty/downloads/
+thirdparty/temp/
+
+# Node.js (if using frontend build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Compiled assets
+*.min.js
+*.min.css
+
+# Local development
+local_settings.py
+secrets.py
+
+# Documentation build
+docs/_build/
+docs/.doctrees/
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+*.md

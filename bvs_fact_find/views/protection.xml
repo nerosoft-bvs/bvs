@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_protection_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='bank_details']/page[@name='existing_mortgage']" position="after">
+                <page name="protection" string="Protection">
+                    <field name="protection_ids" widget="one2many_list">
+                        <tree>
+                            <field name="insurance_provider"/>
+                            <field name="monthly_premium"/>
+                            <field name="protection_type"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="insurance_provider"/>
+                                <field name="monthly_premium"/>
+                                <field name="protection_type"/>
+                            </group>
+                        </form>
+                    </field>
+                    <field name="health_condition_ids" widget="one2many_list" string="Health Conditions">
+                        <tree>
+<!--                            <field name="reported"/>-->
+                            <field name="diagnosed_date"/>
+<!--                            <field name="details"/>-->
+                            <field name="last_review_date"/>
+                            <field name="last_episode_date"/>
+                            <field name="next_review_date"/>
+                            <field name="waiting_referral"/>
+                            <field name="currently_taking_medicine"/>
+                        </tree>
+                    </field>
+
+                    <field name="past_travel_ids" widget="one2many_list" string="Past Foreign Travels">
+                        <tree>
+                            <!-- Define columns for the past_travel_ids tree view -->
+                            <field name="country"/>
+                            <field name="travel_from_date"/>
+                            <field name="travel_to_date"/>
+                        </tree>
+                    </field>
+
+                    <field name="future_travel_ids" widget="one2many_list" string="Future Foreign Travels">
+                        <tree>
+                            <!-- Define columns for the future_travel_ids tree view -->
+                            <field name="country"/>
+                            <field name="travel_from_date"/>
+                            <field name="travel_to_date"/>
+                        </tree>
+                    </field>
+
+                    <field name="critical_illness_ids" widget="one2many_list" string="Critical Illness of Relations">
+                        <tree>
+                            <!-- Define columns for the critical_illness_ids tree view -->
+                            <field name="relationship"/>
+                            <field name="critical_illness"/>
+                            <field name="age_of_diagnosed"/>
+                        </tree>
+                    </field>
+                    <group>
+                        <field name="employer_sick_pay_benefit"/>
+                        <field name="claim_months"/>
+                        <field name="height"/>
+                        <field name="weight"/>
+                        <field name="waist"/>
+                        <field name="uk_dress_size"/>
+                        <field name="registered_with_uk_gp_years"/>
+                        <field name="gp_name"/>
+                        <field name="gp_surgery"/>
+                        <field name="gp_postcode"/>
+                        <field name="gp_address"/>
+                        <field name="street_address"/>
+                        <field name="country_id"/>
+                        <field name="valid_will"/>
+                        <field name="smoking"/>
+                        <field name="stop_smoking_date" attrs="{'invisible': [('smoking', '=', 'stopped_smoking')]}"/>
+                        <field name="cigarettes_per_day"
+                               attrs="{'invisible': [('smoking', '=', 'currently_smoking')]}"/>
+                        <field name="alcohol_consumption_comment"/>
+                        <field name="stop_drinking_date"/>
+                        <field name="type_of_drink"/>
+                        <field name="frequency_of_drinking"/>
+                        <field name="alcohol_consumption_amount"/>
+                        <field name="estimated_monthly_protection_budget"/>
+                        <field name="medical_conditions"/>
+                        <field name="medical_conditions_details"
+                               attrs="{'invisible': [('medical_conditions', '=', False)]}"/>
+                        <field name="currently_taking_medicines"/>
+                        <field name="medicines_details"
+                               attrs="{'invisible': [('currently_taking_medicines', '=', False)]}"/>
+                        <field name="waiting_for_gp_hospital_referral_report"/>
+                        <field name="waiting_details"
+                               attrs="{'invisible': [('waiting_for_gp_hospital_referral_report', '=', False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

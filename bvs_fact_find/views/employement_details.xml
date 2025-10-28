@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_employment_details_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='financial_dependants']" position="after">
+                <field name="employment_status" invisible="1"/>
+                <page name="employment_details" string="Employment Details">
+                    <field name="employment_ids" widget="one2many_list">
+                        <tree>
+                            <field name="ni_number"/>
+                            <field name="anticipated_retirement_age"/>
+                            <field name="employment_basis"/>
+                            <field name="occupation"/>
+                            <field name="occupation_sector"/>
+                            <field name="employment_type"/>
+                            <field name="employer_name"/>
+                            <field name="address_of_working_place"/>
+                            <field name="work_telephone"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="current_contract_start_date"/>
+                            <field name="current_contract_end_date"/>
+                            <field name="years_of_experience_contract_basis"/>
+                            <field name="monthly_gross_salary"/>
+                            <field name="annual_bonus"/>
+                            <field name="annual_salary"/>
+                            <field name="has_deductions"/>
+                            <field name="student_loans"/>
+                            <field name="post_graduate_loan"/>
+                            <field name="gym_membership"/>
+                            <field name="childcare"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="ni_number"/>
+                                    <field name="anticipated_retirement_age"/>
+                                    <field name="is_current_employment"/>
+                                    <field name="employment_basis"/>
+                                    <field name="occupation"/>
+                                    <field name="occupation_sector"/>
+                                    <field name="occupation_type"/>
+                                    <field name="employment_type"/>
+                                    <field name="employer_name"/>
+                                    <field name="address_of_working_place"/>
+                                </group>
+                                <group>
+                                    <field name="work_telephone"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="current_contract_start_date"/>
+                                    <field name="current_contract_end_date"/>
+                                    <field name="years_of_experience_contract_basis"/>
+                                    <field name="monthly_gross_salary"/>
+                                    <field name="annual_bonus"/>
+                                    <field name="annual_salary"/>
+                                    <field name="has_deductions"/>
+                                    <field name="student_loans"/>
+                                    <field name="post_graduate_loan"/>
+                                    <field name="gym_membership"/>
+                                    <field name="childcare"/>
+                                    <field name="other"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

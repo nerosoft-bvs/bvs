@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_new_property_details_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']" position="after">
+                <notebook name="bank_details" string="Bank Details">
+                    <page name="new_property_details" string="New Property Details">
+                        <group>
+                            <group>
+                                <field name="property_usage"/>
+                                <field name="is_new_build" attrs="{'invisible': [('property_usage', 'not in', ['residential', 'second_residential'])]}"/>
+                                <field name="house_flat_no"/>
+                                <field name="post_code"/>
+                                <field name="address"/>
+                                <field name="building_name"/>
+                                <field name="street_address"/>
+                                <field name="county"/>
+                                <field name="market_price"/>
+                                <field name="commute_over_one_hour" attrs="{'invisible': [('property_usage', 'not in', ['residential', 'second_residential'])]}"/>
+                                <field name="monthly_commute_cost" attrs="{'invisible': [('commute_over_one_hour', '=', False)]}"/>
+                            </group>
+                            <group>
+                                <field name="property_type"/>
+                                <field name="tenure"/>
+                                <field name="no_bedrooms"/>
+                                <field name="no_bathrooms"/>
+                                <field name="kitchen"/>
+                                <field name="living_rooms"/>
+                                <field name="garage_space"/>
+                                <field name="parking"/>
+                                <field name="no_stories_in_building"/>
+                                <field name="estimated_built_year"  attrs="{'invisible': [('commute_over_one_hour', '=', False)]}"/>
+                                <field name="warranty_providers_name"/>
+                                <field name="epc_predicted_epc_rate"  attrs="{'invisible': [('commute_over_one_hour', '!=', False)]}"/>
+                                <field name="pea_rate"  attrs="{'invisible': [('commute_over_one_hour', '=', False)]}"/>
+                                <field name="ex_council"/>
+                                <field name="annual_service_charge"/>
+                                <field name="wall_construction_type"/>
+                                <field name="roof_construction_type"/>
+                                <field name="shared_ownership_existing"/>
+                                <field name="remaining_lease_term_in_years"  attrs="{'invisible': [('tenure', 'not in', 'leasehold')]}"/>
+                            </group>
+                            <group>
+                                <field name="flats_in_floor"/>
+                                <field name="above_commercial_property"/>
+                                <field name="ground_rent"/>
+                                <field name="shared_ownership"/>
+                                <field name="ownership_percentage"/>
+                                <field name="help_to_buy_loan"/>
+                                <field name="help_to_buy_loan_type"/>
+                                <field name="estimated_monthly_rental_income" attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                                <field name="current_monthly_rental_income" attrs="{'invisible': [('property_usage', 'not in', ['btl', 'company_btl'])]}"/>
+                                <field name="hmo"/>
+                                <field name="occupants_count"/>
+                                <field name="company_name" attrs="{'invisible': [('property_usage', 'not in', ['company_btl'])]}"/>
+                                <field name="company_director"/>
+                                <field name="additional_borrowing"/>
+                                <field name="additional_borrowing_reason" attrs="{'invisible': [('additional_borrowing', '=', False)]}"/>
+                                <field name="additional_borrowing_amount" attrs="{'invisible': [('additional_borrowing', '=', False)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+</odoo>

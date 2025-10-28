@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_other_income_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='self_employed']" position="after">
+                <page name="other_income" string="Other Income">
+                    <group>
+                        <field name="income_type"/>
+                        <field name="monthly_income"/>
+                        <field name="annual_income"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

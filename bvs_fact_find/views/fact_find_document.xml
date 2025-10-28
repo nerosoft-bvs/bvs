@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_document_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='bank_details']/page[@name='property_portfolio']" position="after">
+                <page name="property_portfolio" string="Initial Documents">
+                    <group string="Initial Documents" widget="many2many_binary">
+                    <field name="alteration_passport" widget="many2many_binary"/>
+                    <field name="passport_pages" widget="many2many_binary"/>
+                    <field name="expired_passport_driving_license" widget="many2many_binary"/>
+                    <field name="brp_visa_stamp" widget="many2many_binary"/>
+                    <field name="sharecode_immigration_status" widget="many2many_binary"/>
+                    <field name="immigration_status_sharecode"/>
+                    <field name="utility_bill_past_3_months" widget="many2many_binary"/>
+                    <field name="postal_document_past_3_months" widget="many2many_binary"/>
+                    <field name="proof_of_address_driving_license" widget="many2many_binary"/>
+                    <field name="employment_appointment_letter" widget="many2many_binary"/>
+                    <field name="employment_contract" widget="many2many_binary"/>
+                    <field name="last_2_years_bonus_payslips" widget="many2many_binary"/>
+                    <field name="last_3_months_payslips" widget="many2many_binary"/>
+                    <field name="last_2_years_p60" widget="many2many_binary"/>
+                    <field name="last_3_months_bank_statements_salary" widget="many2many_binary"/>
+                    <field name="salary_increment_letter" widget="many2many_binary"/>
+                    <field name="name_confirmation_letter" widget="many2many_binary"/>
+                    <field name="last_3_months_bank_statements_pension" widget="many2many_binary"/>
+                    <field name="pension_forecast_statement" widget="many2many_binary"/>
+                    <field name="last_2_years_tax_calculations" widget="many2many_binary"/>
+                    <field name="last_2_years_tax_year_overview" widget="many2many_binary"/>
+                    <field name="last_2_years_tax_returns" widget="many2many_binary"/>
+                    <field name="latest_3_months_company_bank_statements" widget="many2many_binary"/>
+                    <field name="monthly_expenses_bank_statements" widget="many2many_binary"/>
+                    <field name="signed_finalized_latest_2_years_company_accounts" widget="many2many_binary"/>
+                    <field name="other_income_bank_statements" widget="many2many_binary"/>
+                    <field name="tax_credit_statement" widget="many2many_binary"/>
+                    <field name="universal_tax_credit_statements" widget="many2many_binary"/>
+                    <field name="child_tax_credit_award_letter" widget="many2many_binary"/>
+                    <field name="pip_dla_letter" widget="many2many_binary"/>
+                    <field name="latest_multi_agency_credit_report" widget="many2many_binary"/>
+                    <field name="latest_clearance_statement" widget="many2many_binary"/>
+                    <field name="other_expenses_bank_statements" widget="many2many_binary"/>
+                    <field name="bank_statement_name_confirmation" widget="many2many_binary"/>
+                    <field name="direct_debit_account_bank_statements" widget="many2many_binary"/>
+                    <field name="spv_bank_statements" widget="many2many_binary"/>
+                    <field name="gifted_deposit_format" widget="many2many_binary"/>
+                    <field name="gifted_deposit_bank_statements" widget="many2many_binary"/>
+                    <field name="latest_3_months_bank_statements_rental" widget="many2many_binary"/>
+                    <field name="mortgage_statement" widget="many2many_binary"/>
+                    <field name="annual_payment_information_letter" widget="many2many_binary"/>
+                    <field name="latest_3_months_bank_statements_mortgage" widget="many2many_binary"/>
+                </group>
+
+                <group string="Additional Documents">
+                    <field name="reservation_form" widget="many2many_binary"/>
+                    <field name="cml_form" widget="many2many_binary"/>
+                    <field name="memorandum_of_sale" widget="many2many_binary"/>
+                    <field name="epc" widget="many2many_binary"/>
+                    <field name="peal" widget="many2many_binary"/>
+                    <field name="mortgage_statement" widget="many2many_binary"/>
+                    <field name="arla_letter" widget="many2many_binary"/>
+                    <field name="sales_particulars" widget="many2many_binary"/>
+                </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

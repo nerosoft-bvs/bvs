@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="bvs_stage_tree" model="ir.ui.view">
+        <field name="name">bvs.stage.tree</field>
+        <field name="model">bvs.stage</field>
+        <field name="arch" type="xml">
+            <tree string="Stages" multi_edit="1">
+                <field name="sequence" widget="handle"/>
+                <field name="name" readonly="1"/>
+                <field name="stage_visibility"/>
+                <field name="is_won"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="bvs_stage_form" model="ir.ui.view">
+        <field name="name">bvs.stage.form</field>
+        <field name="model">bvs.stage</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form string="Stage">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="e.g. Negotiation"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="is_won"/>
+                            <field name="is_new"/>
+                            <field name="is_client_onboarding"/>
+                            <field name="is_affordability_assessment"/>
+                            <field name="is_dip"/>
+                            <field name="is_illustration"/>
+                            <field name="is_pre_offer"/>
+                            <field name="is_post_offer"/>
+                            <field name="is_completion"/>
+                            <field name="is_protection_new"/>
+                            <field name="is_protection"/>
+                            <field name="is_protection_application"/>
+                            <field name="is_protection_completion"/>
+                            <field name="add_esis_record"/>
+                            <field name="add_prot_quote_record"/>
+                            <field name="fold"/>
+                            <field name="stage_visibility"/>
+                            <field name="affordability_kyc"/>
+                            <field name="dip_kyc"/>
+                            <field name="illustration_kyc"/>
+                            <field name="read_only_kyc"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="bvs_stage_action" model="ir.actions.act_window">
+        <field name="name">Stages</field>
+        <field name="res_model">bvs.stage</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Set a new stage in your opportunity pipeline
+            </p><p>
+            Stages allow salespersons to easily track how a specific opportunity
+            is positioned in the sales cycle.
+        </p>
+        </field>
+    </record>
+
+</odoo>

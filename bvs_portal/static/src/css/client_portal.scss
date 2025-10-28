@@ -1,0 +1,91 @@
+#profile_dashboard {
+    background-color: $gray-200;
+    position: relative; /* Add position relative to create a stacking context */
+
+    #background-image {
+        position: absolute; /* Position the background image relative to its container */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url(/bvs_portal/static/description/images/background_image.jpg); /* Add your image URL here */
+        background-size: cover;
+        background-repeat: no-repeat;
+
+    }
+
+    /* Your other CSS styles here */
+}
+
+#profile_dashboard .profile_dashboard_box_header > h2 {
+    margin: 0;
+    padding: 0 20px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 40px;
+    display: inline-block;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background: $primary;
+}
+
+#profile_dashboard .profile_dashboard_box {
+    background-color: #fff;
+    flex: 1;
+    border-bottom: 1px solid $gray-400;
+    min-height: 260px;
+}
+
+#profile_dashboard .profile_dashboard_box .profile_dashboard_box_title {
+    padding: 30px 20px 15px 20px;
+    margin: 0;
+    font-size: 16px;
+}
+
+#profile_dashboard .profile_dashboard_box .profile_dashboard_box_body {
+    flex: 1;
+    padding: 0 20px 30px 20px;
+}
+
+#profile_dashboard .profile_dashboard_box .profile_dashboard_box_footer {
+    padding: 10px 20px;
+    background-color: $gray-300;
+}
+
+#profile_dashboard .profile_dashboard_number {
+    margin-bottom: 8px;
+    font-family: "Inter", "Odoo Unicode Support Noto", sans-serif;
+}
+
+#profile_dashboard .profile_dashboard_number > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#profile_dashboard .profile_dashboard_number .number {
+    margin-right: 5px;
+    color: $primary;
+    line-height: 1;
+}
+
+#profile_dashboard .profile_dashboard_avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: top;
+    border: 2px solid $gray-100;
+}
+
+.profile_dashboard_banner {
+    background-color: $gray-300;
+    color: #fff;
+}
+
+.hide {
+    display: none
+}
+
+.report-card {
+    padding-bottom: 50px;
+}

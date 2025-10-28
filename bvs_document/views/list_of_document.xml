@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_document_requirements_tree" model="ir.ui.view">
+            <field name="name">bvs.document.list.tree</field>
+            <field name="model">bvs.document.list</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <tree string="Document Requirements">
+                    <field name="index_num"/>
+                    <field name="document_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_document_requirements_form" model="ir.ui.view">
+            <field name="name">bvs.document.list.form</field>
+            <field name="model">bvs.document.list</field>
+            <field name="arch" type="xml">
+                <form string="Document Requirements">
+                    <sheet>
+                        <group>
+                            <field name="index_num" required="1"/>
+                            <field name="document_name" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_document_requirements" model="ir.actions.act_window">
+            <field name="name">Further Document Types</field>
+            <field name="res_model">bvs.document.list</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new record.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_document_requirements"
+                  name="Further Document Types"
+                  parent="bvs_crm.menu_lead_configuration_data"
+                  action="action_document_requirements"
+                  sequence="5"/>
+
+    </data>
+</odoo>

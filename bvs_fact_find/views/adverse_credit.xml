@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_adverse_credit_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='other_income']" position="after">
+                <page name="adverse_credit" string="Adverse Credit">
+                    <group>
+                        <group>
+                            <field name="missed_payment_last_3_years"/>
+                            <field name="arrears_with_mortgage_or_loans"/>
+                            <field name="ccj_against_you"/>
+                            <field name="arrangements_with_creditors"/>
+                        </group>
+                        <group>
+                            <field name="debt_management_plan"/>
+                            <field name="default_registered"/>
+                            <field name="failed_to_keep_up_repayments"/>
+                            <field name="bankruptcy"/>
+                        </group>
+                        <field name="adverse_credit_details" widget="one2many_list" attrs="{'invisible': [('missed_payment_last_3_years', '=', False), ('arrears_with_mortgage_or_loans', '=', False), ('ccj_against_you', '=', False), ('arrangements_with_creditors', '=', False), ('debt_management_plan', '=', False), ('default_registered', '=', False), ('failed_to_keep_up_repayments', '=', False), ('bankruptcy', '=', False)]}">
+                            <tree>
+                                <field name="adverse_credit_type"/>
+                                <field name="loan_type"/>
+                                <field name="lender"/>
+                                <field name="amount"/>
+                                <field name="reported_on"/>
+                                <field name="settled_on"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="adverse_credit_type"/>
+                                    <field name="loan_type"/>
+                                    <field name="lender"/>
+                                    <field name="amount"/>
+                                    <field name="reported_on"/>
+                                    <field name="settled_on"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

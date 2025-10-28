@@ -1,0 +1,24 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bvs_lead,bvs.lead,model_bvs_lead,base.group_user,1,1,1,1
+access_bvs_lead_portal,bvs.lead portal,model_bvs_lead,base.group_portal,1,1,0,0
+access_bvs_lead_public,bvs.lead public,model_bvs_lead,base.group_public,1,0,0,0
+access_bvs_stage,bvs.stage,model_bvs_stage,base.group_user,1,1,1,1
+access_bvs_stage_portal,bvs.stage portal,model_bvs_stage,base.group_portal,1,1,0,0
+access_bvs_team,bvs.team,model_bvs_team,base.group_user,1,1,1,1
+access_bvs_team_portal,bvs.team portal,model_bvs_team,base.group_portal,1,1,0,0
+access_estate_agent_user,estate.agent.user,model_estate_agent,base.group_user,1,1,1,1
+access_estate_agent_user_portal,estate.agent.user portal,model_estate_agent,base.group_portal,1,1,0,0
+access_bvs_applicants_form,bvs.applicants.form,model_bvs_applicants_form,base.group_user,1,1,1,1
+access_bvs_applicants_form_portal,bvs.applicants.form.portal,model_bvs_applicants_form,base.group_portal,1,1,0,0
+access_esis_record_details,esis.record.details,model_esis_record_details,base.group_user,1,1,1,1
+access_esis_record_details_portal,esis.record.details portal,model_esis_record_details,base.group_portal,1,1,0,0
+access_protection_quote_record_details,protection.quote.record.details,model_protection_quote_record_details,base.group_user,1,1,1,1
+access_protection_quote_record_details_portal,protection.quote.record.details portal,model_protection_quote_record_details,base.group_portal,1,1,0,0
+access_bvs_add_applicant_wizard,bvs.add.applicant.wizard,model_bvs_add_applicant_wizard,base.group_user,1,1,1,1
+access_bvs_add_applicant_wizard_portal,bvs.add.applicant.wizard portal,model_bvs_add_applicant_wizard,base.group_portal,1,1,0,0
+access_event_list,event.list,model_event_list,base.group_user,1,1,1,1
+access_event_list_portal,event.list portal,model_event_list,base.group_portal,1,1,0,0
+access_bvs_solicitor,bvs.solicitor,model_bvs_solicitor,base.group_user,1,1,1,1
+access_bvs_solicitor_portal,bvs.solicitor portal,model_bvs_solicitor,base.group_portal,1,1,0,0
+access_fact_find_partner_wizard,fact.find.partner.wizard,model_fact_find_partner_wizard,base.group_user,1,1,1,1
+

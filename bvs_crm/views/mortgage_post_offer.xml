@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_post_offer" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='pre_offer']" position="after">
+                <field name="product_type" invisible="1"/>
+                <field name="is_post_offer" invisible="1"/>
+                <field name="is_post_offer_leader" invisible="1"/>
+                <field name="is_post_offer_member" invisible="1"/>
+                <field name="is_advisor_support" invisible="1"/>
+                <page name="post_offer" string="Post Offer"
+                      attrs="{'invisible': ['|', ('is_post_offer', '=', False), ('product_type', '=', 'protection')]}">
+                    <group>
+                        <group>
+                            <field name="po_team_leader"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="po_tl_allocation"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="offer_rd"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="post_offer_checklist"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="survey_acknowledgement"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="mortgage_offer_details_acknowledgement"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="client_acknowledgement_of_new_offer"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="survey_rd"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="survey_rd"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="survey_instructions"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Offer Record Details" attrs="{'invisible': [('offer_rd', '=', False)]}">
+                            <field name="offer_reference_no"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="offer_issued_date"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="offer_number_index"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="lender"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="property_valuation"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="loan_amount"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="property_address"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="solicitor_name_list"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="product_fee"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="valuation_fee"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="mortgage_term"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="product_term"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="procuration_fee"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="initial_rate"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="monthly_payment"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="offer_expiry"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="product_end_date"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="offer_exceptant_deadline"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+
+                        <group string="Survey Record Detail" attrs="{'invisible': [('survey_rd', '=', False)]}">
+                            <field name="survey_quote"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="property_address"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="quote_number"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="survey_level"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="survey_firm"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="quote_date"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="quote_ref"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="total_cost"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="quote_expiry_date"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="commission"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="instructed"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="instructed_date"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="instruction_ref_no"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="invoice_received"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="offer_details"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        <field name="advisor_fee"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        <field name="le_pro_mil_checklist"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"
+                               string="Legal Process Milestone"/>
+                    </group>
+                    <group attrs="{'invisible': [('le_pro_mil_checklist', '=', False)]}">
+                        <group string="">
+                            <label for="case_created_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="case_created_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="starter_pack_received_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="starter_pack_received_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="customer_id_verification_received_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="customer_id_verification_received_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="contract_requested_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="contract_requested_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="contract_received_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="contract_received_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="searches_instructed_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="searches_instructed_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="title_confirmed_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="title_confirmed_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="contract_approved_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="contract_approved_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="replies_to_enquiries_approved_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="replies_to_enquiries_approved_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="searches_received_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="searches_received_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="mortgage_offer_received_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="mortgage_offer_received_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="contract_sent_to_customer_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="contract_sent_to_customer_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+                            <label for="signed_contract_received_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="signed_contract_received_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="contracts_exchanged_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="contracts_exchanged_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                            <label for="purchase_completed_date"/>
+                            <div class="o_row">
+                                <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
+                                <field name="purchase_completed_date"
+                                       attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            </div>
+
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="po_note" widget="html" placeholder="CheckList Note"/>
+                    </group>
+                    <group string="">
+                        <field name="exchange_date"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        <field name="completion_date"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        <field name="product_end_date"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('post_offer_checklist', '=', False)]}">
+                        <group string="(G) Post Offer CheckList">
+                            <field name="spellings_correct_passport" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="property_address_correct" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="purchase_valuation_price_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="loan_amount_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="monthly_payment_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="mortgage_term_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="repayment_method_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="product_code_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+                        <group string="">
+                            <field name="product_term_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="interest_rate_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="product_fee_match_illustration" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="offer_expiry_new_build" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="offer_expiry_remortgage" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="broker_fee" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="special_conditions_adverse_conditions" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+                        <group string="">
+                            <field name="mortgage_offer_received" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="contract_sent_to_customer" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="signed_contract_received" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="contracts_exchanged" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="purchase_completed" widget="selection_badge"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="change_type"
+                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+

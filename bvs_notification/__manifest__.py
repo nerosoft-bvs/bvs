@@ -1,0 +1,22 @@
+{
+    'name': 'BVS Notification',
+    'version': '1.0',
+    'category': '',
+    'sequence': 1,
+    'author': 'Nerosoft Solutions',
+    'website': 'https://nerosoftsolutions.com/',
+    'summary': 'Manage Notifications',
+    'description': """Manage Notifications""",
+    'depends': ['base', 'bvs_crm'],
+    'data': [
+        'security/ir.model.access.csv',
+        'views/portal_invitation.xml',
+        'views/portal_login_invitation.xml',
+        'data/mail_template_data.xml',
+        'wizard/portal_invitation_wizard_views.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'license': 'LGPL-3',
+}

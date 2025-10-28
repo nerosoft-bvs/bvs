@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="check_portal_user_documents_content" name="Check Portal User Documents - Content">
+        <main class="documents-page">
+            <section class="left-side">
+                <div class="content">
+                    <h2 class="documents-title">
+                        DOCUMENTS
+                    </h2>
+
+                    <p class="documents-sub-title">
+                        Examine and consent to the specified documents.
+                    </p>
+                    <hr/>
+
+                    <form class="documents-form">
+                        <div class="user-documents-agree"/>
+                        <hr/>
+
+                        <p class="documents-sub-title justify-p user-documents-description"/>
+
+                    </form>
+                </div>
+            </section>
+
+            <section class="right-side">
+                <div class="alert alert-success landed-view fw-bold" role="alert">
+                    <div>
+                        <img src="/portal_user_login_documents/static/src/img/sitting.png" width="200"/>
+                    </div>
+                    <div class="landed-text pt-1">
+                        To preview a document, please click on it.
+                    </div>
+                </div>
+            </section>
+        </main>
+    </template>
+
+</odoo>

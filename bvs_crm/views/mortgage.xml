@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="bvs_lead_form_client_onboarding" model="ir.ui.view">
+            <field name="name">bvs.lead.form.inherit</field>
+            <field name="model">bvs.lead</field>
+            <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" type="object" name="view_applicants" icon="fa-users"
+                            attrs="{'invisible': [('applicant_count', '=', 0)]}">
+                        <field string="Applicants" name="applicant_count" widget="statinfo"/>
+                    </button>
+<!--                    <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o"-->
+<!--                            attrs="{'invisible': [('applicant_form_count', '=', 0)]}">-->
+<!--                        <field string="Applications" name="applicant_form_count" widget="statinfo"/>-->
+<!--                    </button>-->
+
+                    <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o" invisible="1">
+                        <field string="Applications" name="applicant_form_count" widget="statinfo"/>
+                    </button>
+
+                    <button name="view_esis_records" string="ESIS Records" type="object" class="oe_stat_button"
+                            icon="fa-list"
+                            attrs="{'invisible': ['|', ('is_illustration', '=', False), ('product_type', '=', 'protection')]}"/>
+                    <button name="view_protection_records" string="Protection Quotes" type="object"
+                            class="oe_stat_button"
+                            icon="fa-list" attrs="{'invisible': [('product_type', '=', 'mortgage')]}"/>
+                </xpath>
+
+                <xpath expr="//page[@name='new_lead']" position="after">
+                    <field name="is_new_leader" invisible="1"/>
+                    <field name="is_new_member" invisible="1"/>
+                    <field name="is_admin_manager" invisible="1"/>
+                    <field name="is_advisor_support" invisible="1"/>
+                    <field name="product_type" invisible="1"/>
+                    <field name="is_client_onboarding" invisible="1"/>
+                    <page name="client_onboarding" string="Client Onboarding"
+                          attrs="{'invisible': ['|', ('is_client_onboarding', '=', False), ('product_type', '=', 'protection')]}">
+                        <group>
+                            <group name="client_onboarding_group">
+                                <field name="case_allocation_nltl"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                                <field name="risk_assessment_1"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+
+                            </group>
+                            <group name="client_onboarding">
+                                <field name="check_on_accuracy_on_initial_docs"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="risk_assessment_note" placeholder="Risk Assessment Decision Note"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="risk_assessment_checklist"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+
+                            </group>
+                        </group>
+                        <group string="(A) Risk Assesment Checklist"
+                               attrs="{'invisible': [('risk_assessment_checklist', '=', False)]}">
+                            <group string=" Basic Details">
+                                <field name="passport_not_expired" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="brp_not_expired" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="duly_signed_passport" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="sharecode_available" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="travel_cost" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="child_care_cost" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Employment details">
+                                <field name="employment_type" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="uk_working_duration" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="salary_credit_reference" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="pay_slip_netpay" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="employee_reference_payslip" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="company_house_details" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="company_accounts" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="num_employees_company" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="commute_cost" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="student_loan" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="share_save" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+
+                            <group string="Self Employment details">
+                                <field name="sa302_verified_hmrc" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="sa302_utr_number" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="sa302_100_percent_complete" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="sa302_tax_equal_tyo" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="tyo_due_zero" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Second Employment">
+                                <field name="manage_time_both_jobs" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="distance_between_employments" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Extra Income">
+                                <field name="child_benefit" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="pip" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="universal_tax" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Credit Commitments">
+                                <field name="recently_paid_off_commitments" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="commitments_paid_off_six_months" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="adverse_credits" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Bank Statements">
+                                <field name="cash_in_transactions" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="cash_out_transactions" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="direct_debit_transactions" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Source of deposit">
+                                <field name="gifted_deposit_acceptable" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                            <group string="Existing Properties">
+                                <field name="portfolio_landlord" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                                <field name="property_expenses_affect_budget" widget="selection_badge"
+                                       attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <group name="cl_note" string="">
+                            <field name="cl_note" widget="html" placeholder="Check List Note"
+                                   attrs="{'readonly': [('is_new_leader', '=', False), ('is_new_member', '=', False)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_bvs_lead_kanban_mortgage" model="ir.ui.view">
+            <field name="name">bvs.lead.kanban</field>
+            <field name="model">bvs.lead</field>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <kanban default_group_by="stage_id" class="o_kanban_small_column o_opportunity_kanban"
+                        on_create="quick_create" quick_create_view="bvs_crm.bvs_quick_create_opportunity_form_mortgage"
+                        sample="1">
+                    <field name="registration_no"/>
+                    <field name="partner_id"/>
+                    <field name="priority"/>
+                    <field name="email"/>
+                    <field name="contact_number"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                                <div>
+                                    <strong class="o_kanban_record_title">
+                                        <span>
+                                            <field name="registration_no"/>
+                                        </span>
+                                    </strong>
+                                </div>
+                                <div>
+                                    <field name="partner_id"/>
+                                </div>
+                                <div>
+                                    <field name="email"/>
+                                </div>
+                                <div>
+                                    <field name="contact_number"/>
+                                </div>
+                                <div>
+                                    <field name="product_type"/>
+                                </div>
+                                <div>
+                                    <field name="priority" widget="priority"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="bvs_quick_create_opportunity_form_mortgage" model="ir.ui.view">
+            <field name="name">bvs.lead.form.quick_create</field>
+            <field name="model">bvs.lead</field>
+            <field name="priority">1000</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="registration_no" invisible="1"/>
+                        <field name="partner_id" widget="res_partner_many2one" required="1"/>
+                        <field name="email" string="Email" required="1"/>
+                        <field name="contact_number" string="Phone" required="1"/>
+                        <field name="product_type" required="1" readonly="1"/>
+                        <field name="customer_type" attrs="{'invisible': [('product_type', '=', 'protection')]}"
+                               required="1"/>
+                        <label for="priority" required="1"/>
+                        <div>
+                            <div class="o_row">
+                                <field name="priority" class="oe_inline" nolabel="1" widget="priority"/>
+                            </div>
+                        </div>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="bvs_lead_mortgage_action" model="ir.actions.act_window">
+            <field name="name">Mortgage</field>
+            <field name="res_model">bvs.lead</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,form,tree</field>
+            <field name="domain">[('product_type', '=', 'mortgage')]</field>
+            <field name="context">{'default_product_type': 'mortgage'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new record.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

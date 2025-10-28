@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record model="ir.ui.view" id="portal_user_documents_view_form_inherited">
+    <field name="name">portal.user.documents.view.form.inherited</field>
+    <field name="model">portal.user.documents</field>
+    <field name="inherit_id" ref="portal_user_login_documents.portal_user_documents_view_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='check_in_portal']" position="after">
+            <field name="data_capture_form" string="Is Data Capture Form" widget="boolean_toggle"/>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

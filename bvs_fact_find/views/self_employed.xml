@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_fact_find_self_employed_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='employment_details']" position="after">
+                <field name="employment_status" invisible="1"/>
+                <page name="self_employed" string="Self Employed">
+                    <field name="self_employment_ids" widget="one2many_list">
+                        <tree>
+                            <field name="self_employment_type"/>
+                            <field name="business_name"
+                                   attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                            <field name="self_employed_occupation"
+                                   attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                            <field name="self_employment_start_date"
+                                   attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                            <field name="tax_year_1"/>
+                            <field name="year_1_tax_income"/>
+                            <field name="tax_year_2"/>
+                            <field name="year_2_tax_income"/>
+                            <field name="business_address"
+                                   attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                            <field name="business_contact_no"
+                                   attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                            <field name="has_business_bank_account"
+                                   attrs="{'invisible': [('self_employment_type', '!=', 'company_director')]}"/>
+                            <field name="has_accountant"
+                                   attrs="{'invisible': [('self_employment_type', '!=', 'company_director')]}"/>
+                            <field name="accountant_firm_name"/>
+                            <field name="accountant_address"/>
+                            <field name="accountant_contact_no"/>
+                            <field name="accountant_qualification"/>
+                            <field name="let_properties_count_new"
+                                   attrs="{'invisible': [('self_employment_type', '!=', 'btl_income')]}"/>
+                            <field name="property_type"/>
+                        </tree>
+
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="self_employment_type"/>
+                                    <field name="business_name"
+                                           attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                                    <field name="self_employed_occupation"
+                                           attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                                    <field name="self_employment_start_date"
+                                           attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                                    <field name="tax_year_1"/>
+                                    <field name="year_1_tax_income"/>
+                                    <field name="tax_year_2"/>
+                                    <field name="year_2_tax_income"/>
+                                    <field name="business_address"
+                                           attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                                    <field name="business_contact_no"
+                                           attrs="{'invisible': [('self_employment_type', '=', 'btl_income')]}"/>
+                                    <field name="has_business_bank_account"
+                                           attrs="{'invisible': [('self_employment_type', '!=', 'company_director')]}"/>
+                                    <field name="has_accountant"
+                                           attrs="{'invisible': [('self_employment_type', '!=', 'company_director')]}"/>
+                                    <field name="accountant_firm_name"/>
+                                    <field name="accountant_address"/>
+                                    <field name="accountant_contact_no"/>
+                                    <field name="accountant_qualification"/>
+                                    <field name="let_properties_count_new"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

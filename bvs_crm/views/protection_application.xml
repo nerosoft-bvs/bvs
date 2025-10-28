@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="bvs_lead_form_protection_application" model="ir.ui.view">
+        <field name="name">bvs.lead.form.inherit</field>
+        <field name="model">bvs.lead</field>
+        <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='is_protection']" position="after">
+                <field name="product_type" invisible="1"/>
+                <field name="is_protection_application" invisible="1"/>
+                <page name="is_protection_application" string="Application"
+                      attrs="{'invisible': ['|', ('is_protection_application', '=', False), ('product_type', '=', 'mortgage')]}">
+                    <group>
+                        <group string="Protection">
+                            <field name="latest_quote" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="data_capture_form_submission" widget="many2many_binary" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="data_capture_form" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="upload_medical_ids" widget="many2many_binary" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="medical_questionnaire_decision" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="advisor_decision"/>
+                            <field name="decline_type"
+                                   attrs="{'invisible': [('medical_questionnaire_decision', '!=', 'decline')]}"/>
+                            <field name="medical_underwriting_decision_status_received_decline_terminate"
+                                   attrs="{'invisible': [('medical_questionnaire_decision', '=', 'approve')]}"/>
+                            <field name="medical_underwriting_submit" widget="many2many_binary"
+                                   attrs="{'invisible': [('medical_questionnaire_decision', '=', 'approve')]}"/>
+                            <field name="protection_application_record" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="protection_application_submitted" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="doc_upload" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="medical_underwriting_acknowledgement" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="exchange_date2" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="live_date_based_on_exchange_date" invisble="1"/>
+                            <field name="status_update2" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="prot_offer_record" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="offer_accept" widget="many2many_binary" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="Home Insurance">
+                            <field name="hi_sub_record" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="home_insurance_submited" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="home_insurance_upload" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="set_live_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="status_update2" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Protection Application Submission Record Details" attrs="{'invisible': [('protection_application_record', '=', False)]}">
+                            <field name="application_submitted_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="application_ref_number" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="lives_assured" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="insurance_provider_list" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="cover" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="benefit_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="benefit_frequency" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="monthly_premium" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="term" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="proposed_start_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="commission" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                        <group string="HI Submission Record Details" attrs="{'invisible': [('hi_sub_record', '=', False)]}">
+                            <field name="policy_certificate" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="policy_booklet" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="property_address" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="insurance_type" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="monthly_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="annual_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="home_emergency" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="legal_expenses" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="accidental_damage" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="commission" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="insurance_start_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        </group>
+                    </group>
+
+
+                    <group string="Protection Offer Record Details"
+                           attrs="{'invisible': [('prot_offer_record', '=', False)]}">
+                        <field name="application_submitted_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="application_ref_number" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="lives_assured" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="insurance_provider_list" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="cover" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="benefit_amount" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="benefit_frequency" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="monthly_premium" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="term" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="proposed_start_date" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                        <field name="commission" attrs="{'readonly': [('is_protection_leader', '=', False), ('is_protection_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
