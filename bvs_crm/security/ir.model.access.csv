@@ -20,5 +20,4 @@ access_event_list,event.list,model_event_list,base.group_user,1,1,1,1
 access_event_list_portal,event.list portal,model_event_list,base.group_portal,1,1,0,0
 access_bvs_solicitor,bvs.solicitor,model_bvs_solicitor,base.group_user,1,1,1,1
 access_bvs_solicitor_portal,bvs.solicitor portal,model_bvs_solicitor,base.group_portal,1,1,0,0
-access_fact_find_partner_wizard,fact.find.partner.wizard,model_fact_find_partner_wizard,base.group_user,1,1,1,1
 

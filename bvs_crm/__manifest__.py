@@ -11,10 +11,13 @@
     'data': [
         'data/ir_sequence_data.xml',
         'data/emai_templates.xml',
+        'data/sla_date_notification_email_template.xml',
+        'data/mortgage_advisor_reminder_email_template.xml',
+        'data/completion_date_notification_email_template.xml',
+        'data/ready_to_submit_email_template.xml',
         'security/ir.model.access.csv',
         'security/lead_security.xml',
         'wizard/add_applicant_wizard.xml',
-        'wizard/fact_find_partner_wizard.xml',
         'views/res_users.xml',
         'views/res_partner.xml',
         'views/bvs_stage.xml',
@@ -35,6 +38,7 @@
         'views/protection_application.xml',
         'views/protection_completion.xml',
         'views/protection_quote_record_details.xml',
+        'data/valuation_mail_template.xml',
         'menus/bvs_menu.xml',
     ],
 

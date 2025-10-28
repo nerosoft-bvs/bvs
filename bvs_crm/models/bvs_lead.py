@@ -5,10 +5,18 @@ from . import bvs_stage
 import re
 
 
+import base64
+from odoo.http import request
+
+import logging
+_logger = logging.getLogger(__name__)
+
 class BVSLead(models.Model):
     _name = 'bvs.lead'
     _inherit = ['mail.thread', 'mail.activity.mixin', 'portal.mixin']
     _description = "BVS Leads"
+
+
 
     registration_no = fields.Char(string='Case Number', copy=False, tracking=True)
     state_agent_id = fields.Many2one('estate.agent', string="Estate Agent")
@@ -105,6 +113,48 @@ class BVSLead(models.Model):
             # Toggle state
             rec.notify_sent = True
 
+    def action_send_valuation_appointment_email(self):
+        self.ensure_one()
+        if self.partner_id and self.partner_id.email:
+            _logger.warning(f"Manually triggered Valuation Appointment email for lead {self.id}")
+            template = self.env.ref('bvs_crm.email_template_valuation_appointment_notification', raise_if_not_found=False)
+
+            if template:
+                _logger.warning(f"Template found: {template.name} (ID {template.id})")
+                try:
+                    email_values = {
+                        'email_to': self.partner_id.email,
+                    }
+                    template.send_mail(self.id, force_send=True, email_values=email_values)
+                    _logger.warning(f"Valuation Appointment mail sent successfully for lead {self.id}")
+                except Exception as e:
+                    _logger.error(f"Failed to send Valuation Appointment email for lead {self.id}: {str(e)}")
+            else:
+                _logger.warning("Valuation Appointment Email template not found")
+        else:
+            _logger.warning(f"Lead {self.id} does not have a customer with an email address to send the Valuation Appointment notification.")
+
+    def action_send_fma_document_uploaded_email(self):
+        self.ensure_one()
+        if self.partner_id and self.partner_id.email:
+            _logger.warning(f"Manually triggered FMA Document Uploaded email for lead {self.id}")
+            template = self.env.ref('bvs_crm.email_template_fma_document_uploaded_notification', raise_if_not_found=False)
+
+            if template:
+                _logger.warning(f"Template found: {template.name} (ID {template.id})")
+                try:
+                    email_values = {
+                        'email_to': self.partner_id.email,
+                    }
+                    template.send_mail(self.id, force_send=True, email_values=email_values)
+                    _logger.warning(f"FMA Document Uploaded mail sent successfully for lead {self.id}")
+                except Exception as e:
+                    _logger.error(f"Failed to send FMA Document Uploaded email for lead {self.id}: {str(e)}")
+            else:
+                _logger.warning("FMA Document Uploaded Email template not found")
+        else:
+            _logger.warning(f"Lead {self.id} does not have a customer with an email address to send the FMA Document Uploaded notification.")
+
     @api.depends("notify_sent")
     def _compute_button_label(self):
         for rec in self:
@@ -178,7 +228,6 @@ class BVSLead(models.Model):
                 lead.write({'registration_no': f"{current_year}/{short_code}/{sequence}"})
 
 
-
             # Create a fact.find record for the lead itself
             self.env['fact.find'].create({
                 'first_name': lead.first_name,
@@ -200,10 +249,116 @@ class BVSLead(models.Model):
                     'lead_id': lead.id,
                 })
 
-            self.action_send_portal_invitation()
-            self.action_create_fact_find()
+    def action_send_sla_email(self):
+        self.ensure_one()
+        if self.partner_id and self.partner_id.email:
+            _logger.warning(f"Manually triggered SLA email for lead {self.id}")
+            _logger.warning(f"Partner Name: {self.partner_id.name}")
+            _logger.warning(f"Registration No: {self.registration_no}")
+            _logger.warning(f"Lender Offer Date Picker: {self.lender_offer_date_picker}")
+            _logger.warning(f"Mortgage Advisor Name: {self.mortgage_advisor.name}")
+            template = self.env.ref('bvs_crm.email_template_sla_date_notification', raise_if_not_found=False)
 
+            if template:
+                _logger.warning(f"Template found: {template.name} (ID {template.id})")
+                try:
+                    email_values = {
+                        'email_to': self.partner_id.email,
+                    }
+                    template.send_mail(self.id, force_send=True, email_values=email_values)
+                    _logger.warning(f"Mail sent successfully for lead {self.id}")
+                except Exception as e:
+                    _logger.error(f"Failed to send SLA email for lead {self.id}: {str(e)}")
+            else:
+                _logger.warning("Email template not found")
+        else:
+            raise UserError("The lead does not have a customer with an email address to send the SLA notification.")
 
+    def action_send_completion_date_email(self):
+        self.ensure_one()
+        if self.partner_id and self.partner_id.email:
+            _logger.info(f"Manually triggered Completion Date email for lead {self.id}")
+            template = self.env.ref('bvs_crm.email_template_completion_date_notification', raise_if_not_found=False)
+
+            if template:
+                _logger.info(f"Template found: {template.name} (ID {template.id})")
+                try:
+                    email_values = {
+                        'email_to': self.partner_id.email,
+                    }
+                    template.send_mail(self.id, force_send=True, email_values=email_values)
+                    _logger.info(f"Completion Date mail sent successfully for lead {self.id}")
+                except Exception as e:
+                    _logger.error(f"Failed to send Completion Date email for lead {self.id}: {str(e)}")
+            else:
+                _logger.warning("Completion Date Email template not found")
+        else:
+            _logger.warning(f"Lead {self.id} does not have a customer with an email address to send the Completion Date notification.")
+
+    def action_notify_mortgage_advisor_completion(self):
+        self.ensure_one()
+        if not self.mortgage_advisor:
+            raise UserError("Please assign a Mortgage Advisor before notifying.")
+        if not self.mortgage_advisor.email:
+            raise UserError("The assigned Mortgage Advisor does not have an email address.")
+
+        _logger.info(f"Manually triggered Mortgage Advisor Completion Reminder for lead {self.id}")
+        template = self.env.ref('bvs_crm.email_template_mortgage_advisor_completion_reminder', raise_if_not_found=False)
+
+        if template:
+            try:
+                template.send_mail(self.id, force_send=True)
+                _logger.info(f"Mortgage advisor completion reminder email sent successfully for lead {self.id}.")
+            except Exception as e:
+                _logger.error(f"Failed to send mortgage advisor completion reminder email for lead {self.id}: {str(e)}")
+        else:
+            _logger.warning("Mortgage advisor completion reminder email template not found.")
+
+    def action_notify_ready_to_submit(self):
+        self.ensure_one()
+        if not self.mortgage_advisor:
+            raise UserError("Please assign a Mortgage Advisor before notifying.")
+        if not self.mortgage_advisor.email:
+            raise UserError("The assigned Mortgage Advisor does not have an email address.")
+
+        _logger.warning(f"Manually triggered 'Ready to Submit' email for lead {self.id}")
+        template = self.env.ref('bvs_crm.email_template_ready_to_submit', raise_if_not_found=False)
+
+        if template:
+            _logger.warning(f"Template found: {template.name} (ID {template.id})")
+            try:
+                email_values = {
+                    'email_to': self.mortgage_advisor.email,
+                }
+                template.send_mail(self.id, force_send=True, email_values=email_values)
+                _logger.warning(f"'Ready to Submit' mail sent successfully for lead {self.id}")
+            except Exception as e:
+                _logger.error(f"Failed to send 'Ready to Submit' email for lead {self.id}: {str(e)}")
+        else:
+            _logger.warning("'Ready to Submit' Email template not found")
+
+    def action_ready_to_submit_notification(self):
+        self.ensure_one()
+        if not self.verified_by:
+            raise UserError("Please assign a Verified Officer before notifying.")
+        if not self.verified_by.email:
+            raise UserError("The assigned Verified Officer does not have an email address.")
+
+        _logger.warning(f"Manually triggered 'Ready to Submit' email for lead {self.id}")
+        template = self.env.ref('bvs_crm.email_template_ready_to_submit', raise_if_not_found=False)
+
+        if template:
+            _logger.warning(f"Template found: {template.name} (ID {template.id})")
+            try:
+                email_values = {
+                    'email_to': self.verified_by.email,
+                }
+                template.send_mail(self.id, force_send=True, email_values=email_values)
+                _logger.warning(f"'Ready to Submit' mail sent successfully for lead {self.id}")
+            except Exception as e:
+                _logger.error(f"Failed to send 'Ready to Submit' email for lead {self.id}: {str(e)}")
+        else:
+            _logger.warning("'Ready to Submit' Email template not found")
 
     @api.model
     def _read_group_stage_ids(self, stages, domain, order):
@@ -322,6 +477,24 @@ class BVSLead(models.Model):
         for rec in self:
             if rec.email and not re.match(r'^[^@]+@[^@]+\.[^@]+$', rec.email):
                 raise ValidationError("Invalid email address format.")
+
+    def write(self, vals):
+        _logger.info(f"WRITE METHOD TRIGGERED for lead {self.id} with vals: {vals}")
+        # Store original values for comparison
+        old_update_valuation_appointment_check = self.update_valuation_appointment_check
+        old_update_valuation_appointment = self.update_valuation_appointment
+
+        res = super(BVSLead, self).write(vals)
+
+        # Check for valuation appointment email trigger
+        if (
+            self.update_valuation_appointment_check
+            and self.update_valuation_appointment
+            and old_update_valuation_appointment != self.update_valuation_appointment
+        ):
+            self.action_send_valuation_appointment_email()
+
+        return res
 
 
 

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- BVS portal portfolio template -->
+    <template id="bvs_portal_portfolio" name="BVS Portal: Portfolio">
+        <main class="content px-3 py-2" id="portfolio">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <div class="main-container mc-portfolio">
+                        <div class="content">
+                            <h1 class="portfolio-heading">Portfolio</h1>
+                            <div class="table-responsive">
+                                <div style="overflow-x: auto; width: 100%;">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="min-width: 150px;">Property Address</th>
+                                                <th style="min-width: 100px;">Post Code</th>
+                                                <th style="min-width: 120px;">Borrower Type</th>
+                                                <th style="min-width: 120px;">Mortgage Type</th>
+                                                <th style="min-width: 80px;">Rate</th>
+                                                <th style="min-width: 150px;">Lender Name</th>
+                                                <th style="min-width: 120px;">Property Value</th>
+                                                <th style="min-width: 120px;">Outstanding Amount</th>
+                                                <th style="min-width: 150px;">Monthly Mortgage Payment</th>
+                                                <th style="min-width: 120px;">Latest Case No</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-if="fact_find.case_history_ids">
+                                                <t t-foreach="fact_find.case_history_ids" t-as="case">
+                                                    <tr>
+                                                        <td>
+                                                            <t t-esc="case.property_address"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.post_code"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="dict(individual='Individual', joint='Joint').get(case.borrower_type, '')"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="dict(residential='Residential', buy_to_let='Buy to Let', commercial='Commercial', other='Other').get(case.mortsgage_type, '')"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.rate"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.lender_name"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.property_value"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.outstanding_amount"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.monthly_mortgage_payment"/>
+                                                        </td>
+                                                        <td>
+                                                            <t t-esc="case.latest_case_number"/>
+                                                        </td>
+                                                    </tr>
+                                                </t>
+                                            </t>
+                                            <t t-else="">
+                                                <tr>
+                                                    <td colspan="13" class="text-center">No properties found. Please add
+                                                        a property.
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </template>
+
+</odoo>

@@ -5,25 +5,68 @@
         <field name="model">bvs.lead</field>
         <field name="inherit_id" ref="bvs_crm.bvs_lead_form"/>
         <field name="arch" type="xml">
+
+            <!-- insert page after post_offer -->
             <xpath expr="//page[@name='post_offer']" position="after">
                 <field name="product_type" invisible="1"/>
                 <field name="is_completion" invisible="1"/>
                 <field name="is_completion_member" invisible="1"/>
                 <field name="is_completion_leader" invisible="1"/>
                 <field name="is_advisor_support" invisible="1"/>
-                <page string="Mortgage Completion" attrs="{'invisible': ['|', ('is_completion', '=', False), ('product_type', '=', 'protection')]}">
-                    <group string="">
-                        <field name="completion_team_leader"  attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="lender_offer_case_allocation" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="lender_offer_tm_acknowledgement" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="protection_check_risk_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="advisor_text" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="personal_risk_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="building_risk_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
-                        <field name="suitability_report" attrs="{'readonly': [('is_completion_member', '=', False), ('is_completion_leader', '=', False), ('is_advisor_support', '=', False)]}"/>
+
+                <page string="Mortgage Completion"
+                      attrs="{'invisible': ['|', ('is_completion', '=', False), ('product_type', '=', 'protection')]}">
+                    <group>
+                        <group>
+                            <field name="completion_team_leader"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="lender_offer_case_allocation"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="verified_by"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="is_verified"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <label for="lender_offer_tm_acknowledgement"/>
+                            <div class="o_row">
+                                <field name="lender_offer_tm_acknowledgement" nolabel="1"
+                                       attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                                <button name="action_ready_to_submit_notification"
+                                        type="object"
+                                        string="Ready to Submit"
+                                        class="oe_highlight btn-sm"
+                                        attrs="{'invisible': [('lender_offer_tm_acknowledgement', '=', False)]}"/>
+                            </div>
+                        </group>
+
+                        <group>
+                            <field name="protection_check_risk_report"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="advisor_text"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="personal_risk_report"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="building_risk_report"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                            <field name="suitability_report"
+                                   attrs="{'readonly':[('is_completion_member','=',False),('is_completion_leader','=',False),('is_advisor_support','=',False)]}"/>
+                        </group>
                     </group>
                 </page>
             </xpath>
+
+            <xpath expr="//field[@name='is_verified']" position="replace">
+                <div class="o_row" colspan="2" style="align-items:center;">
+                    <label for="is_verified" class="o_form_label" string="Verified" style="margin-right:5px; font-weight:600;"/>
+                    <field name="is_verified" class="o_inline" nolabel="0"/>
+                    <button name="action_notify_mortgage_advisor_completion"
+                            type="object"
+                            string="Notify Advisor"
+                            class="oe_highlight btn-sm"
+                            style="margin-left:8px;"
+                            attrs="{'invisible': ['|', ('is_verified', '=', False), ('mortgage_advisor', '=', False)]}"/>
+                </div>
+            </xpath>
+
         </field>
     </record>
 </odoo>

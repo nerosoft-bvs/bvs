@@ -3,6 +3,35 @@
     <template id="report_fact_find_template">
         <t t-call="web.html_container">
             <t t-call="web.internal_layout">
+                <style>
+                    /* Remove top margin from the first page div to reduce space after header */
+                    div.page:first-child {
+                        margin-top: 0 !important;
+                        padding-top: 0 !important;
+                    }
+                    /* Ensure headings don't add extra top space */
+                    h1, h2 {
+                        margin-top: 0;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        margin-bottom: 20px;
+                    }
+                    table th, table td {
+                        border: 1px solid #ddd;
+                        padding: 8px;
+                        text-align: left;
+                        vertical-align: middle; /* Added for vertical alignment */
+                    }
+                    table th {
+                        background-color: #f2f2f2;
+                        font-weight: bold;
+                    }
+                    table tr:nth-child(even) {
+                        background-color: #f9f9f9;
+                    }
+                </style>
                 <t t-if="docs and docs[0]">
                     <t t-set="doc" t-value="docs[0]"/>
                     <div class="page">

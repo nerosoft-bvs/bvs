@@ -24,7 +24,7 @@
                     </tree>
                 </field>
             </xpath>
-            <xpath expr="//group[@name='cl_note']" position="before">
+            <xpath expr="//group[@name='cl_note']" position="after">
                 <field name="document_ids" string="Further Document Request">
                     <form>
                         <group>
@@ -69,6 +69,7 @@
                     </tree>
                 </field>
             </xpath>
+
         </field>
     </record>
 </odoo>

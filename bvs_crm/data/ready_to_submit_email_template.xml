@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_ready_to_submit" model="mail.template">
+            <field name="name">Ready to Submit Notification</field>
+            <field name="model_id" ref="bvs_crm.model_bvs_lead"/>
+            <field name="subject">Case ready to submit: {{object.registration_no}}</field>
+            <field name="email_from">"BVS Mortgages &amp; Financial Services Ltd" &lt;system@bvsmortgages.co.uk&gt;</field>
+            <field name="email_to">{{object.verified_by.email}}</field>
+            <field name="body_html" type="html">
+                <p>Dear <t t-out="object.verified_by.name"/>,</p>
+                <p>The case with number <t t-out="object.registration_no"/> is verified and ready to be submitted.</p>
+                <p>Thank you,</p>
+                <p>BVS Mortgages &amp; Financial Services Ltd</p>
+            </field>
+        </record>
+    </data>
+</odoo>

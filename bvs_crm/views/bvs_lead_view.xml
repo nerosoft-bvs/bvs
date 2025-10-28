@@ -28,7 +28,7 @@
                     <button string="Assign Case Number" type="object" class="oe_highlight"
                             name="action_assign_case_no" attrs="{'invisible': [('registration_no', '!=', False)]}"/>
                     <button string="Create Fact Find" type="object" class="oe_highlight"
-                            name="action_create_fact_find" invisible="1"/>
+                            name="action_create_fact_find"/>
                     <button name="create_protection_lead" string="Create a Protection" type="object"
                             class="oe_highlight"
                             attrs="{'invisible': ['|', ('is_pre_offer', '=', False), ('lender_offer_request_button', '=', False)]}"/>
@@ -50,7 +50,6 @@
                         <field name="is_pre_offer" invisible="1"/>
                         <field name="is_post_offer" invisible="1"/>
                         <field name="is_completion" invisible="1"/>
-
                         <field name="is_protection" invisible="1"/>
                         <field name="is_protection_new" invisible="1"/>
                         <field name="is_protection_application" invisible="1"/>

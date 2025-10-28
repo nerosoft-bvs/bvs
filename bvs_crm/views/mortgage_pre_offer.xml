@@ -20,9 +20,12 @@
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="pre_offer_checklist"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="fma_report_upload" widget="binary"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <button name="action_send_fma_document_uploaded_email" type="object" string="Notify Client" class="oe_highlight" attrs="{'invisible': [('fma_report_upload', '=', False)]}"/>
                             <field name="fma_submission"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
-                            <field name="fma_Submitted"
+                            <field name="fma_Submitted" colspan="2"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                         </group>
 
@@ -43,7 +46,6 @@
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="negative_evaluation_documents" widget="many2many_binary"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
-
                         </group>
                     </group>
                     <group attrs="{'invisible': [('fma_record_details', '=', False)]}">
@@ -88,8 +90,8 @@
                             <label for="lender_offer_date_picker"/>
                             <div class="o_row">
                                 <i class="fa fa-calendar" aria-label="Calendar icon" title="Calendar"/>
-                                <field name="lender_offer_date_picker"
-                                       attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                    <field name="lender_offer_date_picker"/>
+                    <button name="action_send_sla_email" type="object" string="Send SLA Email" class="oe_highlight" attrs="{'invisible': [('lender_offer_date_picker', '=', False)]}"/>
                             </div>
                         </group>
                     </group>
@@ -131,10 +133,13 @@
                         <field name="lender_offer_request_button"
                                attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                     </group>
+
+
                 </page>
             </xpath>
         </field>
     </record>
 </odoo>
+
 
 

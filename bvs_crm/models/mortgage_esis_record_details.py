@@ -1,8 +1,9 @@
-from odoo import models, fields
+from odoo import api, models, fields
 
 
 class EsisRecord(models.Model):
     _name = 'esis.record.details'
+    _inherit = ['mail.thread']
     _description = 'Esis Record Details'
 
     name = fields.Char(string="Name")
@@ -30,8 +31,8 @@ class EsisRecord(models.Model):
     initial_rate = fields.Integer('Initial Rate')
     monthly_payment = fields.Integer('Monthly Payment')
     product_fee = fields.Integer('Product Fee')
-    valuation_fee = fields.Integer('Valuation Fee')
-    application_fee = fields.Integer('Application Fee')
+    valuation_fee_amount = fields.Integer('Valuation Fee Amount')
+    application_fee_amount = fields.Integer('Application Fee Amount')
     cashback = fields.Integer('Cashback')
     remarks = fields.Text('Remarks')
     upload_esis = fields.Binary('Upload ESIS')
@@ -45,9 +46,11 @@ class EsisRecord(models.Model):
     cover_expiry_date = fields.Date('Cover Expiry Date')
     state = fields.Selection([
         ('draft', 'Draft'),
+        ('waiting_approval', 'Waiting for Approval'),
         ('confirmed', 'Confirmed'),
         ('cancelled', 'Cancelled'),
     ], string='Status', default='draft', readonly=True, copy=False, track_visibility='onchange')
+    active = fields.Boolean(default=True)
     lender = fields.Selection([
         ('hodge_lifetime', 'Hodge Lifetime'),
         ('hsbc', 'HSBC'),
@@ -89,6 +92,17 @@ class EsisRecord(models.Model):
         ('life', 'Life Time'),
     ], string='Product Term')
 
+    is_current_user_advisor = fields.Boolean(compute='_compute_is_current_user_advisor')
+
+    @api.depends('lead_id.mortgage_advisor')
+    def _compute_is_current_user_advisor(self):
+        for record in self:
+            record.is_current_user_advisor = (
+                record.lead_id and
+                record.lead_id.mortgage_advisor and
+                record.lead_id.mortgage_advisor.id == self.env.user.id
+            )
+
     def action_confirm(self):
         for record in self:
             if record.lead_id:
@@ -105,8 +119,6 @@ class EsisRecord(models.Model):
                     'initial_rate': record.initial_rate,
                     'monthly_payment': record.monthly_payment,
                     'product_fee': record.product_fee,
-                    'valuation_fee': record.valuation_fee,
-                    'application_fee': record.application_fee,
                     'cashback': record.cashback,
                     'remarks': record.remarks,
                     'upload_esis': record.upload_esis,
@@ -117,8 +129,37 @@ class EsisRecord(models.Model):
                     'cover_expiry_date': record.cover_expiry_date,
                 }
                 record.lead_id.write(values)
-                referring_leads = self.env['esis.record.details'].search([('lead_id', '=', record.id), ('state', '!=', 'confirmed')])
-                referring_leads.write({'state': 'cancelled'})
-                record.write({'state': 'confirmed'})
+                # Archive other ESIS records for the same lead
+                other_esis_records = self.env['esis.record.details'].search([
+                    ('lead_id', '=', record.lead_id.id),
+                    ('id', '!=', record.id),  # Exclude the current record
+                    ('active', '=', True)      # Only archive active records
+                ])
+                other_esis_records.write({'active': False})
 
-                record.write({'state': 'confirmed', 'is_button_visible': False})
+                # Set the current record to waiting for approval
+                record.write({'state': 'waiting_approval', 'is_button_visible': False})
+
+                # Create an activity for the mortgage advisor
+                if record.lead_id and record.lead_id.mortgage_advisor:
+                    self.env['mail.activity'].create({
+                        'res_id': record.id,
+                        'res_model_id': self.env.ref('bvs_crm.model_esis_record_details').id,
+                        'activity_type_id': self.env.ref('mail.mail_activity_data_todo').id,
+                        'summary': 'ESIS Record requires approval',
+                        'user_id': record.lead_id.mortgage_advisor.id,
+                        'note': f'ESIS Record {record.name} for Lead {record.lead_id.display_name} requires your approval.',
+                    })
+
+    def action_approve(self):
+        for record in self:
+            if record.state == 'waiting_approval':
+                record.write({'state': 'confirmed'})
+                # Mark related activities as done
+                activities = self.env['mail.activity'].search([
+                    ('res_id', '=', record.id),
+                    ('res_model_id', '=', self.env.ref('bvs_crm.model_esis_record_details').id),
+                    ('user_id', '=', self.env.user.id), # Only mark activities for the current user
+                    ('state', '!=', 'done') # Only mark pending activities
+                ])
+                activities.action_feedback(feedback='Approved by Advisor')

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_valuation_appointment_notification" model="mail.template">
+            <field name="name">Valuation Appointment Notification</field>
+            <field name="model_id" model="ir.model" search="[('model', '=', 'bvs.lead')]"/>
+            <field name="email_from">"BVS Mortgages &amp; Financial Services Ltd" &lt;system@bvsmortgages.co.uk&gt;</field>
+            <field name="email_to">{{object.partner_id.email}}</field>
+            <field name="subject">Valuation Appointment Scheduled for ${object.registration_no}</field>
+            <field name="body_html" type="html">
+                <p>Dear <t t-out="object.partner_id.name"/>,</p>
+                <p>Your valuation appointment for case <strong><t t-out="object.registration_no"/></strong> has been scheduled for <strong><t t-out="object.update_valuation_appointment"/></strong>.</p>
+                <p>Please ensure you are available at the scheduled time.</p>
+                <p>If you have any questions, please do not hesitate to contact us.</p>
+                <p>Best regards,</p>
+                <p><t t-out="user.company_id.name"/></p>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+        </record>
+
+        <record id="email_template_fma_document_uploaded_notification" model="mail.template">
+            <field name="name">FMA Document Uploaded Notification</field>
+            <field name="model_id" model="ir.model" search="[('model', '=', 'bvs.lead')]"/>
+            <field name="email_from">"BVS Mortgages &amp; Financial Services Ltd" &lt;system@bvsmortgages.co.uk&gt;</field>
+            <field name="email_to">{{object.partner_id.email}}</field>
+            <field name="subject">FMA Document Uploaded for Case ${object.registration_no}</field>
+            <field name="body_html" type="html">
+                <p>Dear <t t-out="object.partner_id.name"/>,</p>
+                <p>The FMA document for your case <strong><t t-out="object.registration_no"/></strong> has been successfully uploaded.</p>
+                <p>You can view the document in your portal.</p>
+                <p>If you have any questions, please do not hesitate to contact us.</p>
+                <p>Best regards,</p>
+                <p><t t-out="user.company_id.name"/></p>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+        </record>
+    </data>
+</odoo>
