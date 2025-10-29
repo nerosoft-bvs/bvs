@@ -100,6 +100,10 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                   'change select[name="estimated_built_year"]': '_toggleWarrantyProvidersField',
                   'change input[id="ynm-years-held"]' : '_validateDateOfNameChange',
 
+                  'change input[id="help_buy_loan_existing"]': '_onchangeHelpLoanAvailable',
+                  'change input.deposit-toggle': '_onchangeDepositToggle',
+
+
                   // document hidden fields when change
 
                   'change input[name="another_name_checkbox"]': '_onAnotherNameCheckboxChange',
@@ -284,7 +288,7 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
 
             const hasAccountantRadio = this.$('input[name="has_accountant"]:checked')[0];
             if (hasAccountantRadio) {
-                this._onchangeAccountantDetails();
+                this._onchangeAccountantDetails({ currentTarget: hasAccountantRadio });
                 this._onChangeHasAccountantDoc({ currentTarget: hasAccountantRadio });
             }
 
@@ -443,6 +447,11 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             if (sharedOwnershipYepSelect) {
                 this._onchangeSharedOwnershipAvailableYep({ target: sharedOwnershipYepSelect });
             }
+
+             const helpLoanCheckbox = this.$('input[id="help_buy_loan_existing"]')[0];
+             if (helpLoanCheckbox) {
+             this._onchangeHelpLoanAvailable({ target: helpLoanCheckbox });
+             }
 
             const tenureSelect = this.$('select#tenure')[0];
             if (tenureSelect) {
@@ -1679,25 +1688,29 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             }
          },
 
-         _onchangeAccountantDetails: function () {
-            const accountantYesRadio = this.$('#accountant_yes');
-            const accountantFirmName = this.$('.accountant_firm_name');
-            const accountantAddress = this.$('.accountant_accountant_address');
-            const accountantContactNumber = this.$('.accountant_contact_number');
-            const accountantQualification = this.$('.accountant_qualification');
+         _onchangeAccountantDetails: function (ev) {
+    // If called from an event, use the clicked radio
+    // Otherwise, fallback to the currently checked one
+    const checkedRadio = ev ? $(ev.currentTarget) : this.$('input[name="has_accountant"]:checked');
 
-            if (accountantYesRadio.is(':checked')) {
-                accountantFirmName.removeClass('d-none');
-                accountantAddress.removeClass('d-none');
-                accountantContactNumber.removeClass('d-none');
-                accountantQualification.removeClass('d-none');
-            } else {
-                accountantFirmName.addClass('d-none');
-                accountantAddress.addClass('d-none');
-                accountantContactNumber.addClass('d-none');
-                accountantQualification.addClass('d-none');
-            }
-         },
+    const accountantFirmName = this.$('.accountant_firm_name');
+    const accountantAddress = this.$('.accountant_accountant_address');
+    const accountantContactNumber = this.$('.accountant_contact_number');
+    const accountantQualification = this.$('.accountant_qualification');
+
+    if (checkedRadio.val() === 'true') {
+        accountantFirmName.removeClass('d-none');
+        accountantAddress.removeClass('d-none');
+        accountantContactNumber.removeClass('d-none');
+        accountantQualification.removeClass('d-none');
+    } else {
+        accountantFirmName.addClass('d-none');
+        accountantAddress.addClass('d-none');
+        accountantContactNumber.addClass('d-none');
+        accountantQualification.addClass('d-none');
+    }
+},
+
 
          _onHealthConditionReportedChange: function (ev) {
             const healthConditionSelect = ev.target;
@@ -1823,6 +1836,7 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             var companyName = this.$('.company_name');
             var htbSchemeAvailableField = this.$('.htb_scheme_available');
             var sharedOwnershipAvailableField = this.$('.shared_ownership_existing');
+            var helpBuyLoanAvailableField = this.$('.help_buy_loan_existing');
 
             if (selectedOption === 'residential') {
                 isNewBuildField.removeClass('d-none');
@@ -1830,6 +1844,7 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                 estimatedMonthlyRentalIncomeField.addClass('d-none');
                 currentMonthlyRentalIncomeField.addClass('d-none');
                 sharedOwnershipAvailableField.removeClass('d-none');
+                helpBuyLoanAvailableField.removeClass('d-none');
 
                 rentalDetailsSection.addClass('d-none');
                 firstLetDateField.addClass('d-none');
@@ -1924,6 +1939,30 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             }
         },
 
+        _onchangeHelpLoanAvailable: function (ev) {
+    var helpLoanCheckbox = ev.target;
+    var loanTypeField = this.$('#help_to_buy_loan_type').closest('.form-group'); // selects the wrapping div
+
+    if (helpLoanCheckbox.checked) {
+        loanTypeField.removeClass('d-none');
+    } else {
+        loanTypeField.addClass('d-none');
+    }
+},
+
+_onchangeDepositToggle: function (ev) {
+    var radio = ev.target;
+    var target = $(radio).data('target');
+    var targetField = this.$(target);
+
+    if (radio.value === 'yes') {
+        targetField.removeClass('d-none');
+    } else {
+        targetField.addClass('d-none');
+        targetField.find('input, select, textarea').val('');
+    }
+},
+
         _onchangeNewBuild: function () {
           const isNewBuildCheckbox = this.$('#is_new_build');
           const peaRateSection = this.$('.pea_rate');
@@ -1956,10 +1995,10 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                 groundRentField.classList.remove('d-none');
             } else {
                 remainingLeaseTermField.classList.add('d-none');
-                flatInFloorField.classList.add('d-none');
-                flatsSameFloorCountField.classList.add('d-none');
-                aboveCommercialPropertyField.classList.add('d-none');
-                groundRentField.classList.add('d-none');
+                flatInFloorField.classList.remove('d-none');
+                flatsSameFloorCountField.classList.remove('d-none');
+                aboveCommercialPropertyField.classList.remove('d-none');
+                groundRentField.classList.remove('d-none');
             }
          },
 
