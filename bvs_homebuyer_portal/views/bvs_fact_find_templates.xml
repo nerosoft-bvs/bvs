@@ -290,9 +290,9 @@
                                                 <option value="british"
                                                         t-att-selected="'british' == fact_find.nationality">British
                                                 </option>
-                                                <option value="eu" t-att-selected="'eu' == fact_find.nationality">
+                                                <!--<option value="eu" t-att-selected="'eu' == fact_find.nationality">
                                                     European Union
-                                                </option>
+                                                </option>-->
                                                 <option value="other" t-att-selected="'other' == fact_find.nationality">
                                                     Other
                                                 </option>
@@ -2507,7 +2507,7 @@
                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                     <t t-att-data-fact-find-id="fact_find.id"/>
                                     <div class="profile-container">
-                                        <div class="deposit_from_savings chkboxes">
+                                        <!--<div class="deposit_from_savings chkboxes">
                                             <label class="col-form-label col-sm-auto responsive-label">
                                                 Deposit Amount from Savings
                                                 <span class="text-danger">*</span>
@@ -2519,7 +2519,6 @@
                                                        t-att-value="fact_find.deposit_from_savings"/>
                                             </div>
                                         </div>
-
                                         <div class="gifted_deposit_from_friend chkboxes">
                                             <label class="col-form-label col-sm-auto responsive-label">
                                                 Gifted Deposit Amount from a Friend
@@ -2596,7 +2595,302 @@
                                                        class="form-control deposit-input"
                                                        t-att-value="fact_find.gifted_deposit_amount_from_director"/>
                                             </div>
+                                        </div>-->
+
+                                        <!-- Deposit Amount from Savings -->
+                                        <div class="deposit_from_savings chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Deposit Amount from Savings
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <!-- Yes/No Toggle -->
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="deposit_from_savings_yes"
+                                                           name="deposit_from_savings_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#deposit_from_savings_input"
+                                                           t-att-checked="fact_find.deposit_from_savings"/>
+                                                    <label class="form-check-label" for="deposit_from_savings_yes">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="deposit_from_savings_no"
+                                                           name="deposit_from_savings_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#deposit_from_savings_input"
+                                                           t-att-checked="not fact_find.deposit_from_savings"/>
+                                                    <label class="form-check-label" for="deposit_from_savings_no">No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Actual Input -->
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.deposit_from_savings else ''}"
+                                                 id="deposit_from_savings_input">
+                                                <input type="number" name="deposit_from_savings"
+                                                       id="deposit_from_savings"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.deposit_from_savings"/>
+                                            </div>
                                         </div>
+
+                                        <!-- Gifted Deposit Amount from a Friend -->
+                                        <div class="gifted_deposit_from_friend chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Gifted Deposit Amount from a Friend
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="gifted_deposit_from_friend_yes"
+                                                           name="gifted_deposit_from_friend_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#gifted_deposit_from_friend_input"
+                                                           t-att-checked="fact_find.gifted_deposit_from_friend"/>
+                                                    <label class="form-check-label"
+                                                           for="gifted_deposit_from_friend_yes">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="gifted_deposit_from_friend_no"
+                                                           name="gifted_deposit_from_friend_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#gifted_deposit_from_friend_input"
+                                                           t-att-checked="not fact_find.gifted_deposit_from_friend"/>
+                                                    <label class="form-check-label" for="gifted_deposit_from_friend_no">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.gifted_deposit_from_friend else ''}"
+                                                 id="gifted_deposit_from_friend_input">
+                                                <input type="number" name="gifted_deposit_from_friend"
+                                                       id="gifted_deposit_from_friend"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.gifted_deposit_from_friend"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gifted Deposit Amount from Family -->
+                                        <div class="gifted_deposit_from_family chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Gifted Deposit Amount from Family
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="gifted_deposit_from_family_yes"
+                                                           name="gifted_deposit_from_family_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#gifted_deposit_from_family_input"
+                                                           t-att-checked="fact_find.gifted_deposit_from_family"/>
+                                                    <label class="form-check-label"
+                                                           for="gifted_deposit_from_family_yes">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="gifted_deposit_from_family_no"
+                                                           name="gifted_deposit_from_family_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#gifted_deposit_from_family_input"
+                                                           t-att-checked="not fact_find.gifted_deposit_from_family"/>
+                                                    <label class="form-check-label" for="gifted_deposit_from_family_no">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.gifted_deposit_from_family else ''}"
+                                                 id="gifted_deposit_from_family_input">
+                                                <input type="number" name="gifted_deposit_from_family"
+                                                       id="gifted_deposit_from_family"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.gifted_deposit_from_family"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Deposit Amount from Another Loan -->
+                                        <div class="deposit_from_another_loan_checkbox chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Deposit Amount from Another Loan
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="deposit_from_another_loan_yes"
+                                                           name="deposit_from_another_loan_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#deposit_from_another_loan_input"
+                                                           t-att-checked="fact_find.deposit_from_another_loan"/>
+                                                    <label class="form-check-label" for="deposit_from_another_loan_yes">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="deposit_from_another_loan_no"
+                                                           name="deposit_from_another_loan_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#deposit_from_another_loan_input"
+                                                           t-att-checked="not fact_find.deposit_from_another_loan"/>
+                                                    <label class="form-check-label" for="deposit_from_another_loan_no">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.deposit_from_another_loan else ''}"
+                                                 id="deposit_from_another_loan_input">
+                                                <input type="number" name="deposit_from_another_loan"
+                                                       id="deposit_from_another_loan"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.deposit_from_another_loan"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Deposit Amount from Equity of Another Property -->
+                                        <div class="deposit_from_equity_of_property chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Deposit Amount from Equity of Another Property
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="deposit_from_equity_of_property_yes"
+                                                           name="deposit_from_equity_of_property_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#deposit_from_equity_of_property_input"
+                                                           t-att-checked="fact_find.deposit_from_equity_of_property"/>
+                                                    <label class="form-check-label"
+                                                           for="deposit_from_equity_of_property_yes">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="deposit_from_equity_of_property_no"
+                                                           name="deposit_from_equity_of_property_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#deposit_from_equity_of_property_input"
+                                                           t-att-checked="not fact_find.deposit_from_equity_of_property"/>
+                                                    <label class="form-check-label"
+                                                           for="deposit_from_equity_of_property_no">No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.deposit_from_equity_of_property else ''}"
+                                                 id="deposit_from_equity_of_property_input">
+                                                <input type="number" name="deposit_from_equity_of_property"
+                                                       id="deposit_from_equity_of_property"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.deposit_from_equity_of_property"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Loan Amount from Director -->
+                                        <div class="loan_amount_from_director chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Loan Amount from Director
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="loan_amount_from_director_yes"
+                                                           name="loan_amount_from_director_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#loan_amount_from_director_input"
+                                                           t-att-checked="fact_find.loan_amount_from_director"/>
+                                                    <label class="form-check-label" for="loan_amount_from_director_yes">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="loan_amount_from_director_no"
+                                                           name="loan_amount_from_director_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#loan_amount_from_director_input"
+                                                           t-att-checked="not fact_find.loan_amount_from_director"/>
+                                                    <label class="form-check-label" for="loan_amount_from_director_no">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.loan_amount_from_director else ''}"
+                                                 id="loan_amount_from_director_input">
+                                                <input type="number" name="loan_amount_from_director"
+                                                       id="loan_amount_from_director"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.loan_amount_from_director"/>
+                                            </div>
+                                        </div>
+
+                                        <!-- Gifted Deposit Amount from Director -->
+                                        <div class="gifted_deposit_amount_from_director chkboxes">
+                                            <label class="col-form-label col-sm-auto responsive-label">
+                                                Gifted Deposit Amount from Director
+                                                <span class="text-danger">*</span>
+                                            </label>
+
+                                            <div class="col-sm mb-2">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="gifted_deposit_amount_from_director_yes"
+                                                           name="gifted_deposit_amount_from_director_toggle"
+                                                           value="yes"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#gifted_deposit_amount_from_director_input"
+                                                           t-att-checked="fact_find.gifted_deposit_amount_from_director"/>
+                                                    <label class="form-check-label"
+                                                           for="gifted_deposit_amount_from_director_yes">Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" id="gifted_deposit_amount_from_director_no"
+                                                           name="gifted_deposit_amount_from_director_toggle"
+                                                           value="no"
+                                                           class="form-check-input deposit-toggle"
+                                                           data-target="#gifted_deposit_amount_from_director_input"
+                                                           t-att-checked="not fact_find.gifted_deposit_amount_from_director"/>
+                                                    <label class="form-check-label"
+                                                           for="gifted_deposit_amount_from_director_no">No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm"
+                                                 t-attf-class="d-none #{'d-none' if not fact_find.gifted_deposit_amount_from_director else ''}"
+                                                 id="gifted_deposit_amount_from_director_input">
+                                                <input type="number" name="gifted_deposit_amount_from_director"
+                                                       id="gifted_deposit_amount_from_director"
+                                                       class="form-control deposit-input"
+                                                       t-att-value="fact_find.gifted_deposit_amount_from_director"/>
+                                            </div>
+                                        </div>
+
 
                                         <div class="form-group total_deposit_amount">
                                             <label class="col-form-label col-sm-auto responsive-label">
@@ -5187,6 +5481,12 @@
                                                    t-att-value="fact_find.firm_email"/>
                                         </div>
 
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" id="es_address" name="es_address"
+                                                   t-att-value="fact_find.firm_address"/>
+                                        </div>
+
                                         <button type="submit" class="btn btn-md btn-dark mt-3 mb-3 btn-submit"
                                                 t-attf-data-id="new_mortgage-solicitor">Next Section: Solicitor
                                             <i class="fa fa-arrow-circle-o-right ms-1"/>
@@ -5289,9 +5589,14 @@
                                                    t-att-value="fact_find.solicitor_contact_number"/>
                                         </div>
 
-                                        <button type="submit" class="btn btn-md btn-dark mt-3 mb-3 btn-submit"
-                                                t-attf-data-id="safeguards-cover">Next
-                                            Section: Existing Cover
+                                        <!-- <button type="submit" class="btn btn-md btn-dark mt-3 mb-3 btn-submit"
+                                                 t-attf-data-id="safeguards-cover">Next
+                                             Section: Existing Cover
+                                             <i class="fa fa-arrow-circle-o-right ms-1"/>
+                                         </button>-->
+                                        <button type="button" class="btn btn-md btn-dark mt-3 mb-3 btn-next"
+                                                t-attf-data-id="safeguards-cover">
+                                            Next Section: Existing Cover
                                             <i class="fa fa-arrow-circle-o-right ms-1"/>
                                         </button>
                                     </form>

@@ -2355,6 +2355,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             this._initAddressNowInput();
             this._cardVisibility();
             this._applicantVisibility();
+            this._loadDocuments();
 
             return def;
         },

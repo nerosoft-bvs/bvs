@@ -2700,7 +2700,7 @@ class PersonalDetails(http.Controller):
                     'ground_rent': values.get('ground_rent'),
                     'shared_ownership': values.get('shared_ownership_existing') == 'on',  # Checkbox to boolean
                     'ownership_percentage': values.get('ownership_percentage_existing'),
-                    'help_to_buy_loan': values.get('help_to_buy_loan_type') is not None,
+                    'help_to_buy_loan': values.get('help_buy_loan_existing') == 'on', #previously, is not None
                     'help_to_buy_loan_type': values.get('help_to_buy_loan_type'),
                     'estimated_monthly_rental_income': values.get('estimated_monthly_rental_income'),
                     'current_monthly_rental_income': values.get('current_monthly_rental_income'),
@@ -2754,6 +2754,7 @@ class PersonalDetails(http.Controller):
                     'contactable_person_mobile': values.get('es_mobile'),
                     'contactable_person': values.get('contactable_person'),
                     'firm_email': values.get('es_email'),
+                    'firm_address': values.get('es_address'),
                 })
 
             # Redirect after successful submission
@@ -2783,7 +2784,7 @@ class PersonalDetails(http.Controller):
                 })
 
             # Redirect after successful submission
-            return request.redirect(f'/my/bvs/home?nextEl=cover&ffId={fact_find_id}&parentEl=safeguards')
+            return request.redirect(f'/my/bvs/home?nextEl=protection&ffId={fact_find_id}&parentEl=safeguards')
 
     @http.route(['/fact_find/protection/submit/<int:fact_find_id>'], type='http', auth='user', methods=['POST'],
                 website=True)
