@@ -302,7 +302,7 @@ class BVSLead(models.Model):
             _logger.warning(f"Registration No: {self.registration_no}")
             _logger.warning(f"Lender Offer Date Picker: {self.lender_offer_date_picker}")
             _logger.warning(f"Mortgage Advisor Name: {self.mortgage_advisor.name}")
-            template = self.env.ref('bvs_crm.email_template_sla_date_notification', raise_if_not_found=False)
+            template = self.env.ref('bvs_crm.email_template_sla_date_notification_new', raise_if_not_found=False)
 
             if template:
                 _logger.warning(f"Template found: {template.name} (ID {template.id})")
@@ -528,6 +528,7 @@ class BVSLead(models.Model):
         # Store original values for comparison
         old_update_valuation_appointment_check = self.update_valuation_appointment_check
         old_update_valuation_appointment = self.update_valuation_appointment
+        old_fma_report_upload = self.fma_report_upload # Store original fma_report_upload
 
         res = super(BVSLead, self).write(vals)
 
@@ -538,6 +539,10 @@ class BVSLead(models.Model):
             and old_update_valuation_appointment != self.update_valuation_appointment
         ):
             self.action_send_valuation_appointment_email()
+
+        # Check for FMA report upload email trigger
+        if 'fma_report_upload' in vals and self.fma_report_upload:
+            self.action_send_fma_document_uploaded_email()
 
         return res
 

@@ -22,7 +22,7 @@
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="fma_report_upload" widget="binary"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
-                            <button name="action_send_fma_document_uploaded_email" type="object" string="Notify Client" class="oe_highlight" attrs="{'invisible': [('fma_report_upload', '=', False)]}"/>
+
                             <field name="fma_submission"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="fma_Submitted" colspan="2"
@@ -125,11 +125,9 @@
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                         </group>
                     </group>
-                    <group>
+                    <group name="pre_note" string="">
                         <field name="pre_note" widget="html" placeholder="CheckList Note"
                                attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
-                    </group>
-                    <group>
                         <field name="lender_offer_request_button"
                                attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                     </group>

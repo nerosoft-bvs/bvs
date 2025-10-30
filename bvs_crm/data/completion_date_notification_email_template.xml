@@ -11,7 +11,12 @@
                 <p>Dear <t t-out="object.partner_id.name"/>,</p>
                 <p>The completion date for your mortgage application with case number <t t-out="object.registration_no"/> has been updated to <t t-out="object.completion_date"/>.</p>
                 <p>Thank you,</p>
-                <p><t t-out="object.mortgage_advisor.name"/></p>
+                <div style="font-size: 0.9em; color: #888888; margin-top: 20px; text-align: left;">
+                    <p style="margin: 0;">Best Regards,</p>
+                    <p style="margin: 0;">BVS Mortgages &amp; Financial Services Ltd</p>
+                    <p style="margin: 0;">admin@bvsmortgages.co.uk</p>
+                    <p style="margin: 0;"><a href="http://www.bvsmortgages.co.uk" style="color: #888888;">www.bvsmortgages.co.uk</a></p>
+                </div>
             </field>
         </record>
     </data>
