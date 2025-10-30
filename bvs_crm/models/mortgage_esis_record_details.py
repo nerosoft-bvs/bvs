@@ -127,6 +127,12 @@ class EsisRecord(models.Model):
                     'cover_term': record.cover_term,
                     'monthly_premium': record.monthly_premium,
                     'cover_expiry_date': record.cover_expiry_date,
+                    'esis_single_joint_application': record.single_joint_application,
+                    'esis_lender': record.lender,
+                    'esis_product_term': record.product_term,
+                    'esis_upload_esis': record.upload_esis,
+                    'esis_application_fee_amount': record.application_fee_amount,
+                    'esis_valuation_fee_amount': record.valuation_fee_amount,
                 }
                 record.lead_id.write(values)
                 # Archive other ESIS records for the same lead

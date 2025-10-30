@@ -29,6 +29,51 @@ class BVSLead(models.Model):
         ('mortgage', 'Mortgage'),
         ('protection', 'Protection')],
         default='mortgage', string='Service Type', tracking=True)
+
+    # ESIS Record Details fields
+    esis_single_joint_application = fields.Selection([
+        ('joint', 'Joint'),
+    ], string='Applicants (ESIS)')
+    esis_lender = fields.Selection([
+        ('hodge_lifetime', 'Hodge Lifetime'),
+        ('hsbc', 'HSBC'),
+        ('kensington_mortgages', 'Kensington Mortgages'),
+        ('kent_reliance', 'Kent Reliance'),
+        ('landbay', 'Landbay'),
+        ('leeds_building_society', 'Leeds Building Society'),
+        ('metro_bank', 'Metro Bank'),
+        ('nationwide_building_society', 'Nationwide Building Society'),
+        ('natwest', 'NatWest'),
+        ('newcastle_building_society', 'Newcastle Building Society'),
+        ('nottingham_building_society', 'Nottingham Building Society'),
+        ('paragon_mortgages', 'Paragon Mortgages'),
+        ('pepper_money', 'Pepper Money'),
+        ('platform_mortgages', 'Platform Mortgages'),
+        ('precise_mortgages', 'Precise Mortgages'),
+        ('principality_building_society', 'Principality Building Society'),
+        ('progressive_building_society', 'Progressive Building Society'),
+        ('saffron_building_society', 'Saffron Building Society'),
+        ('santander', 'Santander'),
+        ('scottish_building_society', 'Scottish Building Society'),
+        ('scottish_widows_bank', 'Scottish Widows Bank'),
+        ('skipton_building_society', 'Skipton Building Society'),
+        ('the_mortgage_works', 'The Mortgage Works'),
+        ('tsb', 'TSB'),
+        ('vida_homeloans', 'Vida Homeloans'),
+        ('virgin_money', 'Virgin Money'),
+        ('west_brom_for_intermediaries', 'West Brom for Intermediaries'),
+        ('zephyr_homeloans', 'Zephyr Homeloans'), ], string='Lender (ESIS)')
+    esis_product_term = fields.Selection([
+        ('two', '2'),
+        ('three', '3'),
+        ('five', '5'),
+        ('seven', '7'),
+        ('ten', '10'),
+        ('life', 'Life Time'),
+    ], string='Product Term (ESIS)')
+    esis_upload_esis = fields.Binary('Uploaded ESIS Document')
+    esis_application_fee_amount = fields.Integer('Application Fee Amount (ESIS)')
+    esis_valuation_fee_amount = fields.Integer('Valuation Fee Amount (ESIS)')
     advisor_fee = fields.Boolean(string='Advisor Fee')
     customer_type = fields.Selection([
         ('ftb', 'FTB (First Time Buyer)'),

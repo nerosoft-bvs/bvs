@@ -178,7 +178,7 @@
                     </group>
                     <group attrs="{'invisible': [('illustration_record_details', '=', False)]}">
                         <group string="ESIS Record details">
-                            <field name="single_joint_application" string="Applicant" readonly="1"/>
+                            <field name="esis_single_joint_application" string="Applicant" readonly="1"/>
                             <field name="property_value" readonly="1"/>
                             <field name="loan_amount" readonly="1"/>
                             <field name="deposit" readonly="1"/>
@@ -186,17 +186,17 @@
                             <field name="mortgage_term" readonly="1"/>
                             <field name="illustration_date" readonly="1"/>
                             <field name="procuration_fee" readonly="1"/>
-                            <field name="lender" readonly="1"/>
+                            <field name="esis_lender" readonly="1"/>
                             <field name="repayment_method" readonly="1"/>
-                            <field name="product_term" readonly="1"/>
+                            <field name="esis_product_term" readonly="1"/>
                             <field name="rate_type" readonly="1"/>
                             <field name="initial_rate" readonly="1"/>
                             <field name="monthly_payment" readonly="1"/>
                         </group>
                         <group string="">
                             <field name="product_fee" readonly="1"/>
-                            <field name="valuation_fee_paid" readonly="1"/>
-                            <field name="application_fee_paid" readonly="1"/>
+                            <field name="esis_valuation_fee_amount" readonly="1"/>
+                            <field name="esis_application_fee_amount" readonly="1"/>
                             <field name="cashback" readonly="1"/>
                             <field name="remarks" placeholder="Note" readonly="1"/>
                             <field name="dta_life_cover_included" readonly="1"/>
