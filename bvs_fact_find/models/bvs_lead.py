@@ -9,12 +9,12 @@ class BVSLead(models.Model):
     fact_find_count = fields.Integer("No of Fact Find Forms", compute='_compute_fact_find_count')
     fact_find_ids = fields.One2many('fact.find', 'lead_id', string='Fact Find Forms')
 
-
     def get_first_fact_find_data(self):
-
         self.ensure_one()
+        print("DEBUG lead id:", self.id)
         # Collect main partner and all applicants
         partner_ids = [self.partner_id.id] + self.applicant_ids.ids
+
         return {
             "type": "ir.actions.act_window",
             "res_model": "fact.find.partner.wizard",
@@ -22,8 +22,7 @@ class BVSLead(models.Model):
             "target": "new",
             "context": {
                 "default_lead_id": self.id,
-                "applicant_ids": partner_ids,  # Pass partner IDs for domain filtering
-                "fact_find_ids": self.fact_find_ids,  # Pass fact_find IDs for domain filtering
+                "applicant_ids": partner_ids,
             },
         }
         #

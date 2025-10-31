@@ -10,7 +10,9 @@
                     <field name="partner_id"
                            options="{'no_create': True, 'no_create_edit': True}"
                            help="Select a partner (main customer or applicant) to copy their most recent fact find data"/>
-                    <field name="fact_find_id"/>
+<!--                    <field name="ff_id"-->
+<!--                           options="{'no_create': True, 'no_create_edit': True}"-->
+<!--                           help="Select a fact find to copy"/>-->
                 </group>
                 <footer>
                     <button string="Load Fact Find" type="object" name="action_load_fact_find" class="btn-primary"/>

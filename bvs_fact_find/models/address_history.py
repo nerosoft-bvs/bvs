@@ -14,6 +14,14 @@ class FactFind(models.Model):
         ('owner_without_mortgage', 'Owner without Mortgage'),
         ('renting_local_authority', 'Renting from Local Authority'),
     ], string='Residential Status')
+    current_landlord_name = fields.Char(string='Current Landlord Name')
+    current_landlord_address = fields.Text(string='Current Landlord Address')
+    current_landlord_postcode = fields.Char(string='Current Landlord Postcode')
+    current_landlord_contact_no = fields.Char(string='Current Landlord Contact No')
+    local_authority_name = fields.Char(string='Local Authority Name')
+    local_authority_postcode = fields.Char(string='Local Authority Postcode')
+    local_authority_address = fields.Text(string='Local Authority Address')
+
 
     # current_landlord_name = fields.Char(string='Current Landlord Name')
     # current_landlord_address = fields.Text(string='Current Landlord Address')

@@ -99,6 +99,18 @@ class BVSLead(models.Model):
         action['context'] = {'create': False}
         return action
 
+    def delete_applicant(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Delete Applicant',
+            'res_model': 'delete.applicant.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_lead_id': self.id},
+        }
+
+
 
 
 

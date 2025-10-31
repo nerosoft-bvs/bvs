@@ -1,41 +1,124 @@
+// Portfolio main container - ensure full width usage
+#portfolio {
+  width: 100% !important;
+  max-width: 100% !important;
+
+  .container-fluid {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+}
+
 .mc-portfolio {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
 
   .portfolio-heading {
-    font-size: 24px;
+    font-size: 22px;
     margin-bottom: 20px;
     color: #b68c1a;
+    font-weight: 600;
+    text-align: left;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #b68c1a;
   }
 
   .portfolio-content {
-    overflow-x: auto;
+    width: 100%;
   }
 
   .table-responsive {
+    width: 100%;
     max-width: 100%;
-    overflow-x: auto;
+    overflow-x: visible;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background: #ffffff;
 
     .table {
-      min-width: 1300px; // Wider base width to avoid collapsing
+      width: 100%;
+      margin-bottom: 0;
+      table-layout: auto; // Auto layout for flexible column widths
+      position: relative;
+      z-index: 1;
+      border-collapse: separate;
+      border-spacing: 0;
 
       th, td {
-        padding: 12px 15px;
-        font-size: 14px;
+        padding: 10px 8px;
+        font-size: 11px;
         vertical-align: middle;
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal; // Allow text wrapping
+        border-bottom: 1px solid #e8e8e8;
+        line-height: 1.4;
       }
 
       th {
-        white-space: nowrap;
-        background-color: #f9f9f9;
+        background: linear-gradient(135deg, #b68c1a 0%, #d4a84f 100%);
+        color: #ffffff;
         font-weight: 600;
         text-align: center;
-        position: sticky;
-        top: 0;
-        z-index: 2;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 12px 8px;
+
+        &:first-child {
+          border-top-left-radius: 8px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 8px;
+        }
+      }
+
+      tbody {
+        tr {
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #f9f6f0;
+            box-shadow: 0 2px 4px rgba(182, 140, 26, 0.1);
+          }
+
+          &:last-child td {
+            border-bottom: none;
+
+            &:first-child {
+              border-bottom-left-radius: 8px;
+            }
+
+            &:last-child {
+              border-bottom-right-radius: 8px;
+            }
+          }
+        }
       }
 
       td {
-        word-break: break-word;
         text-align: center;
+        color: #333333;
+        font-size: 11px;
+        background-color: #ffffff;
+
+        &:hover {
+          background-color: #fef9f0;
+        }
+      }
+
+      // Empty state styling
+      .text-center[colspan] {
+        padding: 30px;
+        font-size: 13px;
+        color: #888888;
+        font-style: italic;
       }
     }
   }
@@ -56,6 +139,93 @@
     img {
       cursor: pointer;
       margin-left: 5px;
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 1400px) {
+    .table-responsive .table {
+      th, td {
+        padding: 9px 6px;
+        font-size: 10.5px;
+      }
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .portfolio-heading {
+      font-size: 20px;
+    }
+
+    .table-responsive .table {
+      th, td {
+        padding: 8px 5px;
+        font-size: 10px;
+      }
+
+      th {
+        padding: 10px 5px;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    .portfolio-heading {
+      font-size: 19px;
+    }
+
+    .table-responsive .table {
+      th, td {
+        padding: 7px 4px;
+        font-size: 9.5px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .portfolio-heading {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .table-responsive {
+      width: 100%;
+
+      .table {
+        width: 100%;
+        table-layout: auto;
+
+        th, td {
+          font-size: 9px;
+          padding: 8px 4px;
+          white-space: normal; // Keep text wrapping on mobile
+          word-break: break-word;
+        }
+
+        th {
+          padding: 10px 4px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .portfolio-heading {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .table-responsive .table {
+      th, td {
+        font-size: 8px;
+        padding: 6px 3px;
+        line-height: 1.3;
+      }
+
+      th {
+        padding: 8px 3px;
+        letter-spacing: 0.3px;
+      }
     }
   }
 }

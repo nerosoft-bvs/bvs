@@ -313,6 +313,35 @@ class PersonalDetails(http.Controller):
             'local_authority_address': address.local_authority_address,
         } for address in address_history_ids]
 
+    @http.route('/save/landlord-authority', methods=['POST'], type='json', auth='public')
+    def ff_save_landlord_authority(self, fact_find_id, **kwargs):
+        """
+        @public - Save landlord and authority details to fact find
+        """
+        try:
+            fact_find = request.env['fact.find'].sudo().browse(int(fact_find_id))
+
+            if not fact_find.exists():
+                return {'success': False, 'error': 'Fact find record not found'}
+
+            data = kwargs.get('data', {})
+
+            # Update the fact find record with landlord and authority details
+            fact_find.write({
+                'current_landlord_name': data.get('current_landlord_name'),
+                'current_landlord_address': data.get('current_landlord_address'),
+                'current_landlord_postcode': data.get('current_landlord_postcode'),
+                'current_landlord_contact_no': data.get('current_landlord_contact_no'),
+                'local_authority_name': data.get('local_authority_name'),
+                'local_authority_postcode': data.get('local_authority_postcode'),
+                'local_authority_address': data.get('local_authority_address'),
+            })
+
+            return {'success': True, 'message': 'Landlord and authority details saved successfully'}
+        except Exception as e:
+            _logger.error('Error saving landlord and authority details: %s', str(e))
+            return {'success': False, 'error': str(e)}
+
     @http.route('/update/fact-find/dependant', type='json', auth='public', methods=['POST'])
     def ff_update_dependant(self, fact_find_id, **kwargs):
         """
@@ -3103,6 +3132,93 @@ class PersonalDetails(http.Controller):
             _logger.error(f"Exception in employment status update: {e}")
             return {'error': f'An error occurred: {str(e)}'}
 
+    @http.route('/update/fact-find/have-dependants', type='json', auth='public', methods=['POST'])
+    def update_have_dependants(self, fact_find_id, have_dependants, **kwargs):
+        """
+        Update the have_dependants field on the fact find record
+        """
+        try:
+            _logger.info(f"Updating have_dependants field for fact_find_id: {fact_find_id}")
+
+            # Get the fact find record
+            fact_find_record = request.env['fact.find'].sudo().browse(int(fact_find_id))
+
+            if not fact_find_record.exists():
+                return {'error': 'Fact find record not found'}
+
+            # Update the have_dependants field
+            fact_find_record.write({
+                'have_dependants': have_dependants
+            })
+
+            _logger.info(f"have_dependants updated successfully to: {have_dependants}")
+
+            return {
+                'success': True,
+                'fact_find_id': fact_find_record.id,
+                'have_dependants': fact_find_record.have_dependants,
+                'message': 'Have dependants field updated successfully'
+            }
+
+        except ValueError as e:
+            _logger.error(f"ValueError in have_dependants update: {e}")
+            return {'error': 'Invalid fact_find_id provided'}
+        except Exception as e:
+            _logger.error(f"Exception in have_dependants update: {e}")
+            return {'error': f'An error occurred: {str(e)}'}
+
+    @http.route('/get/customer-type', type='json', auth='public', methods=['POST'])
+    def get_customer_type(self, fact_find_id=None, lead_id=None, **kwargs):
+        """
+        Get the customer_type (client type) from bvs.lead
+        Can be called with either fact_find_id or lead_id
+        """
+        try:
+            _logger.info(f"Getting customer_type for fact_find_id: {fact_find_id}, lead_id: {lead_id}")
+
+            lead = None
+
+            # If fact_find_id is provided, get the lead through fact_find
+            if fact_find_id:
+                fact_find_record = request.env['fact.find'].sudo().browse(int(fact_find_id))
+
+                if not fact_find_record.exists():
+                    return {'error': 'Fact find record not found'}
+
+                lead = fact_find_record.lead_id
+
+            # If lead_id is provided directly
+            elif lead_id:
+                lead = request.env['bvs.lead'].sudo().browse(int(lead_id))
+
+                if not lead.exists():
+                    return {'error': 'Lead record not found'}
+
+            else:
+                return {'error': 'Either fact_find_id or lead_id must be provided'}
+
+            # Get customer_type and its display name
+            customer_type = lead.customer_type
+            customer_type_display = dict(lead._fields['customer_type'].selection).get(customer_type, '')
+
+            _logger.info(f"Customer type retrieved successfully: {customer_type} ({customer_type_display})")
+
+            return {
+                'success': True,
+                'lead_id': lead.id,
+                'customer_type': customer_type,
+                'customer_type_display': customer_type_display,
+                'registration_no': lead.registration_no,
+                'message': 'Customer type retrieved successfully'
+            }
+
+        except ValueError as e:
+            _logger.error(f"ValueError in get_customer_type: {e}")
+            return {'error': 'Invalid ID provided'}
+        except Exception as e:
+            _logger.error(f"Exception in get_customer_type: {e}")
+            return {'error': f'An error occurred: {str(e)}'}
+
     @http.route('/bvs/is_admin', type='json', auth='user')
     def is_admin(self):
         """Return True if current user is in System Administrator group"""
@@ -3428,7 +3544,15 @@ class PersonalDetails(http.Controller):
                 'waiting_details': fact_find.waiting_details,
                 'waiting_for_gp_hospital_referral_report': fact_find.waiting_for_gp_hospital_referral_report,
                 'wall_construction_type': fact_find.wall_construction_type,
-                'warranty_providers_name': fact_find.warranty_providers_name
+                'warranty_providers_name': fact_find.warranty_providers_name,
+                'current_landlord_name': fact_find.current_landlord_name,
+                'current_landlord_address': fact_find.current_landlord_address,
+                'current_landlord_postcode': fact_find.current_landlord_postcode,
+                'current_landlord_contact_no': fact_find.current_landlord_contact_no,
+                'local_authority_name': fact_find.local_authority_name,
+                'local_authority_postcode': fact_find.local_authority_postcode,
+                'local_authority_address': fact_find.local_authority_address,
+                'have_dependants': fact_find.have_dependants,
             }
 
         return {}

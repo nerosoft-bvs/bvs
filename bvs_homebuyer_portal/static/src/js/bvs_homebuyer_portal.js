@@ -42,6 +42,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             // address history
             'click .address-details-add': '_onclickAHAddAddress',
             'click .btn-address-save,.btn-address-cancel': '_onclickAHSaveCancelAddressDetails',
+            'click .btn-save-landlord-authority': '_onclickSaveLandlordAuthority',
             'click .btn-sync-data': '_onclickBtnSync',
             'click .btn-yes-address': '_onClickYes',
             'click .btn-no-address': '_onClickNo',
@@ -225,11 +226,14 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         $form.find("input[name='postcode']").val(data.post_code || "");
                         $form.find("input[name='county_ah']").val(data.county || "");
 
-                        // Landlord Information (if renting)
-                        $form.find("input[name='current_landlord_name']").val(data.contactable_person || "");
-                        $form.find("textarea[name='current_landlord_address']").val(data.address || "");
-                        $form.find("input[name='current_landlord_postcode']").val(data.post_code || "");
-                        $form.find("input[name='current_landlord_contact_no']").val(data.contactable_person_mobile || "");
+                        // Landlord & Authority Details
+                        $("#current_landlord_name").val(data.current_landlord_name || "");
+                        $("#current_landlord_address").val(data.current_landlord_address || "");
+                        $("#current_landlord_postcode").val(data.current_landlord_postcode || "");
+                        $("#current_landlord_contact_no").val(data.current_landlord_contact_no || "");
+                        $("#local_authority_name").val(data.local_authority_name || "");
+                        $("#local_authority_postcode").val(data.local_authority_postcode || "");
+                        $("#local_authority_address").val(data.local_authority_address || "");
 
                         // Employment Information
                         $form.find("input[name='ni_number']").val(data.ni_number || "");
@@ -282,6 +286,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         $form.find("select[name='income_type']").val(data.income_type || "");
                         $form.find("input[name='monthly_income']").val(data.monthly_income || "");
                         $form.find("input[name='annual_income']").val(data.annual_income || "");
+
+
 
                         // Credit History - Radio buttons require special handling
                         if (data.missed_payment_last_3_years) {
@@ -452,6 +458,70 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             });
         },
 
+        _onclickSaveLandlordAuthority: function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+
+            // Prevent double-clicks by disabling the button temporarily
+            const $button = $(ev.currentTarget);
+            if ($button.prop('disabled')) {
+                return; // Exit if button is already disabled (request in progress)
+            }
+            $button.prop('disabled', true);
+
+            // Extract field values from the form
+            const $form = $('#landlord-authority-form');
+            const currentLandlordName = $form.find('input[name="current_landlord_name"]').val();
+            const currentLandlordAddress = $form.find('textarea[name="current_landlord_address"]').val();
+            const currentLandlordPostcode = $form.find('input[name="current_landlord_postcode"]').val();
+            const currentLandlordContactNo = $form.find('input[name="current_landlord_contact_no"]').val();
+            const localAuthorityName = $form.find('input[name="local_authority_name"]').val();
+            const localAuthorityPostcode = $form.find('input[name="local_authority_postcode"]').val();
+            const localAuthorityAddress = $form.find('textarea[name="local_authority_address"]').val();
+
+            // Show loading state
+            const originalText = $button.html();
+            $button.html('<i class="fa fa-spinner fa-spin me-1"></i> Saving...');
+
+            this._rpc({
+                route: '/save/landlord-authority',
+                params: {
+                    fact_find_id: this.factFindId,
+                    data: {
+                        current_landlord_name: currentLandlordName,
+                        current_landlord_address: currentLandlordAddress,
+                        current_landlord_postcode: currentLandlordPostcode,
+                        current_landlord_contact_no: currentLandlordContactNo,
+                        local_authority_name: localAuthorityName,
+                        local_authority_postcode: localAuthorityPostcode,
+                        local_authority_address: localAuthorityAddress,
+                    }
+                }
+            }).then((result) => {
+                if (result && result.success) {
+                    // Show success message
+                    $button.html('<i class="fa fa-check me-1"></i> Saved!');
+                    $button.removeClass('btn-outline-warning').addClass('btn-success');
+
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        $button.html(originalText);
+                        $button.removeClass('btn-success').addClass('btn-outline-warning');
+                        $button.prop('disabled', false);
+                    }, 2000);
+                } else {
+                    // Show error message
+                    alert('Error: ' + (result.error || 'Failed to save landlord and authority details'));
+                    $button.html(originalText);
+                    $button.prop('disabled', false);
+                }
+            }).catch((error) => {
+                console.error('Error saving landlord and authority details:', error);
+                alert('An error occurred while saving. Please try again.');
+                $button.html(originalText);
+                $button.prop('disabled', false);
+            });
+        },
 
         _onclickUpdateResidentialAddressActions: function(el) {
             let actionType = $(el.currentTarget).attr('data-type');
@@ -481,10 +551,27 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         }
                     });
 
-                    // Trigger the checkbox change event to handle visibility
+                    // Check if there's another current address (not this one being edited)
+                    const $currentAddressCards = $('.address-card.current');
+                    const hasOtherCurrentAddress = $currentAddressCards.length > 0 &&
+                        $currentAddressCards.find(`i[data-address-id="${addressId}"]`).length === 0;
+
+                    // Handle checkbox visibility based on whether this is the current address or another one exists
                     const $currentAddressCheckbox = $addressHistoryForm.find('#current_address_name_checkbox');
-                    if ($currentAddressCheckbox.length) {
-                        $currentAddressCheckbox.trigger('change');
+                    const isThisAddressCurrent = $currentAddressCheckbox.is(':checked');
+
+                    if (isThisAddressCurrent) {
+                        // This address is current - SHOW the checkbox so user can edit/uncheck it
+                        $('.current-address-checkbox-container').removeClass('d-none').show();
+                        console.log('Current address checkbox shown - editing current address');
+                    } else if (hasOtherCurrentAddress) {
+                        // Another address is current - hide the checkbox
+                        $('.current-address-checkbox-container').addClass('d-none').hide();
+                        console.log('Current address checkbox hidden - another address is current');
+                    } else {
+                        // No current address exists - show the checkbox
+                        $('.current-address-checkbox-container').removeClass('d-none').show();
+                        console.log('Current address checkbox shown - no current address exists');
                     }
 
                     // Trigger the residential status change event to handle landlord/authority fields visibility
@@ -702,6 +789,32 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 });
             }
 
+        },
+
+        _onChangeCurrentAddressName: function(ev) {
+            const checkbox = ev.target;
+            const $container = $('.current-address-checkbox-container');
+            const $addressForm = $('.address-history-form');
+            const isFormVisible = $addressForm.is(':visible') && !$addressForm.hasClass('d-none');
+
+            if (checkbox.checked) {
+                // Only hide if form is not currently being edited
+                // When editing, keep checkbox visible so user can uncheck it
+                if (!isFormVisible) {
+                    $container.fadeOut(300);
+                    console.log('Current address checkbox hidden (marked as current)');
+                }
+            } else {
+                // Show the checkbox container when unchecked
+                $container.fadeIn(300);
+                console.log('Current address checkbox shown');
+            }
+        },
+
+        _onchangeResidentialStatus: function(ev) {
+            // Placeholder for residential status change handling if needed
+            const status = ev.target.value;
+            console.log('Residential status changed to:', status);
         },
 
         _onchangeDateOfBirth: function(ev) {
@@ -1892,7 +2005,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             }
 
             // Load and populate form data for specific submenus
-            const formsToPopulate = ['personal', 'insurance', 'deposit', 'estate_agent', 'solicitor', 'expenditure'];
+            const formsToPopulate = ['personal', 'insurance', 'deposit', 'estate_agent', 'solicitor', 'expenditure','dependants'];
             if (formsToPopulate.includes(activeSubMenu)) {
                 const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
 
@@ -1913,6 +2026,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         $targetForm = $("#ff_gv_solicitor .ff-solicitor-submit.ff-form");
                     } else if (activeSubMenu === 'expenditure') {
                         $targetForm = $("#ff_yo_expenditure .ff-expenditure-submit.ff-form");
+                    } else if (activeSubMenu === 'dependants') {
+                        $targetForm = $("#ff_ay_dependants");
                     }
 
                     // Only proceed if we have a target form
@@ -1941,6 +2056,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                                     self._populateSolicitorForm($targetForm, data);
                                 } else if (activeSubMenu === 'expenditure') {
                                     self._populateExpenditureForm($targetForm, data);
+                                } else if (activeSubMenu === 'dependants'){
+                                    self._highlightButton($targetForm, data);
                                 }
                             }
                         }).catch(function(error) {
@@ -2349,12 +2466,44 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
             if ($container.children().length > 0 || $.trim($container.text()).length > 0) {
                 $('.dependants-history-details').removeClass('d-none');
+                // Highlight "have dependants" button if dependants exist
+                $('.have-dependants').addClass('btn-selected');
+                $('.no-dependants').removeClass('btn-selected');
+                console.log('Dependants found - highlighting "have dependants" button');
+            } else {
+                // Highlight "no dependants" button if no dependants exist
+                $('.no-dependants').addClass('btn-selected');
+                $('.have-dependants').removeClass('btn-selected');
+                console.log('No dependants found - highlighting "no dependants" button');
             }
 
             this._applyCssStyle();
             this._initAddressNowInput();
             this._cardVisibility();
             this._applicantVisibility();
+
+            // Conditional initialization for address history - Current Address Checkbox
+            const currentAddressCheckbox = this.$('#current_address_name_checkbox')[0];
+            if (currentAddressCheckbox && currentAddressCheckbox.checked) {
+                this._onChangeCurrentAddressName({
+                    target: currentAddressCheckbox
+                });
+            }
+
+            const residentialStatusSelect = this.$('#residential_status_ah')[0];
+            if (residentialStatusSelect && residentialStatusSelect.value &&
+                (residentialStatusSelect.value === 'renting_private' || residentialStatusSelect.value === 'renting_local_authority')) {
+                this._onchangeResidentialStatus({
+                    target: residentialStatusSelect
+                });
+            }
+
+            // Handle cancel button in no-dependants popup
+            this.$('#no-dependants-popup .btn-cancel').on('click', function(ev) {
+                ev.preventDefault();
+                $('#no-dependants-popup').addClass('d-none');
+                console.log('No dependants popup cancelled - popup closed');
+            });
 
             return def;
         },
@@ -2450,7 +2599,9 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 document.querySelector('input#property-address-search'),
                 document.querySelector('input#mortgage-address-search'),
                 document.querySelector('input#insurance-address-search'),
-                document.querySelector('input#solicitor-address-search')
+                document.querySelector('input#solicitor-address-search'),
+                document.querySelector('input#landlord-address-search'),
+                document.querySelector('input#authority-address-search')
             ].filter(Boolean); // Remove null values
 
             if (inputs.length === 0) {
@@ -2657,6 +2808,44 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         // Set the full address to both fields
                         mapField("solicitor-address-search", fullAddress);
                         mapField("solicitor_address", fullAddress);
+                    } else if (inputId === "landlord-address-search") {
+                        // Map AddressNow fields to landlord address
+                        mapField("current_landlord_postcode", address.PostalCode);
+
+                        const parts = [
+                            address.SubBuilding,
+                            address.BuildingNumber,
+                            address.BuildingName,
+                            address.Street,
+                            address.City,
+                            address.Province,
+                            address.PostalCode,
+                        ].filter(Boolean);
+
+                        const fullAddress = parts.join(', ');
+
+                        // Set the full address to both fields
+                        mapField("landlord-address-search", fullAddress);
+                        mapField("current_landlord_address", fullAddress);
+                    } else if (inputId === "authority-address-search") {
+                        // Map AddressNow fields to local authority address
+                        mapField("local_authority_postcode", address.PostalCode);
+
+                        const parts = [
+                            address.SubBuilding,
+                            address.BuildingNumber,
+                            address.BuildingName,
+                            address.Street,
+                            address.City,
+                            address.Province,
+                            address.PostalCode,
+                        ].filter(Boolean);
+
+                        const fullAddress = parts.join(', ');
+
+                        // Set the full address to both fields
+                        mapField("authority-address-search", fullAddress);
+                        mapField("local_authority_address", fullAddress);
                     }
                 });
 
@@ -2721,6 +2910,19 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $addressHistoryForm[0].reset();
             $addressHistoryForm.find('#address_id').val('new-address');
 
+            // Check if there's already a current address saved
+            const hasCurrentAddress = $('.address-card.current').length > 0;
+
+            if (hasCurrentAddress) {
+                // Hide the checkbox if a current address already exists
+                $('.current-address-checkbox-container').addClass('d-none').hide();
+                console.log('Current address checkbox hidden - a current address already exists');
+            } else {
+                // Show the checkbox container for new addresses if no current address exists
+                $('.current-address-checkbox-container').removeClass('d-none').show();
+                console.log('Current address checkbox shown - no current address exists');
+            }
+
             $addressHistoryForm.removeClass('d-none').fadeIn(400)
             $('.address-history-details').addClass('d-none').fadeOut(400);
             $addressShare.addClass('d-none').fadeOut(400);
@@ -2742,11 +2944,16 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             const isNewAddress = addressId === 'new-address';
 
             // Get the action type from the button
-            let actionType = $(el).hasClass('btn-address-cancel') ? 'cancel' : 'save';
+            let actionType = $(el.currentTarget).hasClass('btn-address-cancel') ? 'cancel' : 'save';
 
-            //todo
             if (actionType === 'cancel') {
-                // Handle cancel action
+                // Handle cancel action - do NOT save anything
+                console.log('Cancel clicked - no data will be saved');
+
+                // Reset the form to clear any entered data
+                $addressHistoryForm[0].reset();
+
+                // Hide the form
                 $addressHistoryForm.addClass('d-none').fadeOut(400);
 
                 // Show the details section
@@ -2909,11 +3116,19 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
         // Dependants
         _onclickNoDependants(ev) {
-            $('.dependants-history-details').addClass('d-none');
+            // Show the confirmation popup instead of immediately hiding the section
+            $('#no-dependants-popup').removeClass('d-none');
+            console.log('No dependants clicked - showing confirmation popup');
         },
 
         _onclickHaveDependants(ev) {
             $('.dependants-history-details').removeClass('d-none');
+
+            // Remove highlight from "no dependants" button and add to "have dependants"
+            $('.no-dependants').removeClass('btn-selected');
+            $('.have-dependants').addClass('btn-selected');
+
+            console.log('Have dependants selected - button highlighted');
         },
 
         // Credit Commitment
@@ -6103,11 +6318,37 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         _onClickConfirm: function (ev) {
             ev.preventDefault();
 
+            // Hide the popup
+            $('#no-dependants-popup').addClass('d-none');
+
+            // Hide the dependants section
+            $('.dependants-history-details').addClass('d-none');
+
+            // Add highlight to "no dependants" button
+            $('.no-dependants').addClass('btn-selected');
+            $('.have-dependants').removeClass('btn-selected');
+
+            console.log('Confirmed no dependants - button highlighted and section hidden');
+
+            // Update have_dependants field to false in the fact.find record
+            this._rpc({
+                route: '/update/fact-find/have-dependants',
+                params: {
+                    fact_find_id: parseInt(this.factFindId),
+                    have_dependants: false
+                }
+            }).then((result) => {
+                if (result.error) {
+                    console.error('Error updating have_dependants field:', result.error);
+                } else {
+                    console.log('have_dependants field updated successfully to false');
+                }
+            });
+
+            // Optionally trigger next section button if it exists
             const $nextBtn = this.$("#btnNextSection");
             if ($nextBtn.length) {
                 $nextBtn.trigger("click");
-            } else {
-                console.warn("⚠️ #btnNextSection not found.");
             }
         },
 
@@ -6631,11 +6872,33 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $form.find("input[name='solicitor_contact_number']").val(data.solicitor_contact_number || "");
         },
 
+        _highlightButton: function ($form, data) {
+            const no_button = $('.no-dependants');
+            const yes_button = $('.have-dependants');
+
+            // Reset both buttons first
+            no_button.removeClass('active');
+            yes_button.removeClass('active');
+            no_button.find('.check-icon').remove();
+            yes_button.find('.check-icon').remove();
+
+            // If have_dependant is false
+            if (data.have_dependants === false) {
+                no_button.addClass('active');
+
+                // Add check icon if not already added
+                if (no_button.find('.check-icon').length === 0) {
+                    no_button.append('<i class="fa fa-check check-icon ms-2"></i>');
+                }
+            }
+        },
+
         /**
          * Populate expenditure form fields with data
          * @param {jQuery} $form - The form element
          * @param {Object} data - Fact find data from server
          */
+
         _populateExpenditureForm: function($form, data) {
             $form.find("input[name='rent']").val(data.rent || "");
             $form.find("input[name='food']").val(data.food || "");

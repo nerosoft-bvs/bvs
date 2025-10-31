@@ -15,6 +15,7 @@
         'security/lead_security.xml',
         'wizard/add_applicant_wizard.xml',
         'wizard/fact_find_partner_wizard.xml',
+        'wizard/delete_applicant_wizard_view.xml',
         'views/res_users.xml',
         'views/res_partner.xml',
         'views/bvs_stage.xml',

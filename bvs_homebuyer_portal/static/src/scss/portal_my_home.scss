@@ -254,11 +254,15 @@
     background: var(--background-light);
     min-height: 100vh;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1; // Keep main content below sidebar (sidebar z-index: 1000)
   }
 
   .content {
     padding: var(--spacing-xl);
     max-width: 100% !important;
+    position: relative;
+    z-index: 1;
   }
 
   // =====================================
