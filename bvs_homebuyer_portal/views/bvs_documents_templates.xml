@@ -49,67 +49,70 @@
 
     <!--BVS portal further documents template-->
     <template id="bvs_portal_further_documents" name="BVS Portal: Further Documents">
-        <main class="content px-3 py-2 d-none" id="further_documents_2">
+        <main class="content d-none" id="further_documents_2" style="padding: 20px; width: 100%; max-width: 100%;">
             <div class="container-fluid">
-                <div class="mb-3">
-                    <div class="main-container mc-documents mc-further-documents">
-                        <div class="container">
-                            <div class="header-container">
-                                <div class="row documents-header-row">
-                                    <div class="col-md-12">
-                                        <h1 class="doc-heading">Further Documents</h1>
-                                    </div>
-                                    <div class="col-md-12 further-documents-upload-container"/>
+                <div class="main-container mc-documents mc-further-documents">
+                    <div class="container">
+                        <div class="header-container">
+                            <div class="row documents-header-row">
+                                <div class="col-12">
+                                    <h1 class="doc-heading">Further Documents</h1>
                                 </div>
-                                <hr/>
+                                <div class="col-12 further-documents-upload-container"/>
                             </div>
-                            <div class="card-container mt-3">
-                                <div class="row further-doc-card-container">
-                                    <t t-foreach="leads" t-as="lead">
-                                        <t t-set="document_request_ids" t-value="lead.mapped('document_ids')"/>
-                                        <t t-if="document_request_ids">
-                                            <t t-foreach="document_request_ids" t-as="document_request">
-                                                <div class="col-sm-4">
-                                                    <div class="card text-center">
-                                                        <div class="card-header"><t t-esc="document_request.document_list_id.document_name"/></div>
-                                                        <div class="card-body">
-                                                            <!--TODO: Add the lead name-->
-                                                            <p class="card-text"><strong>Lead: </strong><span t-esc="document_request.lead_id.registration_no"/></p>
-                                                            <t t-foreach="document_request.mapped('attachment_ids')" t-as="doc">
-                                                                <a t-attf-href="/web/content/#{doc.id}?download=true"
-                                                                   class="btn btn-warning btn-sm">
-                                                                    <i class="fa fa-arrow-circle-o-down me-1"/>
-                                                                    <t t-esc="doc.display_name"/>
-                                                                </a>
-                                                            </t>
-                                                            <button type="button"
-                                                                    t-attf-class="btn btn-dark btn-sm upload-request-document rd-{{ document_request.id }}"
-                                                                    data-type="further"
-                                                                    t-att-data-doc-request-id="document_request.id"
-                                                                    t-att-data-doc-name="document_request.document_list_id.document_name"
-                                                            >
-                                                                <i class="fa fa-cloud-upload me-1"/>
-                                                                Upload
-                                                            </button>
-                                                        </div>
+                            <hr/>
+                        </div>
+                        <div class="card-container mt-4">
+                            <div class="row further-doc-card-container">
+                                <t t-foreach="leads" t-as="lead">
+                                    <t t-set="document_request_ids" t-value="lead.mapped('document_ids')"/>
+                                    <t t-if="document_request_ids">
+                                        <t t-foreach="document_request_ids" t-as="document_request">
+                                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <t t-esc="document_request.document_list_id.document_name"/>
                                                     </div>
-                                                </div>
-                                            </t>
-                                        </t>
-                                        <t t-else="">
-                                            <div class="col-md-12">
-                                                <div class="card text-center no-document-card">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">No further requested documents found.</h6>
+                                                        <p class="card-text">
+                                                            <strong>Lead: </strong>
+                                                            <span t-esc="document_request.lead_id.registration_no"/>
+                                                        </p>
+                                                        <t t-foreach="document_request.mapped('attachment_ids')" t-as="doc">
+                                                            <a t-attf-href="/web/content/#{doc.id}?download=true"
+                                                               class="btn btn-warning mb-2">
+                                                                <i class="fa fa-download"/>
+                                                                <t t-esc="doc.display_name"/>
+                                                            </a>
+                                                        </t>
+                                                        <button type="button"
+                                                                t-attf-class="btn btn-dark upload-request-document rd-{{ document_request.id }}"
+                                                                data-type="further"
+                                                                t-att-data-doc-request-id="document_request.id"
+                                                                t-att-data-doc-name="document_request.document_list_id.document_name">
+                                                            <i class="fa fa-cloud-upload"/>
+                                                            Upload
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </t>
                                     </t>
-
-                                </div>
+                                    <t t-else="">
+                                        <div class="col-12">
+                                            <div class="card no-document-card">
+                                                <div class="card-body">
+                                                    <i class="fa fa-folder-open" style="font-size: 48px; color: #d4a84f; margin-bottom: 15px;"/>
+                                                    <h6 class="card-title">No Further Documents Requested</h6>
+                                                    <p style="color: #999999; font-size: 13px; margin: 0;">
+                                                        Additional document requests will appear here when needed.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </t>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -119,46 +122,52 @@
 
     <!--BVS portal initial documents template-->
     <template id="bvs_portal_initial_documents" name="BVS Portal: Initial Documents">
-        <main class="content px-3 py-2 d-none" id="initial_documents">
+        <main class="content d-none" id="initial_documents" style="padding: 20px; width: 100%; max-width: 100%;">
             <div class="container-fluid">
-                <div class="mb-3">
-                    <div class="main-container mc-documents mc-further-documents">
-                        <div class="container">
-                            <div class="header-container">
-                                <div class="row documents-header-row">
-                                    <div class="col-md-9">
-                                        <h1 class="doc-heading">Initial Documents</h1>
-                                    </div>
+                <div class="main-container mc-documents mc-further-documents">
+                    <div class="container">
+                        <div class="header-container">
+                            <div class="row documents-header-row">
+                                <div class="col-12">
+                                    <h1 class="doc-heading">Disclosure Documents</h1>
                                 </div>
-                                <hr/>
                             </div>
-                            <div class="card-container mt-3">
-                                <div class="row initial-doc-card-container">
-                                    <t t-if="initial_documents">
-                                        <t t-foreach="initial_documents" t-as="doc">
-                                            <div class="col-sm-4">
-                                                <div class="card text-center">
-                                                    <div class="card-header"><t t-esc="doc.display_name"/></div>
-                                                    <div class="card-body">
-                                                        <a t-attf-href="/web/content/#{doc.id}?download=true" class="btn btn-warning btn-sm"><i class="fa fa-arrow-circle-o-down me-1"/>Download</a>
-                                                    </div>
+                            <hr/>
+                        </div>
+                        <div class="card-container mt-4">
+                            <div class="row initial-doc-card-container">
+                                <t t-if="initial_documents">
+                                    <t t-foreach="initial_documents" t-as="doc">
+                                        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <t t-esc="doc.display_name"/>
                                                 </div>
-                                            </div>
-                                        </t>
-                                    </t>
-                                    <t t-else="">
-                                        <div class="col-md-12">
-                                            <div class="card text-center no-document-card">
                                                 <div class="card-body">
-                                                    <h6 class="card-title">No Documents Found</h6>
+                                                    <a t-attf-href="/web/content/#{doc.id}?download=true"
+                                                       class="btn btn-warning">
+                                                        <i class="fa fa-download"/>
+                                                        Download
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
                                     </t>
-
-                                </div>
+                                </t>
+                                <t t-else="">
+                                    <div class="col-12">
+                                        <div class="card no-document-card">
+                                            <div class="card-body">
+                                                <i class="fa fa-folder-open" style="font-size: 48px; color: #d4a84f; margin-bottom: 15px;"/>
+                                                <h6 class="card-title">No Documents Available</h6>
+                                                <p style="color: #999999; font-size: 13px; margin: 0;">
+                                                    Your disclosure documents will appear here when available.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
                             </div>
-
                         </div>
                     </div>
                 </div>

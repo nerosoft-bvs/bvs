@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_renting_authority_inherit" model="ir.ui.view">
+        <field name="name">fact.find.form.inherit</field>
+        <field name="model">fact.find</field>
+        <field name="inherit_id" ref="bvs_fact_find.view_fact_find_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook[@name='personal_details']/page[@name='address_history']" position="after">
+                <page name="renting_authority" string="Renting &amp; Authority">
+                    <group>
+                        <group name="Landlord Address" string="Landlord Address">
+                            <field name="current_landlord_name"/>
+                            <field name="current_landlord_address"/>
+                            <field name="current_landlord_postcode"/>
+                            <field name="current_landlord_contact_no"/>
+                        </group>
+                        <group name="Local Authority Address" string="Local Authority Address">
+                            <field name="local_authority_name"/>
+                            <field name="local_authority_postcode"/>
+                            <field name="local_authority_address"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -42,6 +42,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             // address history
             'click .address-details-add': '_onclickAHAddAddress',
             'click .btn-address-save,.btn-address-cancel': '_onclickAHSaveCancelAddressDetails',
+            'click .btn-save-landlord-authority': '_onclickSaveLandlordAuthority',
             'click .btn-sync-data': '_onclickBtnSync',
             'click .btn-yes-address': '_onClickYes',
             'click .btn-no-address': '_onClickNo',
@@ -219,11 +220,14 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         $form.find("input[name='postcode']").val(data.post_code || "");
                         $form.find("input[name='county_ah']").val(data.county || "");
 
-                        // Landlord Information (if renting)
-                        $form.find("input[name='current_landlord_name']").val(data.contactable_person || "");
-                        $form.find("textarea[name='current_landlord_address']").val(data.address || "");
-                        $form.find("input[name='current_landlord_postcode']").val(data.post_code || "");
-                        $form.find("input[name='current_landlord_contact_no']").val(data.contactable_person_mobile || "");
+                        // Landlord & Authority Details
+                        $("#current_landlord_name").val(data.current_landlord_name || "");
+                        $("#current_landlord_address").val(data.current_landlord_address || "");
+                        $("#current_landlord_postcode").val(data.current_landlord_postcode || "");
+                        $("#current_landlord_contact_no").val(data.current_landlord_contact_no || "");
+                        $("#local_authority_name").val(data.local_authority_name || "");
+                        $("#local_authority_postcode").val(data.local_authority_postcode || "");
+                        $("#local_authority_address").val(data.local_authority_address || "");
 
                         // Employment Information
                         $form.find("input[name='ni_number']").val(data.ni_number || "");
@@ -276,6 +280,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         $form.find("select[name='income_type']").val(data.income_type || "");
                         $form.find("input[name='monthly_income']").val(data.monthly_income || "");
                         $form.find("input[name='annual_income']").val(data.annual_income || "");
+
+
 
                         // Credit History - Radio buttons require special handling
                         if (data.missed_payment_last_3_years) {
@@ -446,6 +452,70 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             });
         },
 
+        _onclickSaveLandlordAuthority: function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+
+            // Prevent double-clicks by disabling the button temporarily
+            const $button = $(ev.currentTarget);
+            if ($button.prop('disabled')) {
+                return; // Exit if button is already disabled (request in progress)
+            }
+            $button.prop('disabled', true);
+
+            // Extract field values from the form
+            const $form = $('#landlord-authority-form');
+            const currentLandlordName = $form.find('input[name="current_landlord_name"]').val();
+            const currentLandlordAddress = $form.find('textarea[name="current_landlord_address"]').val();
+            const currentLandlordPostcode = $form.find('input[name="current_landlord_postcode"]').val();
+            const currentLandlordContactNo = $form.find('input[name="current_landlord_contact_no"]').val();
+            const localAuthorityName = $form.find('input[name="local_authority_name"]').val();
+            const localAuthorityPostcode = $form.find('input[name="local_authority_postcode"]').val();
+            const localAuthorityAddress = $form.find('textarea[name="local_authority_address"]').val();
+
+            // Show loading state
+            const originalText = $button.html();
+            $button.html('<i class="fa fa-spinner fa-spin me-1"></i> Saving...');
+
+            this._rpc({
+                route: '/save/landlord-authority',
+                params: {
+                    fact_find_id: this.factFindId,
+                    data: {
+                        current_landlord_name: currentLandlordName,
+                        current_landlord_address: currentLandlordAddress,
+                        current_landlord_postcode: currentLandlordPostcode,
+                        current_landlord_contact_no: currentLandlordContactNo,
+                        local_authority_name: localAuthorityName,
+                        local_authority_postcode: localAuthorityPostcode,
+                        local_authority_address: localAuthorityAddress,
+                    }
+                }
+            }).then((result) => {
+                if (result && result.success) {
+                    // Show success message
+                    $button.html('<i class="fa fa-check me-1"></i> Saved!');
+                    $button.removeClass('btn-outline-warning').addClass('btn-success');
+
+                    // Reset button after 2 seconds
+                    setTimeout(() => {
+                        $button.html(originalText);
+                        $button.removeClass('btn-success').addClass('btn-outline-warning');
+                        $button.prop('disabled', false);
+                    }, 2000);
+                } else {
+                    // Show error message
+                    alert('Error: ' + (result.error || 'Failed to save landlord and authority details'));
+                    $button.html(originalText);
+                    $button.prop('disabled', false);
+                }
+            }).catch((error) => {
+                console.error('Error saving landlord and authority details:', error);
+                alert('An error occurred while saving. Please try again.');
+                $button.html(originalText);
+                $button.prop('disabled', false);
+            });
+        },
 
         _onclickUpdateResidentialAddressActions: function(el) {
             let actionType = $(el.currentTarget).attr('data-type');
@@ -475,10 +545,27 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         }
                     });
 
-                    // Trigger the checkbox change event to handle visibility
+                    // Check if there's another current address (not this one being edited)
+                    const $currentAddressCards = $('.address-card.current');
+                    const hasOtherCurrentAddress = $currentAddressCards.length > 0 &&
+                        $currentAddressCards.find(`i[data-address-id="${addressId}"]`).length === 0;
+
+                    // Handle checkbox visibility based on whether this is the current address or another one exists
                     const $currentAddressCheckbox = $addressHistoryForm.find('#current_address_name_checkbox');
-                    if ($currentAddressCheckbox.length) {
-                        $currentAddressCheckbox.trigger('change');
+                    const isThisAddressCurrent = $currentAddressCheckbox.is(':checked');
+
+                    if (isThisAddressCurrent) {
+                        // This address is current - SHOW the checkbox so user can edit/uncheck it
+                        $('.current-address-checkbox-container').removeClass('d-none').show();
+                        console.log('Current address checkbox shown - editing current address');
+                    } else if (hasOtherCurrentAddress) {
+                        // Another address is current - hide the checkbox
+                        $('.current-address-checkbox-container').addClass('d-none').hide();
+                        console.log('Current address checkbox hidden - another address is current');
+                    } else {
+                        // No current address exists - show the checkbox
+                        $('.current-address-checkbox-container').removeClass('d-none').show();
+                        console.log('Current address checkbox shown - no current address exists');
                     }
 
                     // Trigger the residential status change event to handle landlord/authority fields visibility
@@ -696,6 +783,32 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 });
             }
 
+        },
+
+        _onChangeCurrentAddressName: function(ev) {
+            const checkbox = ev.target;
+            const $container = $('.current-address-checkbox-container');
+            const $addressForm = $('.address-history-form');
+            const isFormVisible = $addressForm.is(':visible') && !$addressForm.hasClass('d-none');
+
+            if (checkbox.checked) {
+                // Only hide if form is not currently being edited
+                // When editing, keep checkbox visible so user can uncheck it
+                if (!isFormVisible) {
+                    $container.fadeOut(300);
+                    console.log('Current address checkbox hidden (marked as current)');
+                }
+            } else {
+                // Show the checkbox container when unchecked
+                $container.fadeIn(300);
+                console.log('Current address checkbox shown');
+            }
+        },
+
+        _onchangeResidentialStatus: function(ev) {
+            // Placeholder for residential status change handling if needed
+            const status = ev.target.value;
+            console.log('Residential status changed to:', status);
         },
 
         _onchangeDateOfBirth: function(ev) {
@@ -1885,6 +1998,162 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 }
             }
 
+            // Load and populate form data for specific submenus
+            const formsToPopulate = ['personal', 'insurance', 'deposit', 'estate_agent', 'solicitor', 'expenditure','dependants'];
+            if (formsToPopulate.includes(activeSubMenu)) {
+                const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
+
+                if (factFindId) {
+                    const self = this;
+                    let $targetForm;
+
+                    // Determine which form to populate based on activeSubMenu
+                    if (activeSubMenu === 'personal') {
+                        $targetForm = $("#ff_ay_personal_details .ff-personal-details-submit.ff-form");
+                    } else if (activeSubMenu === 'insurance') {
+                        $targetForm = $("#ff_ynm_building_n_contents_insurance .ff-expenditure-submit.ff-form");
+                    } else if (activeSubMenu === 'deposit') {
+                        $targetForm = $("#ff_yf_saving_arrangements .ff-personal-details-submit.ff-form");
+                    } else if (activeSubMenu === 'estate_agent') {
+                        $targetForm = $("#ff_gv_estate_agent .ff-estate-agent-submit.ff-form");
+                    } else if (activeSubMenu === 'solicitor') {
+                        $targetForm = $("#ff_gv_solicitor .ff-solicitor-submit.ff-form");
+                    } else if (activeSubMenu === 'expenditure') {
+                        $targetForm = $("#ff_yo_expenditure .ff-expenditure-submit.ff-form");
+                    } else if (activeSubMenu === 'dependants') {
+                        $targetForm = $("#ff_ay_dependants");
+                    }
+
+                    // Only proceed if we have a target form
+                    if ($targetForm && $targetForm.length > 0) {
+                        // Show loading indicator
+                        self._showInsuranceLoader($targetForm);
+
+                        this._rpc({
+                            route: "/fact_find/get_details",
+                            params: { fact_find_id: parseInt(factFindId) },
+                        }).then(function(data) {
+                            // Hide loading indicator
+                            self._hideInsuranceLoader($targetForm);
+
+                            if (data) {
+                                // Populate based on active submenu
+                                if (activeSubMenu === 'personal') {
+                                    self._populatePersonalDetailsForm($targetForm, data);
+                                } else if (activeSubMenu === 'insurance') {
+                                    self._populateInsuranceForm($targetForm, data);
+                                } else if (activeSubMenu === 'deposit') {
+                                    self._populateDepositForm($targetForm, data);
+                                } else if (activeSubMenu === 'estate_agent') {
+                                    self._populateEstateAgentForm($targetForm, data);
+                                } else if (activeSubMenu === 'solicitor') {
+                                    self._populateSolicitorForm($targetForm, data);
+                                } else if (activeSubMenu === 'expenditure') {
+                                    self._populateExpenditureForm($targetForm, data);
+                                } else if (activeSubMenu === 'dependants'){
+                                    self._highlightButton($targetForm, data);
+                                }
+                            }
+                        }).catch(function(error) {
+                            // Hide loading indicator on error
+                            self._hideInsuranceLoader($targetForm);
+                            console.error('Failed to fetch fact find data:', error);
+                        });
+                    }
+                }
+            }
+
+//            if (activeSubMenu === 'insurance') {
+//                // Ensure factFindId is available, get from localStorage if needed
+//                const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
+//
+//                if (factFindId) {
+//                    const $form = $(".ff-expenditure-submit.ff-form");
+//                    const self = this;
+//
+//                    // Show loading indicator
+//                    self._showInsuranceLoader($form);
+//
+//                    this._rpc({
+//                        route: "/fact_find/get_details",
+//                        params: { fact_find_id: parseInt(factFindId) },
+//                    }).then(function(data) {
+//                        // Hide loading indicator
+//                        self._hideInsuranceLoader($form);
+//
+//                        if (data) {
+//                            // Populate insurance form fields
+//                            $form.find("select[name='property_usage']").val(data.property_usage || "");
+//                            $form.find("input[name='house_flat_no']").val(data.house_flat_no || "");
+//                            $form.find("input[name='post_code3']").val(data.post_code || "");
+//                            $form.find("textarea[name='address3']").val(data.address || "");
+//                            $form.find("input[name='building_name3']").val(data.building_name || "");
+//                            $form.find("input[name='street_address3']").val(data.street_address || "");
+//                            $form.find("input[name='county3']").val(data.county || "");
+//                            $form.find("input[name='market_price']").val(data.market_price || "");
+//                            $form.find("select[name='property_type']").val(data.property_type || "");
+//                            $form.find("select[name='tenure']").val(data.tenure || "");
+//                            $form.find("input[name='no_bedrooms']").val(data.no_bedrooms || "");
+//                            $form.find("input[name='no_bathrooms']").val(data.no_bathrooms || "");
+//                            $form.find("input[name='kitchen']").val(data.kitchen || "");
+//                            $form.find("input[name='living_rooms']").val(data.living_rooms || "");
+//                            $form.find("input[name='garage_space']").val(data.garage_space || "");
+//                            $form.find("select[name='parking']").val(data.parking || "");
+//                            $form.find("input[name='no_stories_in_building']").val(data.no_stories_in_building || "");
+//                            $form.find("select[name='estimated_built_year']").val(data.estimated_built_year || "");
+//                            $form.find("input[name='warranty_providers_name']").val(data.warranty_providers_name || "");
+//                            $form.find("select[name='epc_predicted_epc_rate']").val(data.epc_predicted_epc_rate || "");
+//                            $form.find("select[name='pea_rate']").val(data.pea_rate || "");
+//                            $form.find("input[name='annual_service_charge']").val(data.annual_service_charge || "");
+//                            $form.find("select[name='wall_construction_type']").val(data.wall_construction_type || "");
+//                            $form.find("select[name='roof_construction_type']").val(data.roof_construction_type || "");
+//                            $form.find("input[name='remaining_lease_term_in_years']").val(data.remaining_lease_term_in_years || "");
+//                            $form.find("input[name='flat_in_floor']").val(data.flats_in_floor || "");
+//                            $form.find("input[name='flats_same_floor_count']").val(data.flats_same_floor_count || "");
+//                            $form.find("select[name='above_commercial_property']").val(data.above_commercial_property || "");
+//                            $form.find("input[name='ground_rent']").val(data.ground_rent || "");
+//                            $form.find("select[name='ownership_percentage_existing']").val(data.ownership_percentage || "");
+//                            $form.find("input[name='estimated_monthly_rental_income']").val(data.estimated_monthly_rental_income || "");
+//                            $form.find("input[name='current_monthly_rental_income']").val(data.current_monthly_rental_income || "");
+//                            $form.find("input[name='occupants_count']").val(data.occupants_count || "");
+//                            $form.find("input[name='company_name']").val(data.company_name || "");
+//                            $form.find("select[name='company_director']").val(data.company_director || "");
+//                            $form.find("select[name='additional_borrowing_reason']").val(data.additional_borrowing_reason || "");
+//                            $form.find("input[name='additional_borrowing_amount']").val(data.additional_borrowing_amount || "");
+//                            $form.find("input[name='monthly_commute_cost']").val(data.monthly_commute_cost || "");
+//                            $form.find("select[name='help_to_buy_loan_type']").val(data.help_to_buy_loan_type || "");
+//
+//                            // Checkboxes
+//                            if (data.is_new_build) {
+//                                $form.find("input[name='is_new_build']").prop('checked', true);
+//                            }
+//                            if (data.ex_council) {
+//                                $form.find("input[name='ex_council']").prop('checked', true);
+//                            }
+//                            if (data.shared_ownership) {
+//                                $form.find("input[name='shared_ownership_existing']").prop('checked', true);
+//                            }
+//                            if (data.help_to_buy_loan) {
+//                                $form.find("input[name='help_to_buy_loan']").prop('checked', true);
+//                            }
+//                            if (data.hmo) {
+//                                $form.find("input[name='hmo']").prop('checked', true);
+//                            }
+//                            if (data.additional_borrowing) {
+//                                $form.find("input[name='additional_borrowing']").prop('checked', true);
+//                            }
+//                            if (data.commute_over_one_hour) {
+//                                $form.find("input[name='commute_over_one_hour']").prop('checked', true);
+//                            }
+//                        }
+//                    }).catch(function(error) {
+//                        // Hide loading indicator on error
+//                        self._hideInsuranceLoader($form);
+//                        console.error('Failed to fetch insurance data:', error);
+//                    });
+//                }
+//            }
+
             // 🔹 Collect data for StepState
             const parentEl = $(".li_main_step.active").attr("data-id");  // current main
             const ffId = this.factFindId || null;
@@ -2149,10 +2418,42 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
             if ($container.children().length > 0 || $.trim($container.text()).length > 0) {
                 $('.dependants-history-details').removeClass('d-none');
+                // Highlight "have dependants" button if dependants exist
+                $('.have-dependants').addClass('btn-selected');
+                $('.no-dependants').removeClass('btn-selected');
+                console.log('Dependants found - highlighting "have dependants" button');
+            } else {
+                // Highlight "no dependants" button if no dependants exist
+                $('.no-dependants').addClass('btn-selected');
+                $('.have-dependants').removeClass('btn-selected');
+                console.log('No dependants found - highlighting "no dependants" button');
             }
 
             this._applyCssStyle();
             this._initAddressNowInput();
+
+            // Conditional initialization for address history - Current Address Checkbox
+            const currentAddressCheckbox = this.$('#current_address_name_checkbox')[0];
+            if (currentAddressCheckbox && currentAddressCheckbox.checked) {
+                this._onChangeCurrentAddressName({
+                    target: currentAddressCheckbox
+                });
+            }
+
+            const residentialStatusSelect = this.$('#residential_status_ah')[0];
+            if (residentialStatusSelect && residentialStatusSelect.value &&
+                (residentialStatusSelect.value === 'renting_private' || residentialStatusSelect.value === 'renting_local_authority')) {
+                this._onchangeResidentialStatus({
+                    target: residentialStatusSelect
+                });
+            }
+
+            // Handle cancel button in no-dependants popup
+            this.$('#no-dependants-popup .btn-cancel').on('click', function(ev) {
+                ev.preventDefault();
+                $('#no-dependants-popup').addClass('d-none');
+                console.log('No dependants popup cancelled - popup closed');
+            });
 
             return def;
         },
@@ -2175,7 +2476,9 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 document.querySelector('input#property-address-search'),
                 document.querySelector('input#mortgage-address-search'),
                 document.querySelector('input#insurance-address-search'),
-                document.querySelector('input#solicitor-address-search')
+                document.querySelector('input#solicitor-address-search'),
+                document.querySelector('input#landlord-address-search'),
+                document.querySelector('input#authority-address-search')
             ].filter(Boolean); // Remove null values
 
             if (inputs.length === 0) {
@@ -2382,6 +2685,44 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                         // Set the full address to both fields
                         mapField("solicitor-address-search", fullAddress);
                         mapField("solicitor_address", fullAddress);
+                    } else if (inputId === "landlord-address-search") {
+                        // Map AddressNow fields to landlord address
+                        mapField("current_landlord_postcode", address.PostalCode);
+
+                        const parts = [
+                            address.SubBuilding,
+                            address.BuildingNumber,
+                            address.BuildingName,
+                            address.Street,
+                            address.City,
+                            address.Province,
+                            address.PostalCode,
+                        ].filter(Boolean);
+
+                        const fullAddress = parts.join(', ');
+
+                        // Set the full address to both fields
+                        mapField("landlord-address-search", fullAddress);
+                        mapField("current_landlord_address", fullAddress);
+                    } else if (inputId === "authority-address-search") {
+                        // Map AddressNow fields to local authority address
+                        mapField("local_authority_postcode", address.PostalCode);
+
+                        const parts = [
+                            address.SubBuilding,
+                            address.BuildingNumber,
+                            address.BuildingName,
+                            address.Street,
+                            address.City,
+                            address.Province,
+                            address.PostalCode,
+                        ].filter(Boolean);
+
+                        const fullAddress = parts.join(', ');
+
+                        // Set the full address to both fields
+                        mapField("authority-address-search", fullAddress);
+                        mapField("local_authority_address", fullAddress);
                     }
                 });
 
@@ -2446,6 +2787,19 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $addressHistoryForm[0].reset();
             $addressHistoryForm.find('#address_id').val('new-address');
 
+            // Check if there's already a current address saved
+            const hasCurrentAddress = $('.address-card.current').length > 0;
+
+            if (hasCurrentAddress) {
+                // Hide the checkbox if a current address already exists
+                $('.current-address-checkbox-container').addClass('d-none').hide();
+                console.log('Current address checkbox hidden - a current address already exists');
+            } else {
+                // Show the checkbox container for new addresses if no current address exists
+                $('.current-address-checkbox-container').removeClass('d-none').show();
+                console.log('Current address checkbox shown - no current address exists');
+            }
+
             $addressHistoryForm.removeClass('d-none').fadeIn(400)
             $('.address-history-details').addClass('d-none').fadeOut(400);
             $addressShare.addClass('d-none').fadeOut(400);
@@ -2467,11 +2821,16 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             const isNewAddress = addressId === 'new-address';
 
             // Get the action type from the button
-            let actionType = $(el).hasClass('btn-address-cancel') ? 'cancel' : 'save';
+            let actionType = $(el.currentTarget).hasClass('btn-address-cancel') ? 'cancel' : 'save';
 
-            //todo
             if (actionType === 'cancel') {
-                // Handle cancel action
+                // Handle cancel action - do NOT save anything
+                console.log('Cancel clicked - no data will be saved');
+
+                // Reset the form to clear any entered data
+                $addressHistoryForm[0].reset();
+
+                // Hide the form
                 $addressHistoryForm.addClass('d-none').fadeOut(400);
 
                 // Show the details section
@@ -2634,11 +2993,19 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
         // Dependants
         _onclickNoDependants(ev) {
-            $('.dependants-history-details').addClass('d-none');
+            // Show the confirmation popup instead of immediately hiding the section
+            $('#no-dependants-popup').removeClass('d-none');
+            console.log('No dependants clicked - showing confirmation popup');
         },
 
         _onclickHaveDependants(ev) {
             $('.dependants-history-details').removeClass('d-none');
+
+            // Remove highlight from "no dependants" button and add to "have dependants"
+            $('.no-dependants').removeClass('btn-selected');
+            $('.have-dependants').addClass('btn-selected');
+
+            console.log('Have dependants selected - button highlighted');
         },
 
         // Credit Commitment
@@ -5828,11 +6195,37 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         _onClickConfirm: function (ev) {
             ev.preventDefault();
 
+            // Hide the popup
+            $('#no-dependants-popup').addClass('d-none');
+
+            // Hide the dependants section
+            $('.dependants-history-details').addClass('d-none');
+
+            // Add highlight to "no dependants" button
+            $('.no-dependants').addClass('btn-selected');
+            $('.have-dependants').removeClass('btn-selected');
+
+            console.log('Confirmed no dependants - button highlighted and section hidden');
+
+            // Update have_dependants field to false in the fact.find record
+            this._rpc({
+                route: '/update/fact-find/have-dependants',
+                params: {
+                    fact_find_id: parseInt(this.factFindId),
+                    have_dependants: false
+                }
+            }).then((result) => {
+                if (result.error) {
+                    console.error('Error updating have_dependants field:', result.error);
+                } else {
+                    console.log('have_dependants field updated successfully to false');
+                }
+            });
+
+            // Optionally trigger next section button if it exists
             const $nextBtn = this.$("#btnNextSection");
             if ($nextBtn.length) {
                 $nextBtn.trigger("click");
-            } else {
-                console.warn("⚠️ #btnNextSection not found.");
             }
         },
 
@@ -6207,6 +6600,270 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 accountantField.hide();
             }
          },
+
+        // ============================================
+        // FORM POPULATION HELPERS
+        // ============================================
+
+        /**
+         * Populate insurance form fields with data
+         * @param {jQuery} $form - The form element
+         * @param {Object} data - Fact find data from server
+         */
+        _populateInsuranceForm: function($form, data) {
+            // Populate insurance form fields
+            $form.find("select[name='property_usage']").val(data.property_usage || "");
+            $form.find("input[name='house_flat_no']").val(data.house_flat_no || "");
+            $form.find("input[name='post_code3']").val(data.post_code || "");
+            $form.find("textarea[name='address3']").val(data.address || "");
+            $form.find("input[name='building_name3']").val(data.building_name || "");
+            $form.find("input[name='street_address3']").val(data.street_address || "");
+            $form.find("input[name='county3']").val(data.county || "");
+            $form.find("input[name='market_price']").val(data.market_price || "");
+            $form.find("select[name='property_type']").val(data.property_type || "");
+            $form.find("select[name='tenure']").val(data.tenure || "");
+            $form.find("input[name='no_bedrooms']").val(data.no_bedrooms || "");
+            $form.find("input[name='no_bathrooms']").val(data.no_bathrooms || "");
+            $form.find("input[name='kitchen']").val(data.kitchen || "");
+            $form.find("input[name='living_rooms']").val(data.living_rooms || "");
+            $form.find("input[name='garage_space']").val(data.garage_space || "");
+            $form.find("select[name='parking']").val(data.parking || "");
+            $form.find("input[name='no_stories_in_building']").val(data.no_stories_in_building || "");
+            $form.find("select[name='estimated_built_year']").val(data.estimated_built_year || "");
+            $form.find("input[name='warranty_providers_name']").val(data.warranty_providers_name || "");
+            $form.find("select[name='epc_predicted_epc_rate']").val(data.epc_predicted_epc_rate || "");
+            $form.find("select[name='pea_rate']").val(data.pea_rate || "");
+            $form.find("input[name='annual_service_charge']").val(data.annual_service_charge || "");
+            $form.find("select[name='wall_construction_type']").val(data.wall_construction_type || "");
+            $form.find("select[name='roof_construction_type']").val(data.roof_construction_type || "");
+            $form.find("input[name='remaining_lease_term_in_years']").val(data.remaining_lease_term_in_years || "");
+            $form.find("input[name='flat_in_floor']").val(data.flats_in_floor || "");
+            $form.find("input[name='flats_same_floor_count']").val(data.flats_same_floor_count || "");
+            $form.find("select[name='above_commercial_property']").val(data.above_commercial_property || "");
+            $form.find("input[name='ground_rent']").val(data.ground_rent || "");
+            $form.find("select[name='ownership_percentage_existing']").val(data.ownership_percentage || "");
+            $form.find("input[name='estimated_monthly_rental_income']").val(data.estimated_monthly_rental_income || "");
+            $form.find("input[name='current_monthly_rental_income']").val(data.current_monthly_rental_income || "");
+            $form.find("input[name='occupants_count']").val(data.occupants_count || "");
+            $form.find("input[name='company_name']").val(data.company_name || "");
+            $form.find("select[name='company_director']").val(data.company_director || "");
+            $form.find("select[name='additional_borrowing_reason']").val(data.additional_borrowing_reason || "");
+            $form.find("input[name='additional_borrowing_amount']").val(data.additional_borrowing_amount || "");
+            $form.find("input[name='monthly_commute_cost']").val(data.monthly_commute_cost || "");
+            $form.find("select[name='help_to_buy_loan_type']").val(data.help_to_buy_loan_type || "");
+
+            // Checkboxes
+            $form.find("input[name='is_new_build']").prop('checked', !!data.is_new_build);
+            $form.find("input[name='ex_council']").prop('checked', !!data.ex_council);
+            $form.find("input[name='shared_ownership_existing']").prop('checked', !!data.shared_ownership);
+            $form.find("input[name='help_to_buy_loan']").prop('checked', !!data.help_to_buy_loan);
+            $form.find("input[name='hmo']").prop('checked', !!data.hmo);
+            $form.find("input[name='additional_borrowing']").prop('checked', !!data.additional_borrowing);
+            $form.find("input[name='commute_over_one_hour']").prop('checked', !!data.commute_over_one_hour);
+        },
+
+        /**
+         * Populate personal details form fields with data
+         * @param {jQuery} $form - The form element
+         * @param {Object} data - Fact find data from server
+         */
+        _populatePersonalDetailsForm: function($form, data) {
+            // Basic personal information
+            $form.find("select[name='title']").val(data.title_customer || "");
+            $form.find("input[name='first-name']").val(data.first_name || "");
+            $form.find("input[name='middle-name']").val(data.middle_names || "");
+            $form.find("input[name='surname']").val(data.surname || "");
+
+            // Known by another name checkbox and related fields
+            $form.find("input[name='another_name_checkbox']").prop('checked', !!data.known_by_another_name);
+            $form.find("input[name='previous_surname']").val(data.previous_surname || "");
+            $form.find("input[name='date_of_name_change']").val(data.date_of_name_change || "");
+
+            // Gender and DOB
+            $form.find("select[name='gender']").val(data.gender || "");
+            $form.find("input[name='personal-details-dob']").val(data.date_of_birth || "");
+
+            // Country of birth and nationality
+            $form.find("select[name='cob']").val(data.country_of_birth || "");
+            $form.find("select[name='nationality']").val(data.nationality || "");
+            $form.find("select[name='eu_country_list']").val(data.eu_country_list || "");
+            $form.find("select[name='other_nationality']").val(data.other_nationality_id || "");
+
+            // Passport details
+            $form.find("input[name='passport_expiry_date']").val(data.passport_expiry_date || "");
+            $form.find("select[name='second-nationality']").val(data.dual_nationality_id || "");
+
+            // UK living details
+            $form.find("select[name='start_continue_living_in_uk_month']").val(data.start_continue_living_in_uk_month || "");
+            $form.find("select[name='start_continue_living_in_uk_year']").val(data.start_continue_living_in_uk_year || "");
+            $form.find("select[name='indefinite_leave_to_remain']").val(data.indefinite_leave_to_remain || "");
+            $form.find("select[name='settled_status']").val(data.settled_status || "");
+            $form.find("select[name='visa_category']").val(data.visa_category || "");
+
+            // Marital status and contact information
+            $form.find("select[name='marital_status']").val(data.marital_status || "");
+            $form.find("input[name='email']").val(data.email_address || "");
+            $form.find("input[name='telephone']").val(data.mobile_number || "");
+            $form.find("input[name='home-telephone']").val(data.home_telephone_number || "");
+        },
+
+        /**
+         * Populate deposit form fields with data
+         * @param {jQuery} $form - The form element
+         * @param {Object} data - Fact find data from server
+         */
+        _populateDepositForm: function($form, data) {
+            $form.find("input[name='deposit_from_savings']").val(data.deposit_from_savings || "");
+            $form.find("input[name='gifted_deposit_from_friend']").val(data.gifted_deposit_from_friend || "");
+            $form.find("input[name='gifted_deposit_from_family']").val(data.gifted_deposit_from_family || "");
+            $form.find("input[name='deposit_from_another_loan']").val(data.deposit_from_another_loan || "");
+            $form.find("input[name='deposit_from_equity_of_property']").val(data.deposit_from_equity_of_property || "");
+            $form.find("input[name='loan_amount_from_director']").val(data.loan_amount_from_director || "");
+            $form.find("input[name='gifted_deposit_amount_from_director']").val(data.gifted_deposit_amount_from_director || "");
+        },
+
+        /**
+         * Populate estate agent form fields with data
+         * @param {jQuery} $form - The form element
+         * @param {Object} data - Fact find data from server
+         */
+        _populateEstateAgentForm: function($form, data) {
+            $form.find("input[name='firm_name']").val(data.firm_name || "");
+            $form.find("input[name='es_mobile']").val(data.contactable_person_mobile || "");
+            $form.find("input[name='contactable_person']").val(data.contactable_person || "");
+            $form.find("input[name='es_email']").val(data.firm_email || "");
+        },
+
+        /**
+         * Populate solicitor form fields with data
+         * @param {jQuery} $form - The form element
+         * @param {Object} data - Fact find data from server
+         */
+        _populateSolicitorForm: function($form, data) {
+            $form.find("input[name='solicitor_firm_name']").val(data.solicitor_firm_name || "");
+            $form.find("textarea[name='solicitor_address']").val(data.solicitor_address || "");
+            $form.find("input[name='solicitor_house_number']").val(data.solicitor_house_number || "");
+            $form.find("input[name='solicitor_post_code']").val(data.solicitor_post_code || "");
+            $form.find("input[name='solicitor_email']").val(data.solicitor_email || "");
+            $form.find("input[name='solicitor_contact_person']").val(data.solicitor_contact_person || "");
+            $form.find("input[name='solicitor_contact_number']").val(data.solicitor_contact_number || "");
+        },
+
+        _highlightButton: function ($form, data) {
+            const no_button = $('.no-dependants');
+            const yes_button = $('.have-dependants');
+
+            // Reset both buttons first
+            no_button.removeClass('active');
+            yes_button.removeClass('active');
+            no_button.find('.check-icon').remove();
+            yes_button.find('.check-icon').remove();
+
+            // If have_dependant is false
+            if (data.have_dependants === false) {
+                no_button.addClass('active');
+
+                // Add check icon if not already added
+                if (no_button.find('.check-icon').length === 0) {
+                    no_button.append('<i class="fa fa-check check-icon ms-2"></i>');
+                }
+            }
+        },
+
+        /**
+         * Populate expenditure form fields with data
+         * @param {jQuery} $form - The form element
+         * @param {Object} data - Fact find data from server
+         */
+
+        _populateExpenditureForm: function($form, data) {
+            $form.find("input[name='rent']").val(data.rent || "");
+            $form.find("input[name='food']").val(data.food || "");
+            $form.find("input[name='utilities']").val(data.utilities || "");
+            $form.find("input[name='phone_internet']").val(data.phone_internet || "");
+            $form.find("input[name='transport']").val(data.transport || "");
+            $form.find("input[name='clothing']").val(data.clothing || "");
+            $form.find("input[name='medicine']").val(data.medicine || "");
+            $form.find("input[name='personal_goods']").val(data.personal_goods || "");
+            $form.find("input[name='household_goods']").val(data.household_goods || "");
+            $form.find("input[name='entertainment']").val(data.entertainment || "");
+//            $form.find("input[name='childcare']").val(data.service_charge || "");
+            $form.find("input[name='annual_council_tax']").val(data.annual_council_tax || "");
+            $form.find("input[name='home_insurance']").val(data.home_insurance || "");
+            $form.find("input[name='life_insurance']").val(data.life_insurance || "");
+            $form.find("input[name='car_insurance']").val(data.car_insurance || "");
+            $form.find("input[name='education_fees']").val(data.education_fees || "");
+            $form.find("input[name='ground_rent_1']").val(data.ground_rent || "");
+            $form.find("input[name='services_charge']").val(data.services_charge || "");
+            $form.find("input[name='service_charge']").val(data.service_charge || "");
+
+            // Round total_expenses to 2 decimal places
+            const totalExpenses = data.total_monthly_expenses ? parseFloat(data.total_monthly_expenses).toFixed(2) : "";
+            $form.find("input[name='total_expenses']").val(totalExpenses);
+        },
+
+        // ============================================
+        // INSURANCE FORM LOADER HELPERS
+        // ============================================
+
+        /**
+         * Show loading indicator for insurance form
+         * @param {jQuery} $form - The form element
+         */
+        _showInsuranceLoader: function($form) {
+            // Check if loader already exists
+            if ($form.find('.insurance-loader-overlay').length > 0) {
+                return;
+            }
+
+            // Create loader overlay
+            const loaderHtml = `
+                <div class="insurance-loader-overlay" style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(255, 255, 255, 0.9);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    z-index: 1000;
+                    border-radius: 8px;
+                ">
+                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="mt-3" style="font-size: 14px; color: #6c757d;">
+                        <i class="fa fa-sync fa-spin mr-2"></i>Loading details...
+                    </div>
+                </div>
+            `;
+
+            // Make form container relative for absolute positioning
+            $form.css('position', 'relative');
+
+            // Add loader to form
+            $form.append(loaderHtml);
+
+            // Disable form inputs while loading
+            $form.find('input, select, textarea, button').prop('disabled', true);
+        },
+
+        /**
+         * Hide loading indicator for insurance form
+         * @param {jQuery} $form - The form element
+         */
+        _hideInsuranceLoader: function($form) {
+            // Remove loader overlay
+            $form.find('.insurance-loader-overlay').fadeOut(300, function() {
+                $(this).remove();
+            });
+
+            // Re-enable form inputs
+            $form.find('input, select, textarea, button').prop('disabled', false);
+        },
 
 
     })

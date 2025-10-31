@@ -130,6 +130,7 @@ class FactFind(models.Model):
     stage_id = fields.Many2one(related='lead_id.stage_id')
     number_of_dependents = fields.Integer('How many dependents?')
     is_private_lead = fields.Boolean(related='lead_id.is_private', string="Is Private Lead?", store=True)
+    have_dependants = fields.Boolean(string="Have Dependants", store=True, default=True)
 
     def generate_pdf_report(self):
         report_name = 'fact_find_report.pdf'

@@ -2061,4 +2061,20 @@
 //       border: 2px solid red !important;
 //     }
 
+    // Highlight style for selected dependants button
+    .btn-selected {
+        background: linear-gradient(135deg, #9b872b 0%, #b8a034 100%) !important;
+        color: white !important;
+        border-color: #9b872b !important;
+        box-shadow: 0 4px 12px rgba(155, 135, 43, 0.3);
+        font-weight: 600;
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: linear-gradient(135deg, #87791f 0%, #9b872b 100%) !important;
+            box-shadow: 0 6px 16px rgba(155, 135, 43, 0.4);
+        }
+    }
+
 }

@@ -132,7 +132,7 @@
                                     <a href="#initial_documents" class="mobile-nav-link"
                                        data-element="#initial_documents">
                                         <i class="fa fa-play"></i>
-                                        <span>Initial Documents</span>
+                                        <span>Disclosure Documents</span>
                                     </a>
                                 </li>
 
@@ -234,7 +234,7 @@
                                 <li class="sidebar-item sidebar-initial-documents" data-element="#initial_documents">
                                     <a href="#initial_documents" class="sidebar-link">
                                         <i class="fa fa-play pe-2"/>
-                                        Initial Documents
+                                        Disclosure Documents
                                     </a>
                                 </li>
                             </ul>

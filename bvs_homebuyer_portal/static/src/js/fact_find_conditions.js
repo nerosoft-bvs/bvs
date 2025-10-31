@@ -1008,18 +1008,18 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                 const cancelBtn = popup.querySelector('.btn-cancel');
 
                 // Detach previous handlers if any
-                confirmBtn.onclick = null;
+//                confirmBtn.onclick = null;
                 cancelBtn.onclick = null;
 
                 // Handle confirm
-                confirmBtn.onclick = () => {
-                    popup.classList.add('d-none');
-                    const nextSectionButton = document.querySelector('.btn-next');
-                    if (nextSectionButton) {
-                        nextSectionButton.classList.remove('d-none');
-                        nextSectionButton.click();
-                    }
-                };
+//                confirmBtn.onclick = () => {
+//                    popup.classList.add('d-none');
+//                    const nextSectionButton = document.querySelector('.btn-next');
+//                    if (nextSectionButton) {
+//                        nextSectionButton.classList.remove('d-none');
+//                        nextSectionButton.click();
+//                    }
+//                };
 
                 // Handle cancel
                 cancelBtn.onclick = () => {

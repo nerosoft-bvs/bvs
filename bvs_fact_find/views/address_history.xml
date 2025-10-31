@@ -37,22 +37,22 @@
                                         <field name="date_moved_out"/>
                                         <field name="is_current_address"/>
                                     </group>
-                                    <group>
-                                        <field name="current_landlord_name"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>
-                                        <field name="current_landlord_address"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>
-                                        <field name="current_landlord_postcode"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>
-                                        <field name="current_landlord_contact_no"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>
-                                        <field name="local_authority_name"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_local_authority'])]}"/>
-                                        <field name="local_authority_postcode"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_local_authority'])]}"/>
-                                        <field name="local_authority_address"
-                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_local_authority'])]}"/>
-                                    </group>
+<!--                                    <group>-->
+<!--                                        <field name="current_landlord_name"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>-->
+<!--                                        <field name="current_landlord_address"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>-->
+<!--                                        <field name="current_landlord_postcode"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>-->
+<!--                                        <field name="current_landlord_contact_no"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_private'])]}"/>-->
+<!--                                        <field name="local_authority_name"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_local_authority'])]}"/>-->
+<!--                                        <field name="local_authority_postcode"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_local_authority'])]}"/>-->
+<!--                                        <field name="local_authority_address"-->
+<!--                                               attrs="{'invisible': [('residential_status', 'not in', ['renting_local_authority'])]}"/>-->
+<!--                                    </group>-->
                                 </form>
                             </field>
 
