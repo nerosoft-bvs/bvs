@@ -8,6 +8,7 @@ class BVSLead(models.Model):
     fma_submission = fields.Boolean(string='FMA Submitted')
     pre_offer_checklist = fields.Boolean(string='Pre Offer Checklist')
     submission_docs_upload = fields.Binary(string='Submission Docs Upload')
+    fma_report_upload = fields.Binary(string='FMA Report')
     further_docs_requested = fields.Boolean(string='Further Docs Requested')
     document_status = fields.Selection([
         ('pending', 'Pending'),

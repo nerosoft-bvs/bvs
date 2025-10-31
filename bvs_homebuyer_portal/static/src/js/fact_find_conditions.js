@@ -62,9 +62,8 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                   'change input#life_insurance': '_calculateTotalExpenses',
                   'change input#car_insurance': '_calculateTotalExpenses',
                   'change input#education_fees': '_calculateTotalExpenses',
-                  'change input#ground_rent_1': '_calculateTotalExpenses',
+                  'change input#ground_rent': '_calculateTotalExpenses',
                   'change input#service_charge': '_calculateTotalExpenses',
-                  'change input#services_charge': '_calculateTotalExpenses',
                   'change input#total_expenses': '_calculateTotalExpenses',
                   'change input#gym_membership': '_calculateTotalExpenses',
                   'change input#monthly_income': '_calculateAnnualIncome',
@@ -103,6 +102,9 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                   // document hidden fields when change
 
                   'change input[name="another_name_checkbox"]': '_onAnotherNameCheckboxChange',
+                  'change select[name="nationality"]': '_onChangeNationalityDoc',
+                  'change input[id="passport_expiry_date"]': '_onchangePassportExpiryDateDoc',
+                  'change select[name="indefinite_leave_to_remain"]': '_onChangeIndefiniteLeaveToRemainDoc',
                   'change select[name="settled_status"]': '_onChangeSettledStatusDoc',
                   'change input[name="start_date"]': '_onChangeStartDateDoc',
                   'change input[name="years_of_experience_contract_basis"]': '_onChangeYearsOfExperienceDoc',
@@ -143,41 +145,14 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
            start: function () {
             this._super.apply(this, arguments);
 
-            // Note: Event bindings are handled by the 'events' object above
-            // No need for manual bindings to avoid duplicates
+            // Bind events
+            this.$el.on('change', 'select[name="nationality"].nationality', this._onchangeNationalityField.bind(this));
+            this.$el.on('change', 'select[name="indefinite_leave_to_remain"]', this._onchangeIndefiniteLeaveToRemain.bind(this));
+            this.$el.on('change', 'input.kbn_check', this._onchangeKnownByAnotherName.bind(this));
+            this.$el.on('change', 'input[name="has_deductions"]', this._onchangeHasDeductions.bind(this));
+            this.$el.on('change', '#current_address_name_checkbox', this._onChangeCurrentAddressName.bind(this));
 
-            // Wait for complete page load, form data population, and backend data loading
-            // Use both DOMContentLoaded and window.load events, plus additional delay for AJAX
-            const initializeWhenReady = () => {
-                // Check if jQuery is done with AJAX calls
-                if (typeof $ !== 'undefined' && $.active === 0) {
-                    console.log('All resources and data loaded, initializing field visibility...');
-                    this._initializeFieldVisibility();
-                } else {
-                    // Still waiting for AJAX calls, check again in 300ms
-                    const activeRequests = typeof $ !== 'undefined' ? $.active : 'unknown';
-                    console.log('Waiting for data to load...', activeRequests, 'active AJAX requests');
-                    setTimeout(initializeWhenReady, 3000);
-                }
-            };
-
-            // Wait for window to fully load (including images, stylesheets, scripts)
-            // then add additional delay for backend data population and form rendering
-            if (document.readyState === 'complete') {
-                // Page already loaded, wait for AJAX data
-                setTimeout(initializeWhenReady, 2000);
-            } else {
-                // Wait for page to load completely
-                window.addEventListener('load', () => {
-                    setTimeout(initializeWhenReady, 2000);
-                });
-            }
-
-        },
-
-        _initializeFieldVisibility: function () {
             // Ensure correct state on page load - Initialize ALL conditional visibility fields
-            console.log('Initializing field visibility...');
 
             // Personal Details
             this._onchangeKnownByAnotherName();
@@ -188,19 +163,17 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             }
 
             // Nationality and Immigration
-            const nationalitySelect = this.$('select[name="nationality"].nationality')[0];
-            if (nationalitySelect) {
-                this._onchangeNationalityField({ currentTarget: nationalitySelect });
-            }
+            this._onchangeNationalityField({ currentTarget: this.$('select[name="nationality"].nationality') });
+            this._onchangeIndefiniteLeaveToRemain({ currentTarget: this.$('select[name="indefinite_leave_to_remain"]') });
 
-            const indefiniteLeaveSelect = this.$('select[name="indefinite_leave_to_remain"]')[0];
-            if (indefiniteLeaveSelect) {
-                this._onchangeIndefiniteLeaveToRemain({ currentTarget: indefiniteLeaveSelect });
+            const nationalitySelect = this.$('select[name="nationality"]')[0];
+            if (nationalitySelect) {
+                this._onChangeNationalityDoc({ currentTarget: nationalitySelect });
             }
 
             const passportExpiryInput = this.$('input[id="passport_expiry_date"]')[0];
             if (passportExpiryInput && passportExpiryInput.value) {
-                this._onchangePassportExpiryDate({ target: passportExpiryInput });
+                this._onchangePassportExpiryDateDoc({ target: passportExpiryInput });
             }
 
             const settledStatusSelect = this.$('select[name="settled_status"]')[0];
@@ -527,8 +500,41 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             }
         },
 
+        _onChangeNationalityDoc: function (ev) {
+            const $select = $(ev.currentTarget);
+            const value = $select.val();
 
+            if (value) {
+                $('.passport_pages').removeClass('d-none');
+            } else {
+                $('.passport_pages').addClass('d-none');
+            }
+        },
 
+        _onchangePassportExpiryDateDoc: function (ev) {
+            const input = ev ? ev.target : this.el.querySelector('input[name="passport_expiry_date"]');
+            if (!input) return;
+            const inputValue = input.value.trim();
+            const selectedDate = new Date(inputValue);
+            const today = new Date();
+            const expireElm = $('.expired_passport_driving_license')
+            if (selectedDate < today) {
+                expireElm.removeClass('d-none');
+            }else{
+                expireElm.addClass('d-none');
+            }
+
+        },
+
+        _onChangeIndefiniteLeaveToRemainDoc: function (ev) {
+            const $select = $(ev.currentTarget);
+            const value = $select.val();
+            if (value === 'no') {
+                $('.sharecode_immigration_status').removeClass('d-none');
+            } else {
+                $('.sharecode_immigration_status').addClass('d-none');
+            }
+        },
 
         _onChangeSettledStatusDoc: function (ev) {
             const $select = $(ev.currentTarget);
@@ -1293,22 +1299,12 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
         },
 
          _onchangeIndefiniteLeaveToRemain: function (ev) {
-            const $select = $(ev.currentTarget);
-            const ilrValue = $select.val();
-
-            // Field visibility logic
+            const ilrValue = $(ev.currentTarget).val();
             const visaCategoryField = $('.visa_category');
             if (ilrValue === 'yes') {
                 visaCategoryField.addClass('d-none');
             } else if (ilrValue === 'no') {
                 visaCategoryField.removeClass('d-none');
-            }
-
-            // Document visibility logic (merged from _onChangeIndefiniteLeaveToRemainDoc)
-            if (ilrValue === 'no') {
-                $('.sharecode_immigration_status').removeClass('d-none');
-            } else {
-                $('.sharecode_immigration_status').addClass('d-none');
             }
         },
 
@@ -1325,10 +1321,7 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
         },
 
          _onchangeNationalityField: function (ev) {
-            const $select = $(ev.currentTarget);
-            const nationalityValue = $select.val();
-
-            // Field visibility logic
+            const nationalityValue = $(ev.currentTarget).val();
             const settledStatusField = $('.settled_status');
             const dualNationalityField = $('.dual_nationality');
             const indefiniteLeaveToRemainField = $('.indefinite_leave_to_remain');
@@ -1352,13 +1345,6 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
                 dualNationalityField.removeClass('d-none');
                 otherNationalityField.removeClass('d-none');
                 euCountryListField.addClass('d-none');
-            }
-
-            // Document visibility logic (merged from _onChangeNationalityDoc)
-            if (nationalityValue) {
-                $('.passport_pages').removeClass('d-none');
-            } else {
-                $('.passport_pages').addClass('d-none');
             }
         },
 
@@ -1386,57 +1372,36 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
         },
 
          _onchangePassportExpiryDate: function(ev) {
+
+          this._onchangePassportExpiryDateDoc(ev)
           const passportExpiryDateInput = ev.target;
           const inputValue = passportExpiryDateInput.value.trim();
           const isValidFormat = /^\d{4}-\d{2}-\d{2}$/.test(inputValue);
 
-          // Find existing feedback or create new one (look for both classes)
-          let $feedback = $(passportExpiryDateInput).siblings('.invalid-feedback, .text-warning');
+          let $feedback = $(passportExpiryDateInput).siblings('.invalid-feedback');
           if (!$feedback.length) {
               $feedback = $('<div class="invalid-feedback"></div>');
               $(passportExpiryDateInput).after($feedback);
           }
 
-          // Clear all previous states first
-          passportExpiryDateInput.classList.remove('is-invalid', 'text-warning');
-          $feedback.removeClass('invalid-feedback', 'text-warning').hide();
-
-          // Validation and color change logic
-          if (!inputValue) {
-              // Empty input - just hide feedback
+          if (!isValidFormat) {
+            passportExpiryDateInput.classList.add('is-invalid');
+            $feedback.text('Invalid date format').show();
+          } else {
+            passportExpiryDateInput.classList.remove('is-invalid');
+            const expiryDate = moment(inputValue, "YYYY-MM-DD");
+            const today = moment();
+            if (expiryDate.isBefore(today)) {
+              // Expired - show warning but don't add is-invalid class (allow form submission)
+              passportExpiryDateInput.classList.add('text-warning');
+              $feedback.removeClass('invalid-feedback').addClass('text-warning');
+              $feedback.text('Expired').show();
+            } else {
+              // Valid
+              passportExpiryDateInput.classList.remove('is-invalid', 'text-warning');
+              $feedback.removeClass('text-warning').addClass('invalid-feedback');
               $feedback.hide();
-          } else if (!isValidFormat) {
-              // Invalid format
-              passportExpiryDateInput.classList.add('is-invalid');
-              $feedback.addClass('invalid-feedback').text('Invalid date format').show();
-          } else {
-              // Valid format - check if expired
-              const expiryDate = moment(inputValue, "YYYY-MM-DD");
-              const today = moment();
-              if (expiryDate.isBefore(today)) {
-                  // Expired - show warning with color change
-                  passportExpiryDateInput.classList.add('text-warning');
-                  $feedback.addClass('text-warning').text('Expired').show();
-              } else {
-                  // Valid future date - remove all warnings
-                  passportExpiryDateInput.classList.remove('is-invalid', 'text-warning');
-                  $feedback.removeClass('invalid-feedback', 'text-warning').hide();
-              }
-          }
-
-          // Document visibility logic (merged from _onchangePassportExpiryDateDoc)
-          if (inputValue && isValidFormat) {
-              const selectedDate = new Date(inputValue);
-              const today = new Date();
-              const expireElm = $('.expired_passport_driving_license');
-              if (selectedDate < today) {
-                  expireElm.removeClass('d-none');
-              } else {
-                  expireElm.addClass('d-none');
-              }
-          } else {
-              // Hide document section if input is empty or invalid
-              $('.expired_passport_driving_license').addClass('d-none');
+            }
           }
         },
 
@@ -1456,38 +1421,38 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
 
             // Only proceed if the lead state is 'illustration'
 
-//                if (selectedOption === 'renting_private') {
+                if (selectedOption === 'renting_private') {
                     // Show Current Landlord Fields
-//                    currentLandlordName.removeClass('d-none');
-//                    currentLandlordAddress.removeClass('d-none');
-//                    currentLandlordPostcode.removeClass('d-none');
-//                    currentLandlordContactNo.removeClass('d-none');
-//
-//                    // Hide Local Authority Fields
-//                    localAuthorityName.addClass('d-none');
-//                    localAuthorityPostcode.addClass('d-none');
-//                    localAuthorityAddress.addClass('d-none');
-//                } else if (selectedOption === 'renting_local_authority') {
-//                    // Show Local Authority Fields
-//                    localAuthorityName.removeClass('d-none');
-//                    localAuthorityPostcode.removeClass('d-none');
-//                    localAuthorityAddress.removeClass('d-none');
-//
-//                    // Hide Current Landlord Fields
-//                    currentLandlordName.addClass('d-none');
-//                    currentLandlordAddress.addClass('d-none');
-//                    currentLandlordPostcode.addClass('d-none');
-//                    currentLandlordContactNo.addClass('d-none');
-//                } else {
-//                    // Hide all fields if none of the options are selected
-//                    currentLandlordName.addClass('d-none');
-//                    currentLandlordAddress.addClass('d-none');
-//                    currentLandlordPostcode.addClass('d-none');
-//                    currentLandlordContactNo.addClass('d-none');
-//                    localAuthorityName.addClass('d-none');
-//                    localAuthorityPostcode.addClass('d-none');
-//                    localAuthorityAddress.addClass('d-none');
-//                }
+                    currentLandlordName.removeClass('d-none');
+                    currentLandlordAddress.removeClass('d-none');
+                    currentLandlordPostcode.removeClass('d-none');
+                    currentLandlordContactNo.removeClass('d-none');
+
+                    // Hide Local Authority Fields
+                    localAuthorityName.addClass('d-none');
+                    localAuthorityPostcode.addClass('d-none');
+                    localAuthorityAddress.addClass('d-none');
+                } else if (selectedOption === 'renting_local_authority') {
+                    // Show Local Authority Fields
+                    localAuthorityName.removeClass('d-none');
+                    localAuthorityPostcode.removeClass('d-none');
+                    localAuthorityAddress.removeClass('d-none');
+
+                    // Hide Current Landlord Fields
+                    currentLandlordName.addClass('d-none');
+                    currentLandlordAddress.addClass('d-none');
+                    currentLandlordPostcode.addClass('d-none');
+                    currentLandlordContactNo.addClass('d-none');
+                } else {
+                    // Hide all fields if none of the options are selected
+                    currentLandlordName.addClass('d-none');
+                    currentLandlordAddress.addClass('d-none');
+                    currentLandlordPostcode.addClass('d-none');
+                    currentLandlordContactNo.addClass('d-none');
+                    localAuthorityName.addClass('d-none');
+                    localAuthorityPostcode.addClass('d-none');
+                    localAuthorityAddress.addClass('d-none');
+                }
 
         },
 
@@ -2139,37 +2104,21 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             const personalGoods = parseFloat(document.getElementById("personal_goods").value) || 0;
             const householdGoods = parseFloat(document.getElementById("household_goods").value) || 0;
             const entertainment = parseFloat(document.getElementById("entertainment").value) || 0;
-
-            // Get childcare safely
-            const childcareElement = document.getElementById("childcare_cost");
-            const childcare = childcareElement ? (parseFloat(childcareElement.value) || 0) : 0;
-
+            const childcare = parseFloat(document.getElementById("childcare_cost").value) || 0;
             const annualCouncilTax = parseFloat(document.getElementById("annual_council_tax").value) || 0;
             const homeInsurance = parseFloat(document.getElementById("home_insurance").value) || 0;
             const lifeInsurance = parseFloat(document.getElementById("life_insurance").value) || 0;
             const carInsurance = parseFloat(document.getElementById("car_insurance").value) || 0;
             const educationFees = parseFloat(document.getElementById("education_fees").value) || 0;
-
-            // Get ground_rent safely
-            const groundRentElement = document.getElementById("ground_rent_1");
-            const groundRent = groundRentElement ? (parseFloat(groundRentElement.value) || 0) : 0;
-
-            // Get service_charge safely
-            const serviceChargeElement = document.getElementById("service_charge");
-            const serviceCharge = serviceChargeElement ? (parseFloat(serviceChargeElement.value) || 0) : 0;
-
-            const servicesCharge = parseFloat(document.getElementById("services_charge").value) || 0;
+            const groundRent = parseFloat(document.getElementById("ground_rent").value) || 0;
+            const serviceCharge = parseFloat(document.getElementById("service_charge").value) || 0;
+            const gymMembership = parseFloat(document.getElementById("gym_membership").value) || 0;
 
             const monthlyCouncilTax = annualCouncilTax / 12;
 
-            const totalExpenses = rent + food + utilities + phoneInternet + transport + clothing + medicine + personalGoods + householdGoods + entertainment + childcare + homeInsurance + lifeInsurance + carInsurance + educationFees + groundRent + serviceCharge + servicesCharge + monthlyCouncilTax;
+            const totalExpenses = rent + food + utilities + phoneInternet + transport + clothing + medicine + personalGoods + householdGoods + entertainment + childcare + homeInsurance + lifeInsurance + carInsurance + educationFees + groundRent + serviceCharge + gymMembership + monthlyCouncilTax;
 
-            // Ensure totalExpenses is a valid number before calling toFixed
-            const totalExpensesElement = document.getElementById("total_expenses");
-            if (totalExpensesElement) {
-                totalExpensesElement.value = (isNaN(totalExpenses) ? 0 : totalExpenses).toFixed(2);
-            }
-
+            document.getElementById("total_expenses").value = totalExpenses.toFixed(2);
          },
 
         _calculateAnnualIncome: function (ev) {
@@ -2194,7 +2143,6 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions', function (require) {
             const giftedDepositAmountFromDirector = parseFloat(document.getElementById("gifted_deposit_amount_from_director").value) || 0;
 
             const totalDeposit = depositFromSavings + giftedDepositFromFriend + giftedDepositFromFamily + depositFromAnotherLoan + depositFromEquityOfProperty + loanAmountFromDirector + giftedDepositAmountFromDirector;
-
 
             document.getElementById("total_deposit_amount").value = totalDeposit.toFixed(2);
         },

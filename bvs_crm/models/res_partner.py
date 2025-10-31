@@ -4,8 +4,9 @@ from odoo import api, models, fields, _
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    first_name = fields.Char('First Name', compute='_compute_first_last_name')
-    last_name = fields.Char('Last Name', compute='_compute_first_last_name')
+    # Changes done by Kovida Opatha start
+    first_name = fields.Char('First Name', compute='_compute_first_last_name', inverse='_inverse_name', store=True)
+    last_name = fields.Char('Last Name', compute='_compute_first_last_name', inverse='_inverse_name', store=True)
     lead_count = fields.Integer("No of My Leads", compute='_compute_lead_count')
     #lead_ids = fields.One2many('bvs.lead', 'partner_id', string='My Leads')
     lead_ids = fields.Many2many(
@@ -29,15 +30,27 @@ class ResPartner(models.Model):
     @api.depends('name')
     def _compute_first_last_name(self):
         for record in self:
-            record.first_name = False
-            record.last_name = False
             if record.name:
                 if not record.is_company:
                     full_name = record.name.strip()
                     name_parts = full_name.split(' ', 1)
 
-                    record.first_name = name_parts[0] if len(name_parts) == 2 else name_parts[0]
-                    record.last_name = name_parts[1] if len(name_parts) == 2 else ''
+                    record.first_name = name_parts[0]
+                    record.last_name = name_parts[1] if len(name_parts) > 1 else ''
+                else:
+                    record.first_name = record.name
+                    record.last_name = ''
+            else:
+                record.first_name = ''
+                record.last_name = ''
+
+    def _inverse_name(self):
+        for record in self:
+            if record.first_name or record.last_name:
+                record.name = f"{record.first_name or ''} {record.last_name or ''}".strip()
+            else:
+                record.name = ''
+    # Changes done by Kovida Opatha end
 
     # my leads
     @api.depends('lead_ids')

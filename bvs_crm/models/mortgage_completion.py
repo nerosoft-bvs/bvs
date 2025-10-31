@@ -6,6 +6,8 @@ class BVSLead(models.Model):
 
     completion_team_leader = fields.Many2one('res.users', string='Team Leader')
     lender_offer_case_allocation = fields.Many2one('res.users', string='Team Member')
+    verified_by = fields.Many2one('res.users', string='Verified by')
+    is_verified = fields.Boolean(string='Verified')
     lender_offer_tm_acknowledgement = fields.Boolean(string='Ready To Submit')
     lender_offer_concert_hub_ready = fields.Boolean(string='Status Update')
     lender_offer_check_ch_submission = fields.Boolean(string='CH Submitted')

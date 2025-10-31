@@ -672,14 +672,10 @@
 
                                 <form t-attf-action="/fact_find/address-history/submit/" method="POST"
                                       class="row g-3 address-history-form d-none ff-form">
-                                    <!--                                    <link rel="stylesheet" type="text/css"-->
-                                    <!--                                          href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=DC41-RG84-PN42-RP92"/>-->
-                                    <!--                                    <script type="text/javascript"-->
-                                    <!--                                            src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=DC41-RG84-PN42-RP92"></script>-->
                                     <link rel="stylesheet" type="text/css"
-                                          href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=WG99-XT34-XK15-GE18"/>
+                                          href="https://services.postcodeanywhere.co.uk/css/captureplus-2.30.min.css?key=DC41-RG84-PN42-RP92"/>
                                     <script type="text/javascript"
-                                            src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=WG99-XT34-XK15-GE18"></script>
+                                            src="https://services.postcodeanywhere.co.uk/js/captureplus-2.30.min.js?key=DC41-RG84-PN42-RP92"></script>
                                     <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                                     <input type="hidden" name="address_id" id="address_id"/>
                                     <div class="col-md-6 residential-status">
@@ -710,18 +706,18 @@
                                         <input type="text" id="address-search" name="address-search"/>
                                     </div>
 
-                                    <!--                                    <div class="form-group col-md-12 pt-3">-->
-                                    <!--                                        <label for="hello-search">Hello Address</label>-->
-                                    <!--                                        <input type="text" id="hello-search" name="hello-search"/>-->
-                                    <!--                                    </div>-->
+<!--                                    <div class="form-group col-md-12 pt-3">-->
+<!--                                        <label for="hello-search">Hello Address</label>-->
+<!--                                        <input type="text" id="hello-search" name="hello-search"/>-->
+<!--                                    </div>-->
                                     <div class="form-group col-md-12">
                                         <label for="flat-number" class="form-label">Flat Number</label>
                                         <input type="text" class="form-control" id="flat-number" name="flat-number"/>
                                     </div>
-                                    <!--                                    <div class="form-group col-md-12">-->
-                                    <!--                                        <label for="hello" class="form-label">Hello My one</label>-->
-                                    <!--                                        <input type="text" class="form-control" id="hello" name="hello"/>-->
-                                    <!--                                    </div>-->
+<!--                                    <div class="form-group col-md-12">-->
+<!--                                        <label for="hello" class="form-label">Hello My one</label>-->
+<!--                                        <input type="text" class="form-control" id="hello" name="hello"/>-->
+<!--                                    </div>-->
                                     <div class="form-group col-md-12">
                                         <label for="house-number" class="form-label">House Number</label>
                                         <input type="text" class="form-control" id="house-number" name="house-number"/>
@@ -1060,8 +1056,74 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <div class="d-flex pt-2 pb-3">
+                                        <div class="text-center ">
+                                            <!--<button type="submit" class="btn btn-outline-warning btn-address-save">Save</button>-->
+                                            <button type='button' class="btn btn-outline-warning btn-address-save">Save
+                                            </button>
+                                        </div>
+                                        <div class="text-center" style="padding-left:15px;">
+                                            <button type="button" class="btn btn-outline-warning btn-address-cancel">
+                                                Cancel
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </form>
+                                <!--                                <div class="question-group address_share_sync">-->
+                                <!--                                    <label>Do you anticipate Copy Address History From Applicant</label>-->
+                                <!--                                    <div class="btn-group">-->
+                                <!--                                        <button type="button"-->
+                                <!--                                                class="btn btn-secondary btn-sm btn-sync-data float-end"-->
+                                <!--                                                t-att-data-page="'address'">-->
+                                <!--                                            <i class="fa fa-refresh me-1"/>-->
+                                <!--                                            Sync / Update Data-->
+                                <!--                                        </button>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+
+                                <div class="address-sync-fact card shadow-sm p-3 mb-3">
+                                    <div class="card-body">
+                                        <h6 class="sync-label mb-3">
+                                            Some applicants have already provided their address details.
+                                            Would you like to copy them?
+                                        </h6>
+                                        <div class="row align-items-center">
+                                            <div class="customer_selection col-4 d-flex"></div>
+                                            <div class="btn-group d-flex justify-content-end col-8">
+                                                <button type="button"
+                                                        class="btn btn-outline-gold btn-sm btn-yes-address me-2">
+                                                    <i class="fa fa-check me-1"></i>
+                                                    Yes
+                                                </button>
+                                                <button type="button"
+                                                        class="btn btn-outline-gold btn-sm btn-no-address">
+                                                    <i class="fa fa-times me-1"></i>
+                                                    No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
+                                <div class="form-section mt-5 address-history-details">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <h2 class="ms-1">Current residential address</h2>
+                                        </div>
+                                        <div class="col-4">
+                                        </div>
+                                    </div>
+                                    <div class="address-container"/>
+                                    <div class="button-group">
+                                        <button class="add-address address-details-add">
+                                            <i lass="fa fa-plus-circle me-1"/>
+                                            Add Address
+                                        </button>
+                                    </div>
+                                    <p class="info ms-1">3 years address history required *</p>
                                 </div>
 
 
@@ -1136,29 +1198,24 @@
                                     <input type="hidden" name="financial_dependants_id" id="financial_dependants_id"/>
 
                                     <div class="dependant-details d-none">
-                                        <div class="chkboxes applicant-share-box">
-                                            <label>This Dependant Belongs To *</label>
+                                        <div class="chkboxes">
+                                            <label for="user-one">This Dependant Belongs To *</label>
 
-                                            <!-- Inline Radio Options Container -->
-                                            <div class="adverse-credit-options main-check-box">
-                                                <!-- First Radio -->
-                                                <label class="form-check adverse-credit-share check-box-all"
-                                                       for="user-one-dep">
-                                                    <input class="form-check-input" type="radio" name="belongs-to"
-                                                           id="user-one-dep"/>
-                                                    <span class="form-check-label">
-                                                        Me And My Applicants
-                                                    </span>
+                                            <!-- First Checkbox -->
+                                            <div class="form-check dependant-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to"
+                                                       id="user-one"/>
+                                                <label class="form-check-label" for="user-one">
+                                                    Me And My Applicants
                                                 </label>
+                                            </div>
 
-                                                <!-- Second Radio -->
-                                                <label class="form-check adverse-credit-share check-box-me"
-                                                       for="user-two-dep">
-                                                    <input class="form-check-input" type="radio" name="belongs-to"
-                                                           id="user-two-dep"/>
-                                                    <span class="form-check-label">
-                                                        Only Me
-                                                    </span>
+                                            <!-- Second Checkbox -->
+                                            <div class="form-check dependant-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to"
+                                                       id="user-two"/>
+                                                <label class="form-check-label" for="user-two">
+                                                    Only Me
                                                 </label>
                                             </div>
                                         </div>
@@ -1770,15 +1827,13 @@
                                 <div class="retired d-none">
                                     <div class="retirement-container card shadow-sm p-4 mb-4">
                                         <div class="card-body">
-                                            <h5 class="card-title mb-4"
-                                                style="color: var(--primary-gold-dark); font-weight: 600;">
+                                            <h5 class="card-title mb-4" style="color: var(--primary-gold-dark); font-weight: 600;">
                                                 <i class="fa fa-piggy-bank me-2"></i>Retirement Income Details
                                             </h5>
 
                                             <!-- Loading indicator (optional) -->
                                             <div class="loading-indicator d-none mb-3">
-                                                <div class="spinner-border text-warning spinner-border-sm me-2"
-                                                     role="status">
+                                                <div class="spinner-border text-warning spinner-border-sm me-2" role="status">
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>
                                                 <span class="text-muted">Loading retirement data...</span>
@@ -1786,16 +1841,12 @@
 
                                             <div class="retirement-form">
                                                 <div class="form-group mb-4">
-                                                    <label for="gross_monthly_retirement_income" class="form-label"
-                                                           style="color: #4b5563; font-weight: 600;">
+                                                    <label for="gross_monthly_retirement_income" class="form-label" style="color: #4b5563; font-weight: 600;">
                                                         Gross Monthly Retirement Income:
                                                         <span class="required text-danger">*</span>
                                                     </label>
                                                     <div class="input-group">
-                                                        <span class="input-group-text bg-light"
-                                                              style="color: var(--primary-gold-dark); font-weight: 600;">
-                                                            £
-                                                        </span>
+                                                        <span class="input-group-text bg-light" style="color: var(--primary-gold-dark); font-weight: 600;">£</span>
                                                         <input
                                                                 type="number"
                                                                 id="gross_monthly_retirement_income"
@@ -1808,21 +1859,16 @@
                                                         />
                                                     </div>
                                                     <small class="form-text text-muted">
-                                                        <i class="fa fa-info-circle me-1"></i>Enter your gross monthly
-                                                        retirement income in pounds
+                                                        <i class="fa fa-info-circle me-1"></i>Enter your gross monthly retirement income in pounds
                                                     </small>
                                                 </div>
 
                                                 <div class="form-group mb-4">
-                                                    <label for="annual_retirement_income" class="form-label"
-                                                           style="color: #4b5563; font-weight: 600;">
+                                                    <label for="annual_retirement_income" class="form-label" style="color: #4b5563; font-weight: 600;">
                                                         Annual Retirement Income (Calculated):
                                                     </label>
                                                     <div class="input-group">
-                                                        <span class="input-group-text bg-light"
-                                                              style="color: var(--primary-gold-dark); font-weight: 600;">
-                                                            £
-                                                        </span>
+                                                        <span class="input-group-text bg-light" style="color: var(--primary-gold-dark); font-weight: 600;">£</span>
                                                         <input
                                                                 type="number"
                                                                 id="annual_retirement_income"
@@ -1835,37 +1881,30 @@
                                                         />
                                                     </div>
                                                     <small class="form-text text-muted">
-                                                        <i class="fa fa-calculator me-1"></i>Automatically calculated
-                                                        (Monthly × 12)
+                                                        <i class="fa fa-calculator me-1"></i>Automatically calculated (Monthly × 12)
                                                     </small>
                                                 </div>
 
                                                 <div class="form-actions d-flex gap-2 mt-4">
-                                                    <button type="button"
-                                                            class="btn btn-outline-gold btn-yes-save btn-save-retirement-income">
+                                                    <button type="button" class="btn btn-outline-gold btn-yes-save btn-save-retirement-income">
                                                         <i class="fa fa-check me-2"></i>Save Retirement Income
                                                     </button>
-                                                    <button type="button"
-                                                            class="btn btn-outline-gold btn-no-cancel btn-cancel-retirement">
+                                                    <button type="button" class="btn btn-outline-gold btn-no-cancel btn-cancel-retirement">
                                                         <i class="fa fa-times me-2"></i>Cancel
                                                     </button>
                                                 </div>
                                             </div>
 
                                             <!-- Success message container (optional) -->
-                                            <div class="alert alert-success d-none mt-3" id="retirement-success-message"
-                                                 style="border-left: 4px solid #10b981;">
+                                            <div class="alert alert-success d-none mt-3" id="retirement-success-message" style="border-left: 4px solid #10b981;">
                                                 <i class="fa fa-check-circle me-2"></i>
-                                                <strong>Success!</strong>
-                                                Retirement income saved successfully!
+                                                <strong>Success!</strong> Retirement income saved successfully!
                                             </div>
 
                                             <!-- Error message container (optional) -->
-                                            <div class="alert alert-danger d-none mt-3" id="retirement-error-message"
-                                                 style="border-left: 4px solid #ef4444;">
+                                            <div class="alert alert-danger d-none mt-3" id="retirement-error-message" style="border-left: 4px solid #ef4444;">
                                                 <i class="fa fa-exclamation-triangle me-2"></i>
-                                                <strong>Error!</strong>
-                                                <span class="error-text"></span>
+                                                <strong>Error!</strong> <span class="error-text"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -2142,7 +2181,7 @@
                                 </form>
 
                                 <div class="form-section mt-1 self-employment">
-                                    <!--                                    <h2 class="ms-1">Self Employment</h2>-->
+<!--                                    <h2 class="ms-1">Self Employment</h2>-->
                                     <div class="self-employment-container"/>
                                     <div class="button-group">
                                         <button class="add-address add-self-employment-details"><i
@@ -2245,30 +2284,26 @@
                             <h1 class="header-hp">Adverse Credit</h1>
                             <div class="fact-find fact-find-welcome">
                                 <div class="profile-container">
+                                    <hr/>
                                     <div>
-                                        <div class="chkboxes applicant-share-box">
-                                            <label>This Adverse Credit Belongs To *</label>
+                                        <div class="chkboxes">
+                                            <label for="user-one">This Adverse Credit Belongs To *</label>
 
-                                            <!-- Inline Radio Options Container -->
-                                            <div class="adverse-credit-options main-check-box">
-                                                <!-- First Radio -->
-                                                <label class="form-check adverse-credit-share check-box-all"
-                                                       for="user-one">
-                                                    <input class="form-check-input" type="radio" name="belongs-to-ac"
-                                                           id="user-one"/>
-                                                    <span class="form-check-label">
-                                                        Me And My Applicants
-                                                    </span>
+                                            <!-- First Checkbox -->
+                                            <div class="form-check adverse-credit-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to-ac"
+                                                       id="user-one"/>
+                                                <label class="form-check-label" for="user-one">
+                                                    Me And My Applicants
                                                 </label>
+                                            </div>
 
-                                                <!-- Second Radio -->
-                                                <label class="form-check adverse-credit-share check-box-me"
-                                                       for="user-two">
-                                                    <input class="form-check-input" type="radio" name="belongs-to-ac"
-                                                           id="user-two"/>
-                                                    <span class="form-check-label">
-                                                        Only Me
-                                                    </span>
+                                            <!-- Second Checkbox -->
+                                            <div class="form-check adverse-credit-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to-ac"
+                                                       id="user-two"/>
+                                                <label class="form-check-label" for="user-two">
+                                                    Only Me
                                                 </label>
                                             </div>
                                         </div>
@@ -2431,8 +2466,7 @@
 
                                         <div class="d-flex mt-3">
                                             <div>
-                                                <button type="button"
-                                                        class="btn btn-primary btn-outline-gold btn-save-all-questions">
+                                                <button type="button" class="btn btn-primary btn-outline-gold btn-save-all-questions">
                                                     Save
                                                 </button>
                                             </div>
@@ -2454,7 +2488,6 @@
                                                     <option value="type4">Missed Payment / Arrears
                                                     </option>
                                                     <option value="ccj">CCJ</option>
-                                                    <option value="default">Default</option>
                                                     <option value="iva">Individual Voluntary Arrangement</option>
                                                     <option value="dmp">Debt Management Plan</option>
                                                     <option value="arrangements_to_pay">Arrangements to Pay</option>
@@ -3002,12 +3035,11 @@
                                         </div>
 
                                         <div class="form-group ground_rent">
-                                            <label for="ground_rent_1" class="form-label">Ground Rent
+                                            <label for="ground_rent" class="form-label">Ground Rent
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="number" class="form-control " id="ground_rent_1"
-                                                   name="ground_rent_1" t-att-value="fact_find.ground_rent"
-                                                   style="display: block !important; visibility: visible !important;"/>
+                                            <input type="number" class="form-control" id="ground_rent"
+                                                   name="ground_rent" t-att-value="fact_find.ground_rent"/>
                                         </div>
 
                                         <div class="form-group service_charge">
@@ -3027,7 +3059,7 @@
                                         <div class="form-group total_expenses">
                                             <label for="total_expenses" class="form-label">Total expenses</label>
                                             <input type="number" class="form-control" id="total_expenses"
-                                                   name="total_expenses"
+                                                   name="total_expenses" t-att-value="fact_find.total_monthly_expenses"
                                                    readonly="1"/>
                                         </div>
 
@@ -3079,29 +3111,24 @@
                                     <form class="credit-commitment-form d-none">
                                         <input type="hidden" name="credit_comment_id" id="credit_comment_id"/>
 
-                                        <div class="chkboxes applicant-share-box">
-                                            <label>This Credit Commitment Belongs To *</label>
+                                        <div class="chkboxes">
+                                            <label for="user-one">This Credit Commitment Belongs To *</label>
 
-                                            <!-- Inline Radio Options Container -->
-                                            <div class="adverse-credit-options main-check-box">
-                                                <!-- First Radio -->
-                                                <label class="form-check adverse-credit-share check-box-all"
-                                                       for="user-one-cc">
-                                                    <input class="form-check-input" type="radio" name="belongs-to-cc"
-                                                           id="user-one-cc"/>
-                                                    <span class="form-check-label">
-                                                        Me And My Applicants
-                                                    </span>
+                                            <!-- First Checkbox -->
+                                            <div class="form-check cc-share-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to-cc"
+                                                       id="user-one"/>
+                                                <label class="form-check-label" for="user-one">
+                                                    Me And My Applicants
                                                 </label>
+                                            </div>
 
-                                                <!-- Second Radio -->
-                                                <label class="form-check adverse-credit-share check-box-me"
-                                                       for="user-two-cc">
-                                                    <input class="form-check-input" type="radio" name="belongs-to-cc"
-                                                           id="user-two-cc"/>
-                                                    <span class="form-check-label">
-                                                        Only Me
-                                                    </span>
+                                            <!-- Second Checkbox -->
+                                            <div class="form-check dependant-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to-cc"
+                                                       id="user-two"/>
+                                                <label class="form-check-label" for="user-two">
+                                                    Only Me
                                                 </label>
                                             </div>
                                         </div>
@@ -3283,8 +3310,7 @@
                                             <label for="street_address">Street Address
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea class="form-control" style="font-size:0.75rem;"
-                                                      id="street_address_yep"
+                                            <textarea class="form-control" style="font-size:0.75rem;" id="street_address_yep"
                                                       name="street_address_existing_properties"/>
                                         </div>
                                         <div class="form-group county">
@@ -3551,31 +3577,22 @@
                                 <div class="profile-container">
                                     <form class="existing_mortgages_form d-none">
                                         <input type="hidden" name="existing_mortgages_id" id="existing_mortgages_id"/>
-                                        <div class="chkboxes applicant-share-box">
-                                            <label>Belongs To *</label>
-
-                                            <!-- Inline Radio Options Container -->
-                                            <div class="adverse-credit-options main-check-box">
-                                                <!-- First Radio -->
-                                                <label class="form-check adverse-credit-share check-box-all"
-                                                       for="user-one-em">
-                                                    <input class="form-check-input" type="radio" name="belongs-to-em"
-                                                           id="user-one-em"/>
-                                                    <span class="form-check-label">
-                                                        Me And My Applicants
-                                                    </span>
-                                                </label>
-
-                                                <!-- Second Radio -->
-                                                <label class="form-check adverse-credit-share check-box-me"
-                                                       for="user-two-em">
-                                                    <input class="form-check-input" type="radio" name="belongs-to-em"
-                                                           id="user-two-em"/>
-                                                    <span class="form-check-label">
-                                                        Only Me
-                                                    </span>
+                                        <div class="chkboxes">
+                                            <label for="user-one">Belongs To *</label>
+                                            <div class="form-check em-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to-em"
+                                                       id="user-one"/>
+                                                <label class="form-check-label" for="user-one">
+                                                    Me And My Applicants
                                                 </label>
                                             </div>
+                                        </div>
+                                        <div class="chkboxes">
+                                            <input class="form-check-input" type="radio" name="belongs-to-em"
+                                                   id="user-two"/>
+                                            <label class="form-check-label" for="user-two">
+                                                Only Me
+                                            </label>
                                         </div>
 
                                         <div class="form-group mb-3">
@@ -4257,99 +4274,24 @@
                                 <div class="profile-container">
                                     <form class="banking-details-form ff-form d-none">
                                         <input type="hidden" name="banking_details_id" id="banking_details_id"/>
-                                        <div class="chkboxes applicant-share-box">
-                                            <div class="main-check-box">
-                                                <label for="user-one-banking">Belongs To *</label>
-                                                <div class="adverse-credit-options">
-                                                    <!-- First Radio -->
-                                                    <label class="form-check adverse-credit-share check-box-all"
-                                                           for="user-one-banking">
-                                                        <input class="form-check-input" type="radio"
-                                                               name="belongs-to-banking"
-                                                               id="user-one-banking"/>
-                                                        <span class="form-check-label">
-                                                            Me And My Applicants
-                                                        </span>
-                                                    </label>
-
-                                                    <!-- Second Radio -->
-                                                    <label class="form-check adverse-credit-share check-box-me"
-                                                           for="user-two-banking">
-                                                        <input class="form-check-input" type="radio"
-                                                               name="belongs-to-banking"
-                                                               id="user-two-banking"/>
-                                                        <span class="form-check-label">
-                                                            Me only
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                        <div class="chkboxes">
+                                            <label for="user-one">Belongs To *</label>
+                                            <div class="form-check banking-share">
+                                                <input class="form-check-input" type="radio" name="belongs-to-banking"
+                                                       id="user-one"/>
+                                                <label class="form-check-label" for="user-one">
+                                                    Me And My Applicants
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <input class="form-check-input" type="radio"
+                                                       name="belongs-to-banking"
+                                                       id="user-two"/>
+                                                <label class="form-check-label" for="user-two">
+                                                    Me only
+                                                </label>
                                             </div>
                                         </div>
-
-                                        <!--                                        <div class="chkboxes applicant-share-box">-->
-                                        <!--                                            <div class="main-check-box">-->
-                                        <!--                                                <label for="user-one">Belongs To *</label>-->
-                                        <!--                                                <div class="form-check banking-share">-->
-                                        <!--                                                    <input class="form-check-input" type="radio"-->
-                                        <!--                                                           name="belongs-to-banking"-->
-                                        <!--                                                           id="user-one"/>-->
-                                        <!--                                                    <label class="form-check-label" for="user-one">-->
-                                        <!--                                                        Me And My Applicants-->
-                                        <!--                                                    </label>-->
-                                        <!--                                                </div>-->
-                                        <!--                                                <div>-->
-                                        <!--                                                    <input class="form-check-input" type="radio"-->
-                                        <!--                                                           name="belongs-to-banking"-->
-                                        <!--                                                           id="user-two"/>-->
-                                        <!--                                                    <label class="form-check-label" for="user-two">-->
-                                        <!--                                                        Me only-->
-                                        <!--                                                    </label>-->
-                                        <!--                                                </div>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
-                                        <!--                                        <div class="chkboxes applicant-share-box">-->
-                                        <!--                                            <div class="main-check-box">-->
-                                        <!--                                                <label for="user-one">Belongs To *</label>-->
-                                        <!--                                                <div class="form-check banking-share main-check-box">-->
-                                        <!--                                                    <input class="form-check-input" type="radio"-->
-                                        <!--                                                           name="belongs-to-banking"-->
-                                        <!--                                                           id="user-one"/>-->
-                                        <!--                                                    <label class="form-check-label check-box-all" for="user-one">-->
-                                        <!--                                                        Me And My Applicants-->
-                                        <!--                                                    </label>-->
-                                        <!--                                                </div>-->
-                                        <!--                                                <div>-->
-                                        <!--                                                    <input class="form-check-input" type="radio"-->
-                                        <!--                                                           name="belongs-to-banking"-->
-                                        <!--                                                           id="user-two"/>-->
-                                        <!--                                                    <label class="form-check-label check-box-me" for="user-two">-->
-                                        <!--                                                        Me only-->
-                                        <!--                                                    </label>-->
-                                        <!--                                                </div>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
-
-                                        <!--                                        <div class="chkboxes applicant-share-box">-->
-                                        <!--                                            <div class="main-check-box">-->
-                                        <!--                                                <label for="user-one">Belongs To *</label>-->
-                                        <!--                                                <div class="form-check banking-share main-check-box">-->
-                                        <!--                                                    <input class="form-check-input" type="radio"-->
-                                        <!--                                                           name="belongs-to-banking"-->
-                                        <!--                                                           id="user-one"/>-->
-                                        <!--                                                    <label class="form-check-label check-box-all" for="user-one">-->
-                                        <!--                                                        Me And My Applicants-->
-                                        <!--                                                    </label>-->
-                                        <!--                                                </div>-->
-                                        <!--                                                <div>-->
-                                        <!--                                                    <input class="form-check-input" type="radio"-->
-                                        <!--                                                           name="belongs-to-banking"-->
-                                        <!--                                                           id="user-two"/>-->
-                                        <!--                                                    <label class="form-check-label check-box-me" for="user-two">-->
-                                        <!--                                                        Me only-->
-                                        <!--                                                    </label>-->
-                                        <!--                                                </div>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
                                         <div class="form-group">
                                             <label for="ynm-bnk-sort-code">Sort Code</label>
                                             <input type="text" id="ynm-sort-code" name="ynm-sort-code"/>
@@ -4483,693 +4425,694 @@
         </main>
     </template>
 
-    <!--    &lt;!&ndash;BVS portal Fact Find Your New-Mortgage Building & Contents Insurance&ndash;&gt;-->
-    <!--    <template id="bvs_portal_ff_ynm_building_n_contents_insurance"-->
-    <!--              name="BVS Portal: FF YNM Building &amp; Contents Insurance">-->
-    <!--        <main class="content px-3 py-2 d-none" id="ff_ynm_building_n_contents_insurance">-->
-    <!--            <div class="container-fluid">-->
-    <!--                <div class="mb-3 mt-3">-->
-    <!--                    <div class="row">-->
-    <!--                        <div class="col-md-12">-->
-    <!--                            <h1 class="header-hp">New Property Details</h1>-->
-    <!--                            <div class="fact-find fact-find-welcome">-->
-    <!--                                <div class="profile-container">-->
-    <!--                                    <form t-attf-action="/fact_find/new-property/submit/" method="POST"-->
-    <!--                                          class="ff-expenditure-submit ff-form">-->
-    <!--                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
-    <!--                                        <t t-att-data-fact-find-id="fact_find.id"/>-->
-    <!--                                        <div class="form-group property_usage">-->
-    <!--                                            <label for="property_usage">Property Usage-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <select class="form-control property_usage" id="property_usage"-->
-    <!--                                                    name="property_usage"-->
-    <!--                                                    t-att-value="fact_find.property_usage">-->
-    <!--                                                <option value="">-->
-    <!--                                                </option>-->
-    <!--                                                <option value="residential"-->
-    <!--                                                        t-att-selected="fact_find.property_usage == 'residential'">-->
-    <!--                                                    Residential-->
-    <!--                                                </option>-->
-    <!--                                                <option value="second_residential"-->
-    <!--                                                        t-att-selected="fact_find.property_usage == 'second_residential'">-->
-    <!--                                                    Second Residential-->
-    <!--                                                </option>-->
-    <!--                                                <option value="btl" t-att-selected="fact_find.property_usage == 'btl'">-->
-    <!--                                                    BTL-->
-    <!--                                                </option>-->
-    <!--                                                <option value="company_btl"-->
-    <!--                                                        t-att-selected="fact_find.property_usage == 'company_btl'">-->
-    <!--                                                    Company BTL-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+    <!--BVS portal Fact Find Your New-Mortgage Building & Contents Insurance-->
+    <template id="bvs_portal_ff_ynm_building_n_contents_insurance"
+              name="BVS Portal: FF YNM Building &amp; Contents Insurance">
+        <main class="content px-3 py-2 d-none" id="ff_ynm_building_n_contents_insurance">
+            <div class="container-fluid">
+                <div class="mb-3 mt-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1 class="header-hp">New Property Details</h1>
+                            <div class="fact-find fact-find-welcome">
+                                <div class="profile-container">
+                                    <form t-attf-action="/fact_find/new-property/submit/" method="POST"
+                                          class="ff-expenditure-submit ff-form">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <t t-att-data-fact-find-id="fact_find.id"/>
+                                        <div class="form-group property_usage">
+                                            <label for="property_usage">Property Usage
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control property_usage" id="property_usage"
+                                                    name="property_usage"
+                                                    t-att-value="fact_find.property_usage">
+                                                <option value="">
+                                                </option>
+                                                <option value="residential"
+                                                        t-att-selected="fact_find.property_usage == 'residential'">
+                                                    Residential
+                                                </option>
+                                                <option value="second_residential"
+                                                        t-att-selected="fact_find.property_usage == 'second_residential'">
+                                                    Second Residential
+                                                </option>
+                                                <option value="btl" t-att-selected="fact_find.property_usage == 'btl'">
+                                                    BTL
+                                                </option>
+                                                <option value="company_btl"
+                                                        t-att-selected="fact_find.property_usage == 'company_btl'">
+                                                    Company BTL
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Is New Build Property &ndash;&gt;-->
-    <!--                                        <div class="chkboxes is_new_build d-none">-->
-    <!--                                            <label class="col-form-label col-sm-auto">Is this a new-->
-    <!--                                                build property?-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <div class="col-sm">-->
-    <!--                                                <input type="checkbox" name="is_new_build" id="is_new_build"-->
-    <!--                                                       class="form-check-input is_new_build"-->
-    <!--                                                       t-att-checked="fact_find.is_new_build"/>-->
-    <!--                                            </div>-->
-    <!--                                        </div>-->
+                                        <!-- Is New Build Property -->
+                                        <div class="chkboxes is_new_build d-none">
+                                            <label class="col-form-label col-sm-auto">Is this a new
+                                                build property?
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="col-sm">
+                                                <input type="checkbox" name="is_new_build" id="is_new_build"
+                                                       class="form-check-input is_new_build"
+                                                       t-att-checked="fact_find.is_new_build"/>
+                                            </div>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Address Search &ndash;&gt;-->
-    <!--                                        <div class="form-group">-->
-    <!--                                            <label for="insurance-address-search">Address-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="text" class="form-control"-->
-    <!--                                                   id="insurance-address-search"-->
-    <!--                                                   name="insurance-address-search"-->
-    <!--                                                   placeholder="Start typing to search address..."/>-->
-    <!--                                        </div>-->
+                                        <!-- Address Search -->
+                                        <div class="form-group">
+                                            <label for="insurance-address-search">Address
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control"
+                                                   id="insurance-address-search"
+                                                   name="insurance-address-search"
+                                                   placeholder="Start typing to search address..."/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Full Address &ndash;&gt;-->
-    <!--                                        <div class="form-group address">-->
-    <!--                                            <label for="address3">Full Address</label>-->
-    <!--                                            <textarea-->
-    <!--                                                    style="font-size:0.75rem;"-->
-    <!--                                                    t-attf-class="form-control #{fact_find.address and 'has-value' or ''}"-->
-    <!--                                                    id="address3" name="address3" t-esc="fact_find.address"></textarea>-->
-    <!--                                        </div>-->
-
-
-    <!--                                        &lt;!&ndash; House/Flat Number &ndash;&gt;-->
-    <!--                                        <div class="form-group house_flat_no">-->
-    <!--                                            <label for="house_flat_no">House No / Flat No-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="text" class="form-control" id="house_flat_no"-->
-    <!--                                                   name="house_flat_no"-->
-    <!--                                                   t-att-value="fact_find.house_flat_no"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Post Code &ndash;&gt;-->
-    <!--                                        <div class="form-group post_code">-->
-    <!--                                            <label for="post_code">Post Code-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="text" class="form-control" id="post_code3" name="post_code3"-->
-    <!--                                                   t-att-value="fact_find.post_code"/>-->
-    <!--                                        </div>-->
+                                        <!-- Full Address -->
+                                        <div class="form-group address">
+                                            <label for="address3">Full Address</label>
+                                            <textarea
+                                                    style="font-size:0.75rem;"
+                                                    t-attf-class="form-control #{fact_find.address and 'has-value' or ''}"
+                                                    id="address3" name="address3" t-esc="fact_find.address"></textarea>
+                                        </div>
 
 
-    <!--                                        &lt;!&ndash; Building Name &ndash;&gt;-->
-    <!--                                        <div class="form-group building_name">-->
-    <!--                                            <label for="building_name">Building Name-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="text" class="form-control" id="building_name3"-->
-    <!--                                                   name="building_name3"-->
-    <!--                                                   t-att-value="fact_find.building_name"/>-->
-    <!--                                        </div>-->
+                                        <!-- House/Flat Number -->
+                                        <div class="form-group house_flat_no">
+                                            <label for="house_flat_no">House No / Flat No
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="house_flat_no"
+                                                   name="house_flat_no"
+                                                   t-att-value="fact_find.house_flat_no"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Street Address &ndash;&gt;-->
-    <!--                                        <div class="form-group street_address">-->
-    <!--                                            <label for="street_address">Street Address-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="text" class="form-control" id="street_address3"-->
-    <!--                                                   name="street_address3"-->
-    <!--                                                   t-att-value="fact_find.street_address"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; County &ndash;&gt;-->
-    <!--                                        <div class="form-group county">-->
-    <!--                                            <label for="county">County-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="text" class="form-control" id="county3" name="county3"-->
-    <!--                                                   t-att-value="fact_find.county"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Market Price &ndash;&gt;-->
-    <!--                                        <div class="form-group market_price">-->
-    <!--                                            <label for="market_price">Market Price-->
-    <!--                                                <span class="text-danger">*</span>-->
-    <!--                                            </label>-->
-    <!--                                            <input type="number" class="form-control" id="market_price"-->
-    <!--                                                   name="market_price"-->
-    <!--                                                   t-att-value="fact_find.market_price"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Checkbox for Commute Over One Hour &ndash;&gt;-->
-    <!--                                        <div class="chkboxes commute_over_one_hour_field">-->
-    <!--                                            <label class="form-check-label" for="commute_over_one_hour">-->
-    <!--                                                Do you spend more than one hour to travel from the new property to the-->
-    <!--                                                current employment address?-->
-    <!--                                            </label>-->
-    <!--                                            <input type="checkbox" class="form-check-input" id="commute_over_one_hour"-->
-    <!--                                                   name="commute_over_one_hour"-->
-    <!--                                                   t-att-checked="fact_find.commute_over_one_hour"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Monthly Commute Cost &ndash;&gt;-->
-    <!--                                        <div class="form-group monthly_commute_cost_field d-none">-->
-    <!--                                            <label for="monthly_commute_cost">Monthly Commute Cost</label>-->
-    <!--                                            <input type="number" class="form-control" id="monthly_commute_cost"-->
-    <!--                                                   name="monthly_commute_cost"-->
-    <!--                                                   t-att-value="fact_find.monthly_commute_cost"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Property Type &ndash;&gt;-->
-    <!--                                        <div class="form-group">-->
-    <!--                                            <label for="property_type">Property Type</label>-->
-    <!--                                            <select class="form-control" id="property_type" name="property_type"-->
-    <!--                                                    t-att-value="fact_find.property_type">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="semi_detached"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'semi_detached'">-->
-    <!--                                                    Semi-detached-->
-    <!--                                                </option>-->
-    <!--                                                <option value="detached"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'detached'">Detached-->
-    <!--                                                </option>-->
-    <!--                                                <option value="terraced"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'terraced'">Terraced-->
-    <!--                                                </option>-->
-    <!--                                                <option value="end_terraced"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'end_terraced'">-->
-    <!--                                                    End-Terraced-->
-    <!--                                                </option>-->
-    <!--                                                <option value="purpose_built_flat"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'purpose_built_flat'">-->
-    <!--                                                    Purpose Built Flat-->
-    <!--                                                </option>-->
-    <!--                                                <option value="maisonette"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'maisonette'">-->
-    <!--                                                    Maisonette-->
-    <!--                                                </option>-->
-    <!--                                                <option value="converted_flat"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'converted_flat'">-->
-    <!--                                                    Converted Flat-->
-    <!--                                                </option>-->
-    <!--                                                <option value="bungalow"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'bungalow'">Bungalow-->
-    <!--                                                </option>-->
-    <!--                                                <option value="other"-->
-    <!--                                                        t-att-selected="fact_find.property_type == 'other'">Other-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Tenure &ndash;&gt;-->
-    <!--                                        <div class="form-group">-->
-    <!--                                            <label for="tenure">Tenure</label>-->
-    <!--                                            <select class="form-control" id="tenure" name="tenure"-->
-    <!--                                                    t-att-value="fact_find.tenure">-->
-    <!--                                                <option value="">-->
-    <!--                                                </option>-->
-    <!--                                                <option value="freehold"-->
-    <!--                                                        t-att-selected="fact_find.tenure == 'freehold'">Freehold-->
-    <!--                                                </option>-->
-    <!--                                                <option value="leasehold"-->
-    <!--                                                        t-att-selected="fact_find.tenure == 'leasehold'">Leasehold-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Number of Bedrooms &ndash;&gt;-->
-    <!--                                        <div class="form-group no_bedrooms">-->
-    <!--                                            <label for="no_bedrooms">No of bedrooms</label>-->
-    <!--                                            <input type="number" class="form-control" id="no_bedrooms"-->
-    <!--                                                   name="no_bedrooms"-->
-    <!--                                                   t-att-value="fact_find.no_bedrooms"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Number of Bathrooms &ndash;&gt;-->
-    <!--                                        <div class="form-group no_bathrooms">-->
-    <!--                                            <label for="no_bathrooms">No of bathrooms</label>-->
-    <!--                                            <input type="number" class="form-control" id="no_bathrooms"-->
-    <!--                                                   name="no_bathrooms"-->
-    <!--                                                   t-att-value="fact_find.no_bathrooms"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Kitchen &ndash;&gt;-->
-    <!--                                        <div class="form-group kitchen">-->
-    <!--                                            <label for="kitchen">Kitchen</label>-->
-    <!--                                            <input type="number" class="form-control" id="kitchen" name="kitchen"-->
-    <!--                                                   t-att-value="fact_find.kitchen"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Living Rooms &ndash;&gt;-->
-    <!--                                        <div class="form-group living_rooms">-->
-    <!--                                            <label for="living_rooms">Living rooms</label>-->
-    <!--                                            <input type="number" class="form-control" id="living_rooms"-->
-    <!--                                                   name="living_rooms"-->
-    <!--                                                   t-att-value="fact_find.living_rooms"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Garage Space &ndash;&gt;-->
-    <!--                                        <div class="form-group garage_space">-->
-    <!--                                            <label for="garage_space">Garage Space</label>-->
-    <!--                                            <input type="number" class="form-control" id="garage_space"-->
-    <!--                                                   name="garage_space"-->
-    <!--                                                   t-att-value="fact_find.garage_space"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Parking &ndash;&gt;-->
-    <!--                                        <div class="form-group parking">-->
-    <!--                                            <label for="parking">Parking</label>-->
-    <!--                                            <select class="form-control" id="parking" name="parking"-->
-    <!--                                                    t-att-value="fact_find.parking">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="single" t-att-selected="fact_find.parking == 'single'">-->
-    <!--                                                    Single-->
-    <!--                                                </option>-->
-    <!--                                                <option value="double" t-att-selected="fact_find.parking == 'double'">-->
-    <!--                                                    Double-->
-    <!--                                                </option>-->
-    <!--                                                <option value="on_site" t-att-selected="fact_find.parking == 'on_site'">-->
-    <!--                                                    On-site-->
-    <!--                                                </option>-->
-    <!--                                                <option value="road_side"-->
-    <!--                                                        t-att-selected="fact_find.parking == 'road_side'">Road-Side-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Number of Stories in Building &ndash;&gt;-->
-    <!--                                        <div class="form-group no_stories_in_building">-->
-    <!--                                            <label for="no_stories_in_building">No of stories in the building</label>-->
-    <!--                                            <input type="number" class="form-control" id="no_stories_in_building"-->
-    <!--                                                   name="no_stories_in_building"-->
-    <!--                                                   t-att-value="fact_find.no_stories_in_building"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Estimated Built Year &ndash;&gt;-->
-    <!--                                        <div t-attf-class="form-group estimated_built_year #{fact_find.estimated_built_year and 'filled' or ''}">-->
-    <!--                                            <label for="estimated_built_year">Estimated Built Year</label>-->
-    <!--                                            <select name="estimated_built_year"-->
-    <!--                                                    t-attf-class="form-control #{fact_find.estimated_built_year and 'has-value' or ''}"-->
-    <!--                                                    id="estimated_built_year">-->
-    <!--                                                <option value="">Year</option>-->
-    <!--                                                <t t-foreach="range(1900, 2030)" t-as="year">-->
-    <!--                                                    <option t-att-value="year"-->
-    <!--                                                            t-att-selected="fact_find.estimated_built_year == str(year)">-->
-    <!--                                                        <t t-esc="year"/>-->
-    <!--                                                    </option>-->
-    <!--                                                </t>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- Post Code -->
+                                        <div class="form-group post_code">
+                                            <label for="post_code">Post Code
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="post_code3" name="post_code3"
+                                                   t-att-value="fact_find.post_code"/>
+                                        </div>
 
 
-    <!--                                        &lt;!&ndash; Warranty Providers Name &ndash;&gt;-->
-    <!--                                        <div class="form-group warranty_providers_name_field d-none">-->
-    <!--                                            <label for="warranty_providers_name">Warranty providers Name</label>-->
-    <!--                                            <input type="text" class="form-control" id="warranty_providers_name"-->
-    <!--                                                   name="warranty_providers_name"-->
-    <!--                                                   t-att-value="fact_find.warranty_providers_name"/>-->
-    <!--                                        </div>-->
 
-    <!--                                        &lt;!&ndash; EPC / Predicted EPC Rate &ndash;&gt;-->
-    <!--                                        <div class="form-group epc_predicted_epc_rate">-->
-    <!--                                            <label for="epc_predicted_epc_rate">EPC / Predicted EPC Rate</label>-->
-    <!--                                            <select class="form-control" id="epc_predicted_epc_rate"-->
-    <!--                                                    name="epc_predicted_epc_rate">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="a"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'a'">A-->
-    <!--                                                </option>-->
-    <!--                                                <option value="b"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'b'">B-->
-    <!--                                                </option>-->
-    <!--                                                <option value="c"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'c'">C-->
-    <!--                                                </option>-->
-    <!--                                                <option value="d"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'd'">D-->
-    <!--                                                </option>-->
-    <!--                                                <option value="e"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'e'">E-->
-    <!--                                                </option>-->
-    <!--                                                <option value="f"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'f'">F-->
-    <!--                                                </option>-->
-    <!--                                                <option value="na"-->
-    <!--                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'na'">NA-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- Building Name -->
+                                        <div class="form-group building_name">
+                                            <label for="building_name">Building Name
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="building_name3"
+                                                   name="building_name3"
+                                                   t-att-value="fact_find.building_name"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; PEA Rate &ndash;&gt;-->
-    <!--                                        <div class="form-group pea_rate">-->
-    <!--                                            <label for="pea_rate">PEA Rate</label>-->
-    <!--                                            <select class="form-control" id="pea_rate" name="pea_rate">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="a" t-att-selected="fact_find.pea_rate == 'a'">A</option>-->
-    <!--                                                <option value="b" t-att-selected="fact_find.pea_rate == 'b'">B</option>-->
-    <!--                                                <option value="c" t-att-selected="fact_find.pea_rate == 'c'">C</option>-->
-    <!--                                                <option value="d" t-att-selected="fact_find.pea_rate == 'd'">D</option>-->
-    <!--                                                <option value="e" t-att-selected="fact_find.pea_rate == 'e'">E</option>-->
-    <!--                                                <option value="f" t-att-selected="fact_find.pea_rate == 'f'">F</option>-->
-    <!--                                                <option value="na" t-att-selected="fact_find.pea_rate == 'na'">NA-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- Street Address -->
+                                        <div class="form-group street_address">
+                                            <label for="street_address">Street Address
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="street_address3"
+                                                   name="street_address3"
+                                                   t-att-value="fact_find.street_address"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Ex-Council &ndash;&gt;-->
-    <!--                                        <div class="chkboxes ex_council">-->
-    <!--                                            <label class="form-check-label" for="ex_council">Ex-Council</label>-->
-    <!--                                            <input type="checkbox" class="form-check-input" id="ex_council"-->
-    <!--                                                   name="ex_council" t-att-checked="fact_find.ex_council"/>-->
-    <!--                                        </div>-->
+                                        <!-- County -->
+                                        <div class="form-group county">
+                                            <label for="county">County
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="county3" name="county3"
+                                                   t-att-value="fact_find.county"/>
+                                        </div>
+
+                                        <!-- Market Price -->
+                                        <div class="form-group market_price">
+                                            <label for="market_price">Market Price
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="number" class="form-control" id="market_price"
+                                                   name="market_price"
+                                                   t-att-value="fact_find.market_price"/>
+                                        </div>
+
+                                        <!-- Checkbox for Commute Over One Hour -->
+                                        <div class="chkboxes commute_over_one_hour_field">
+                                            <label class="form-check-label" for="commute_over_one_hour">
+                                                Do you spend more than one hour to travel from the new property to the
+                                                current employment address?
+                                            </label>
+                                            <input type="checkbox" class="form-check-input" id="commute_over_one_hour"
+                                                   name="commute_over_one_hour"
+                                                   t-att-checked="fact_find.commute_over_one_hour"/>
+                                        </div>
+
+                                        <!-- Monthly Commute Cost -->
+                                        <div class="form-group monthly_commute_cost_field d-none">
+                                            <label for="monthly_commute_cost">Monthly Commute Cost</label>
+                                            <input type="number" class="form-control" id="monthly_commute_cost"
+                                                   name="monthly_commute_cost"
+                                                   t-att-value="fact_find.monthly_commute_cost"/>
+                                        </div>
+
+                                        <!-- Property Type -->
+                                        <div class="form-group">
+                                            <label for="property_type">Property Type</label>
+                                            <select class="form-control" id="property_type" name="property_type"
+                                                    t-att-value="fact_find.property_type">
+                                                <option value=""/>
+                                                <option value="semi_detached"
+                                                        t-att-selected="fact_find.property_type == 'semi_detached'">
+                                                    Semi-detached
+                                                </option>
+                                                <option value="detached"
+                                                        t-att-selected="fact_find.property_type == 'detached'">Detached
+                                                </option>
+                                                <option value="terraced"
+                                                        t-att-selected="fact_find.property_type == 'terraced'">Terraced
+                                                </option>
+                                                <option value="end_terraced"
+                                                        t-att-selected="fact_find.property_type == 'end_terraced'">
+                                                    End-Terraced
+                                                </option>
+                                                <option value="purpose_built_flat"
+                                                        t-att-selected="fact_find.property_type == 'purpose_built_flat'">
+                                                    Purpose Built Flat
+                                                </option>
+                                                <option value="maisonette"
+                                                        t-att-selected="fact_find.property_type == 'maisonette'">
+                                                    Maisonette
+                                                </option>
+                                                <option value="converted_flat"
+                                                        t-att-selected="fact_find.property_type == 'converted_flat'">
+                                                    Converted Flat
+                                                </option>
+                                                <option value="bungalow"
+                                                        t-att-selected="fact_find.property_type == 'bungalow'">Bungalow
+                                                </option>
+                                                <option value="other"
+                                                        t-att-selected="fact_find.property_type == 'other'">Other
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Tenure -->
+                                        <div class="form-group">
+                                            <label for="tenure">Tenure</label>
+                                            <select class="form-control" id="tenure" name="tenure"
+                                                    t-att-value="fact_find.tenure">
+                                                <option value="">
+                                                </option>
+                                                <option value="freehold"
+                                                        t-att-selected="fact_find.tenure == 'freehold'">Freehold
+                                                </option>
+                                                <option value="leasehold"
+                                                        t-att-selected="fact_find.tenure == 'leasehold'">Leasehold
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Number of Bedrooms -->
+                                        <div class="form-group no_bedrooms">
+                                            <label for="no_bedrooms">No of bedrooms</label>
+                                            <input type="number" class="form-control" id="no_bedrooms"
+                                                   name="no_bedrooms"
+                                                   t-att-value="fact_find.no_bedrooms"/>
+                                        </div>
+
+                                        <!-- Number of Bathrooms -->
+                                        <div class="form-group no_bathrooms">
+                                            <label for="no_bathrooms">No of bathrooms</label>
+                                            <input type="number" class="form-control" id="no_bathrooms"
+                                                   name="no_bathrooms"
+                                                   t-att-value="fact_find.no_bathrooms"/>
+                                        </div>
+
+                                        <!-- Kitchen -->
+                                        <div class="form-group kitchen">
+                                            <label for="kitchen">Kitchen</label>
+                                            <input type="number" class="form-control" id="kitchen" name="kitchen"
+                                                   t-att-value="fact_find.kitchen"/>
+                                        </div>
+
+                                        <!-- Living Rooms -->
+                                        <div class="form-group living_rooms">
+                                            <label for="living_rooms">Living rooms</label>
+                                            <input type="number" class="form-control" id="living_rooms"
+                                                   name="living_rooms"
+                                                   t-att-value="fact_find.living_rooms"/>
+                                        </div>
+
+                                        <!-- Garage Space -->
+                                        <div class="form-group garage_space">
+                                            <label for="garage_space">Garage Space</label>
+                                            <input type="number" class="form-control" id="garage_space"
+                                                   name="garage_space"
+                                                   t-att-value="fact_find.garage_space"/>
+                                        </div>
+
+                                        <!-- Parking -->
+                                        <div class="form-group parking">
+                                            <label for="parking">Parking</label>
+                                            <select class="form-control" id="parking" name="parking"
+                                                    t-att-value="fact_find.parking">
+                                                <option value=""/>
+                                                <option value="single" t-att-selected="fact_find.parking == 'single'">
+                                                    Single
+                                                </option>
+                                                <option value="double" t-att-selected="fact_find.parking == 'double'">
+                                                    Double
+                                                </option>
+                                                <option value="on_site" t-att-selected="fact_find.parking == 'on_site'">
+                                                    On-site
+                                                </option>
+                                                <option value="road_side"
+                                                        t-att-selected="fact_find.parking == 'road_side'">Road-Side
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Number of Stories in Building -->
+                                        <div class="form-group no_stories_in_building">
+                                            <label for="no_stories_in_building">No of stories in the building</label>
+                                            <input type="number" class="form-control" id="no_stories_in_building"
+                                                   name="no_stories_in_building"
+                                                   t-att-value="fact_find.no_stories_in_building"/>
+                                        </div>
+
+                                        <!-- Estimated Built Year -->
+                                        <div t-attf-class="form-group estimated_built_year #{fact_find.estimated_built_year and 'filled' or ''}">
+                                            <label for="estimated_built_year">Estimated Built Year</label>
+                                            <select name="estimated_built_year"
+                                                    t-attf-class="form-control #{fact_find.estimated_built_year and 'has-value' or ''}"
+                                                    id="estimated_built_year">
+                                                <option value="">Year</option>
+                                                <t t-foreach="range(1900, 2030)" t-as="year">
+                                                    <option t-att-value="year"
+                                                            t-att-selected="fact_find.estimated_built_year == str(year)">
+                                                        <t t-esc="year"/>
+                                                    </option>
+                                                </t>
+                                            </select>
+                                        </div>
 
 
-    <!--                                        &lt;!&ndash; Annual Service Charge &ndash;&gt;-->
-    <!--                                        <div class="form-group house_flat_no">-->
-    <!--                                            <label for="annual_service_charge">Annual service charge</label>-->
-    <!--                                            <input type="number" class="form-control" id="annual_service_charge"-->
-    <!--                                                   name="annual_service_charge"-->
-    <!--                                                   t-att-value="fact_find.annual_service_charge"/>-->
-    <!--                                        </div>-->
+                                        <!-- Warranty Providers Name -->
+                                        <div class="form-group warranty_providers_name_field d-none">
+                                            <label for="warranty_providers_name">Warranty providers Name</label>
+                                            <input type="text" class="form-control" id="warranty_providers_name"
+                                                   name="warranty_providers_name"
+                                                   t-att-value="fact_find.warranty_providers_name"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Wall Construction Type &ndash;&gt;-->
-    <!--                                        <div class="form-group wall_construction_type">-->
-    <!--                                            <label for="wall_construction_type">Wall Construction type</label>-->
-    <!--                                            <select class="form-control" id="wall_construction_type"-->
-    <!--                                                    name="wall_construction_type">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="brick"-->
-    <!--                                                        t-att-selected="fact_find.wall_construction_type == 'brick'">-->
-    <!--                                                    Brick-->
-    <!--                                                </option>-->
-    <!--                                                <option value="brick_over_timber_frame"-->
-    <!--                                                        t-att-selected="fact_find.wall_construction_type == 'brick_over_timber_frame'">-->
-    <!--                                                    Brick over Timber Frame-->
-    <!--                                                </option>-->
-    <!--                                                <option value="timber"-->
-    <!--                                                        t-att-selected="fact_find.wall_construction_type == 'timber'">-->
-    <!--                                                    Timber-->
-    <!--                                                </option>-->
-    <!--                                                <option value="stone"-->
-    <!--                                                        t-att-selected="fact_find.wall_construction_type == 'stone'">-->
-    <!--                                                    Stone-->
-    <!--                                                </option>-->
-    <!--                                                <option value="metal"-->
-    <!--                                                        t-att-selected="fact_find.wall_construction_type == 'metal'">-->
-    <!--                                                    Metal-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- EPC / Predicted EPC Rate -->
+                                        <div class="form-group epc_predicted_epc_rate">
+                                            <label for="epc_predicted_epc_rate">EPC / Predicted EPC Rate</label>
+                                            <select class="form-control" id="epc_predicted_epc_rate"
+                                                    name="epc_predicted_epc_rate">
+                                                <option value=""/>
+                                                <option value="a"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'a'">A
+                                                </option>
+                                                <option value="b"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'b'">B
+                                                </option>
+                                                <option value="c"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'c'">C
+                                                </option>
+                                                <option value="d"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'd'">D
+                                                </option>
+                                                <option value="e"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'e'">E
+                                                </option>
+                                                <option value="f"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'f'">F
+                                                </option>
+                                                <option value="na"
+                                                        t-att-selected="fact_find.epc_predicted_epc_rate == 'na'">NA
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Roof Construction Type &ndash;&gt;-->
-    <!--                                        <div class="form-group roof_construction_type">-->
-    <!--                                            <label for="roof_construction_type">Roof Construction type</label>-->
-    <!--                                            <select class="form-control" id="roof_construction_type"-->
-    <!--                                                    name="roof_construction_type">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="tile"-->
-    <!--                                                        t-att-selected="fact_find.roof_construction_type == 'tile'">Tile-->
-    <!--                                                </option>-->
-    <!--                                                <option value="slate"-->
-    <!--                                                        t-att-selected="fact_find.roof_construction_type == 'slate'">-->
-    <!--                                                    Slate-->
-    <!--                                                </option>-->
-    <!--                                                <option value="timber"-->
-    <!--                                                        t-att-selected="fact_find.roof_construction_type == 'timber'">-->
-    <!--                                                    Timber-->
-    <!--                                                </option>-->
-    <!--                                                <option value="asphalt"-->
-    <!--                                                        t-att-selected="fact_find.roof_construction_type == 'asphalt'">-->
-    <!--                                                    Asphalt-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- PEA Rate -->
+                                        <div class="form-group pea_rate">
+                                            <label for="pea_rate">PEA Rate</label>
+                                            <select class="form-control" id="pea_rate" name="pea_rate">
+                                                <option value=""/>
+                                                <option value="a" t-att-selected="fact_find.pea_rate == 'a'">A</option>
+                                                <option value="b" t-att-selected="fact_find.pea_rate == 'b'">B</option>
+                                                <option value="c" t-att-selected="fact_find.pea_rate == 'c'">C</option>
+                                                <option value="d" t-att-selected="fact_find.pea_rate == 'd'">D</option>
+                                                <option value="e" t-att-selected="fact_find.pea_rate == 'e'">E</option>
+                                                <option value="f" t-att-selected="fact_find.pea_rate == 'f'">F</option>
+                                                <option value="na" t-att-selected="fact_find.pea_rate == 'na'">NA
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Remaining Lease Term in Years &ndash;&gt;-->
-    <!--                                        <div class="form-group remaining_lease_term_in_years d-none">-->
-    <!--                                            <label for="remaining_lease_term_in_years">Remaining lease term in years-->
-    <!--                                            </label>-->
-    <!--                                            <input type="number" class="form-control" id="remaining_lease_term_in_years"-->
-    <!--                                                   name="remaining_lease_term_in_years"-->
-    <!--                                                   t-att-value="fact_find.remaining_lease_term_in_years"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Additional Property Details &ndash;&gt;-->
-    <!--                                        <div class="form-group flat_in_floor">-->
-    <!--                                            <label for="flat_in_floor">Flat in floor</label>-->
-    <!--                                            <input type="number" id="flat_in_floor" name="flat_in_floor"-->
-    <!--                                                   class="form-control" t-att-value="fact_find.flats_in_floor"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Flats on the Same Floor Count &ndash;&gt;-->
-    <!--                                        <div class="form-group flats_same_floor_count">-->
-    <!--                                            <label for="flats_same_floor_count">How many flats are on the same floor?-->
-    <!--                                            </label>-->
-    <!--                                            <input type="number" class="form-control" id="flats_same_floor_count"-->
-    <!--                                                   name="flats_same_floor_count"-->
-    <!--                                                   t-att-value="fact_find.flats_same_floor_count"/>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Above Commercial Property &ndash;&gt;-->
-    <!--                                        <div class="form-group above_commercial_property">-->
-    <!--                                            <label for="above_commercial_property">-->
-    <!--                                                Is the flat situated above a commercial property?-->
-    <!--                                            </label>-->
-    <!--                                            <select class="form-control" id="above_commercial_property"-->
-    <!--                                                    name="above_commercial_property">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="food_outlet"-->
-    <!--                                                        t-att-selected="fact_find.above_commercial_property == 'food_outlet'">-->
-    <!--                                                    Flat above commercial food outlet-->
-    <!--                                                </option>-->
-    <!--                                                <option value="offices"-->
-    <!--                                                        t-att-selected="fact_find.above_commercial_property == 'offices'">-->
-    <!--                                                    Flat above commercial offices-->
-    <!--                                                </option>-->
-    <!--                                                <option value="pub"-->
-    <!--                                                        t-att-selected="fact_find.above_commercial_property == 'pub'">-->
-    <!--                                                    Flat above commercial pub-->
-    <!--                                                </option>-->
-    <!--                                                <option value="shop"-->
-    <!--                                                        t-att-selected="fact_find.above_commercial_property == 'shop'">-->
-    <!--                                                    Flat above shop (not food outlet)-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
-
-    <!--                                        &lt;!&ndash; Ground Rent &ndash;&gt;-->
-    <!--                                        <div class="form-group ground_rent">-->
-    <!--                                            <label for="ground_rent">Ground rent</label>-->
-    <!--                                            <input type="number" class="form-control" id="ground_rent"-->
-    <!--                                                   name="ground_rent" t-att-value="fact_find.ground_rent"/>-->
-    <!--                                        </div>-->
+                                        <!-- Ex-Council -->
+                                        <div class="chkboxes ex_council">
+                                            <label class="form-check-label" for="ex_council">Ex-Council</label>
+                                            <input type="checkbox" class="form-check-input" id="ex_council"
+                                                   name="ex_council" t-att-checked="fact_find.ex_council"/>
+                                        </div>
 
 
-    <!--                                        &lt;!&ndash; Shared Ownership Details &ndash;&gt;-->
-    <!--                                        <div class="chkboxes shared_ownership_existing d-none">-->
-    <!--                                            <label class="form-check-label" for="shared_ownership_existing">-->
-    <!--                                                Is this property in Shared Ownership Scheme?-->
-    <!--                                            </label>-->
-    <!--                                            <input type="checkbox"-->
-    <!--                                                   id="shared_ownership_existing"-->
-    <!--                                                   class="form-check-input shared_ownership_existing_checked"-->
-    <!--                                                   name="shared_ownership_existing"-->
-    <!--                                                   t-att-checked="fact_find.shared_ownership"/>-->
-    <!--                                        </div>-->
+                                        <!-- Annual Service Charge -->
+                                        <div class="form-group house_flat_no">
+                                            <label for="annual_service_charge">Annual service charge</label>
+                                            <input type="number" class="form-control" id="annual_service_charge"
+                                                   name="annual_service_charge"
+                                                   t-att-value="fact_find.annual_service_charge"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Ownership Percentage &ndash;&gt;-->
-    <!--                                        <div class="form-group ownership_percentage_existing d-none">-->
-    <!--                                            <label for="ownership_percentage_existing">Ownership % of yours</label>-->
-    <!--                                            <select class="form-control" id="ownership_percentage_existing"-->
-    <!--                                                    name="ownership_percentage_existing">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="20"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 20">20%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="25"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 25">25%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="30"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 30">30%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="35"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 35">35%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="40"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 40">40%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="45"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 45">45%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="50"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 50">50%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="55"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 55">55%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="60"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 60">60%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="65"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 65">65%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="70"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 70">70%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="75"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 75">75%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="80"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 80">80%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="85"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 85">85%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="90"-->
-    <!--                                                        t-att-selected="fact_find.ownership_percentage == 90">90%-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- Wall Construction Type -->
+                                        <div class="form-group wall_construction_type">
+                                            <label for="wall_construction_type">Wall Construction type</label>
+                                            <select class="form-control" id="wall_construction_type"
+                                                    name="wall_construction_type">
+                                                <option value=""/>
+                                                <option value="brick"
+                                                        t-att-selected="fact_find.wall_construction_type == 'brick'">
+                                                    Brick
+                                                </option>
+                                                <option value="brick_over_timber_frame"
+                                                        t-att-selected="fact_find.wall_construction_type == 'brick_over_timber_frame'">
+                                                    Brick over Timber Frame
+                                                </option>
+                                                <option value="timber"
+                                                        t-att-selected="fact_find.wall_construction_type == 'timber'">
+                                                    Timber
+                                                </option>
+                                                <option value="stone"
+                                                        t-att-selected="fact_find.wall_construction_type == 'stone'">
+                                                    Stone
+                                                </option>
+                                                <option value="metal"
+                                                        t-att-selected="fact_find.wall_construction_type == 'metal'">
+                                                    Metal
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Help to Buy Loan Details &ndash;&gt;-->
-    <!--                                        <div class="chkboxes form-check d-none">-->
-    <!--                                            <input type="checkbox" class="form-check-input" id="help_to_buy_loan"-->
-    <!--                                                   name="help_to_buy_loan"/>-->
-    <!--                                            <label class="form-check-label" for="help_to_buy_loan"-->
-    <!--                                                   t-att-checked="fact_find.help_to_buy_loan">-->
-    <!--                                                Do you have help to buy loan for this property?-->
-    <!--                                            </label>-->
-    <!--                                        </div>-->
-    <!--                                        &lt;!&ndash; Help to Buy Loan Type &ndash;&gt;-->
-    <!--                                        <div class="form-group d-none">-->
-    <!--                                            <label for="help_to_buy_loan_type">Loan type</label>-->
-    <!--                                            <select class="form-control" id="help_to_buy_loan_type"-->
-    <!--                                                    name="help_to_buy_loan_type">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="outside_london"-->
-    <!--                                                        t-att-selected="fact_find.help_to_buy_loan_type == 'outside_london'">-->
-    <!--                                                    Outside London 20%-->
-    <!--                                                </option>-->
-    <!--                                                <option value="london"-->
-    <!--                                                        t-att-selected="fact_find.help_to_buy_loan_type == 'london'">-->
-    <!--                                                    London 40%-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- Roof Construction Type -->
+                                        <div class="form-group roof_construction_type">
+                                            <label for="roof_construction_type">Roof Construction type</label>
+                                            <select class="form-control" id="roof_construction_type"
+                                                    name="roof_construction_type">
+                                                <option value=""/>
+                                                <option value="tile"
+                                                        t-att-selected="fact_find.roof_construction_type == 'tile'">Tile
+                                                </option>
+                                                <option value="slate"
+                                                        t-att-selected="fact_find.roof_construction_type == 'slate'">
+                                                    Slate
+                                                </option>
+                                                <option value="timber"
+                                                        t-att-selected="fact_find.roof_construction_type == 'timber'">
+                                                    Timber
+                                                </option>
+                                                <option value="asphalt"
+                                                        t-att-selected="fact_find.roof_construction_type == 'asphalt'">
+                                                    Asphalt
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Estimated Monthly Rental Income &ndash;&gt;-->
-    <!--                                        <div class="form-group estimated_monthly_rental_income_field d-none">-->
-    <!--                                            <label for="estimated_monthly_rental_income">-->
-    <!--                                                Estimated monthly rental income-->
-    <!--                                            </label>-->
-    <!--                                            <input type="number" class="form-control"-->
-    <!--                                                   id="estimated_monthly_rental_income"-->
-    <!--                                                   name="estimated_monthly_rental_income"-->
-    <!--                                                   t-att-value="fact_find.estimated_monthly_rental_income"/>-->
-    <!--                                        </div>-->
+                                        <!-- Remaining Lease Term in Years -->
+                                        <div class="form-group remaining_lease_term_in_years d-none">
+                                            <label for="remaining_lease_term_in_years">Remaining lease term in years
+                                            </label>
+                                            <input type="number" class="form-control" id="remaining_lease_term_in_years"
+                                                   name="remaining_lease_term_in_years"
+                                                   t-att-value="fact_find.remaining_lease_term_in_years"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Current Monthly Rental Income &ndash;&gt;-->
-    <!--                                        <div class="form-group current_monthly_rental_income_field">-->
-    <!--                                            <label for="current_monthly_rental_income">-->
-    <!--                                                Current Monthly rental income-->
-    <!--                                            </label>-->
-    <!--                                            <input type="number" class="form-control" id="current_monthly_rental_income"-->
-    <!--                                                   name="current_monthly_rental_income"-->
-    <!--                                                   t-att-value="fact_find.current_monthly_rental_income"/>-->
-    <!--                                        </div>-->
+                                        <!-- Additional Property Details -->
+                                        <div class="form-group flat_in_floor">
+                                            <label for="flat_in_floor">Flat in floor</label>
+                                            <input type="number" id="flat_in_floor" name="flat_in_floor"
+                                                   class="form-control" t-att-value="fact_find.flats_in_floor"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; HMO &ndash;&gt;-->
-    <!--                                        <div class="chkboxes home_move_out">-->
-    <!--                                            <label class="form-check-label" for="hmo">HMO</label>-->
-    <!--                                            <input type="checkbox" id="hmo" class="form-check-input" name="hmo"-->
-    <!--                                                   t-att-checked="fact_find.hmo"/>-->
-    <!--                                        </div>-->
+                                        <!-- Flats on the Same Floor Count -->
+                                        <div class="form-group flats_same_floor_count">
+                                            <label for="flats_same_floor_count">How many flats are on the same floor?
+                                            </label>
+                                            <input type="number" class="form-control" id="flats_same_floor_count"
+                                                   name="flats_same_floor_count"
+                                                   t-att-value="fact_find.flats_same_floor_count"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Occupants Count &ndash;&gt;-->
-    <!--                                        <div class="form-group occupants_count d-none">-->
-    <!--                                            <label for="occupants_count">How many occupants in this property?</label>-->
-    <!--                                            <input type="number" class="form-control" id="occupants_count"-->
-    <!--                                                   name="occupants_count" t-att-value="fact_find.occupants_count"/>-->
-    <!--                                        </div>-->
+                                        <!-- Above Commercial Property -->
+                                        <div class="form-group above_commercial_property">
+                                            <label for="above_commercial_property">
+                                                Is the flat situated above a commercial property?
+                                            </label>
+                                            <select class="form-control" id="above_commercial_property"
+                                                    name="above_commercial_property">
+                                                <option value=""/>
+                                                <option value="food_outlet"
+                                                        t-att-selected="fact_find.above_commercial_property == 'food_outlet'">
+                                                    Flat above commercial food outlet
+                                                </option>
+                                                <option value="offices"
+                                                        t-att-selected="fact_find.above_commercial_property == 'offices'">
+                                                    Flat above commercial offices
+                                                </option>
+                                                <option value="pub"
+                                                        t-att-selected="fact_find.above_commercial_property == 'pub'">
+                                                    Flat above commercial pub
+                                                </option>
+                                                <option value="shop"
+                                                        t-att-selected="fact_find.above_commercial_property == 'shop'">
+                                                    Flat above shop (not food outlet)
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Company Name &ndash;&gt;-->
-    <!--                                        <div class="form-group company_name">-->
-    <!--                                            <label for="company_name">Company Name</label>-->
-    <!--                                            <input type="text" class="form-control" id="company_name"-->
-    <!--                                                   name="company_name" t-att-value="fact_find.company_name"/>-->
-    <!--                                        </div>-->
+                                        <!-- Ground Rent -->
+                                        <div class="form-group ground_rent">
+                                            <label for="ground_rent">Ground rent</label>
+                                            <input type="number" class="form-control" id="ground_rent"
+                                                   name="ground_rent" t-att-value="fact_find.ground_rent"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Company Director &ndash;&gt;-->
-    <!--                                        <div class="form-group company_director">-->
-    <!--                                            <label for="company_director">Are you a company director?</label>-->
-    <!--                                            <select class="form-control" id="company_director" name="company_director">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="one_applicant_only"-->
-    <!--                                                        t-att-selected="fact_find.company_director == 'one_applicant_only'">-->
-    <!--                                                    One applicant only-->
-    <!--                                                </option>-->
-    <!--                                                <option value="joint"-->
-    <!--                                                        t-att-selected="fact_find.company_director == 'joint'">Joint-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
 
-    <!--                                        &lt;!&ndash; Additional Borrowing &ndash;&gt;-->
-    <!--                                        <div class="chkboxes additional_borrowing_check">-->
-    <!--                                            <label for="additional_borrowing">-->
-    <!--                                                Do you want to borrow any additional amount from this mortgage?-->
-    <!--                                            </label>-->
-    <!--                                            <input type="checkbox" id="additional_borrowing" class="form-check-input"-->
-    <!--                                                   name="additional_borrowing"-->
-    <!--                                                   t-att-checked="fact_find.additional_borrowing"/>-->
-    <!--                                        </div>-->
+                                        <!-- Shared Ownership Details -->
+                                        <div class="chkboxes shared_ownership_existing d-none">
+                                            <label class="form-check-label" for="shared_ownership_existing">
+                                                Is this property in Shared Ownership Scheme?
+                                            </label>
+                                            <input type="checkbox"
+                                                   id="shared_ownership_existing"
+                                                   class="form-check-input shared_ownership_existing_checked"
+                                                   name="shared_ownership_existing"
+                                                   t-att-checked="fact_find.shared_ownership"/>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Additional Borrowing Reason &ndash;&gt;-->
-    <!--                                        <div class="form-group additional_borrowing_reason_fields d-none">-->
-    <!--                                            <label for="additional_borrowing_reason">-->
-    <!--                                                The reason for additional borrowing-->
-    <!--                                            </label>-->
-    <!--                                            <select t-attf-class="form-control #{fact_find.additional_borrowing_reason and 'has-value' or ''}"-->
-    <!--                                                    id="additional_borrowing_reason" name="additional_borrowing_reason">-->
-    <!--                                                <option value=""/>-->
-    <!--                                                <option value="home_improvements_property"-->
-    <!--                                                        t-att-selected="fact_find.additional_borrowing_reason == 'home_improvements_property'">-->
-    <!--                                                    Home Improvements of this property-->
-    <!--                                                </option>-->
-    <!--                                                <option value="home_improvements_other_property"-->
-    <!--                                                        t-att-selected="fact_find.additional_borrowing_reason == 'home_improvements_other_property'">-->
-    <!--                                                    Home improvements of another property-->
-    <!--                                                </option>-->
-    <!--                                                <option value="deposit_buy_additional_property"-->
-    <!--                                                        t-att-selected="fact_find.additional_borrowing_reason == 'deposit_additional_property'">-->
-    <!--                                                    Deposit to buy an additional property-->
-    <!--                                                </option>-->
-    <!--                                                <option value="debt_management"-->
-    <!--                                                        t-att-selected="fact_find.additional_borrowing_reason == 'debt_management'">-->
-    <!--                                                    Debt Management-->
-    <!--                                                </option>-->
-    <!--                                            </select>-->
-    <!--                                        </div>-->
+                                        <!-- Ownership Percentage -->
+                                        <div class="form-group ownership_percentage_existing d-none">
+                                            <label for="ownership_percentage_existing">Ownership % of yours</label>
+                                            <select class="form-control" id="ownership_percentage_existing"
+                                                    name="ownership_percentage_existing">
+                                                <option value=""/>
+                                                <option value="20"
+                                                        t-att-selected="fact_find.ownership_percentage == 20">20%
+                                                </option>
+                                                <option value="25"
+                                                        t-att-selected="fact_find.ownership_percentage == 25">25%
+                                                </option>
+                                                <option value="30"
+                                                        t-att-selected="fact_find.ownership_percentage == 30">30%
+                                                </option>
+                                                <option value="35"
+                                                        t-att-selected="fact_find.ownership_percentage == 35">35%
+                                                </option>
+                                                <option value="40"
+                                                        t-att-selected="fact_find.ownership_percentage == 40">40%
+                                                </option>
+                                                <option value="45"
+                                                        t-att-selected="fact_find.ownership_percentage == 45">45%
+                                                </option>
+                                                <option value="50"
+                                                        t-att-selected="fact_find.ownership_percentage == 50">50%
+                                                </option>
+                                                <option value="55"
+                                                        t-att-selected="fact_find.ownership_percentage == 55">55%
+                                                </option>
+                                                <option value="60"
+                                                        t-att-selected="fact_find.ownership_percentage == 60">60%
+                                                </option>
+                                                <option value="65"
+                                                        t-att-selected="fact_find.ownership_percentage == 65">65%
+                                                </option>
+                                                <option value="70"
+                                                        t-att-selected="fact_find.ownership_percentage == 70">70%
+                                                </option>
+                                                <option value="75"
+                                                        t-att-selected="fact_find.ownership_percentage == 75">75%
+                                                </option>
+                                                <option value="80"
+                                                        t-att-selected="fact_find.ownership_percentage == 80">80%
+                                                </option>
+                                                <option value="85"
+                                                        t-att-selected="fact_find.ownership_percentage == 85">85%
+                                                </option>
+                                                <option value="90"
+                                                        t-att-selected="fact_find.ownership_percentage == 90">90%
+                                                </option>
+                                            </select>
+                                        </div>
 
-    <!--                                        &lt;!&ndash; Additional Borrowing Amount &ndash;&gt;-->
-    <!--                                        <div class="form-group additional_borrowing_amount d-none">-->
-    <!--                                            <label for="additional_borrowing_amount">-->
-    <!--                                                The additional borrowing amount-->
-    <!--                                            </label>-->
-    <!--                                            <input type="number" class="form-control" id="additional_borrowing_amount"-->
-    <!--                                                   name="additional_borrowing_amount"-->
-    <!--                                                   t-att-value="fact_find.additional_borrowing_amount"/>-->
-    <!--                                        </div>-->
-    <!--                                        <button type="submit" class="btn btn-md btn-dark mt-3 mb-3 btn-submit"-->
-    <!--                                                t-attf-data-id="new_mortgage-deposit">Next Section: Deposit-->
-    <!--                                            <i class="fa fa-arrow-circle-o-right ms-1"/>-->
-    <!--                                        </button>-->
-    <!--                                    </form>-->
-    <!--                                </div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </main>-->
-    <!--    </template>-->
+                                        <!-- Help to Buy Loan Details -->
+                                        <div class="chkboxes form-check d-none">
+                                            <input type="checkbox" class="form-check-input" id="help_to_buy_loan"
+                                                   name="help_to_buy_loan"/>
+                                            <label class="form-check-label" for="help_to_buy_loan"
+                                                   t-att-checked="fact_find.help_to_buy_loan">
+                                                Do you have help to buy loan for this property?
+                                            </label>
+                                        </div>
+                                        <!-- Help to Buy Loan Type -->
+                                        <div class="form-group d-none">
+                                            <label for="help_to_buy_loan_type">Loan type</label>
+                                            <select class="form-control" id="help_to_buy_loan_type"
+                                                    name="help_to_buy_loan_type">
+                                                <option value=""/>
+                                                <option value="outside_london"
+                                                        t-att-selected="fact_find.help_to_buy_loan_type == 'outside_london'">
+                                                    Outside London 20%
+                                                </option>
+                                                <option value="london"
+                                                        t-att-selected="fact_find.help_to_buy_loan_type == 'london'">
+                                                    London 40%
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Estimated Monthly Rental Income -->
+                                        <div class="form-group estimated_monthly_rental_income_field d-none">
+                                            <label for="estimated_monthly_rental_income">
+                                                Estimated monthly rental income
+                                            </label>
+                                            <input type="number" class="form-control"
+                                                   id="estimated_monthly_rental_income"
+                                                   name="estimated_monthly_rental_income"
+                                                   t-att-value="fact_find.estimated_monthly_rental_income"/>
+                                        </div>
+
+                                        <!-- Current Monthly Rental Income -->
+                                        <div class="form-group current_monthly_rental_income_field">
+                                            <label for="current_monthly_rental_income">
+                                                Current Monthly rental income
+                                            </label>
+                                            <input type="number" class="form-control" id="current_monthly_rental_income"
+                                                   name="current_monthly_rental_income"
+                                                   t-att-value="fact_find.current_monthly_rental_income"/>
+                                        </div>
+
+                                        <!-- HMO -->
+                                        <div class="chkboxes home_move_out">
+                                            <label class="form-check-label" for="hmo">HMO</label>
+                                            <input type="checkbox" id="hmo" class="form-check-input" name="hmo"
+                                                   t-att-checked="fact_find.hmo"/>
+                                        </div>
+
+                                        <!-- Occupants Count -->
+                                        <div class="form-group occupants_count d-none">
+                                            <label for="occupants_count">How many occupants in this property?</label>
+                                            <input type="number" class="form-control" id="occupants_count"
+                                                   name="occupants_count" t-att-value="fact_find.occupants_count"/>
+                                        </div>
+
+                                        <!-- Company Name -->
+                                        <div class="form-group company_name">
+                                            <label for="company_name">Company Name</label>
+                                            <input type="text" class="form-control" id="company_name"
+                                                   name="company_name" t-att-value="fact_find.company_name"/>
+                                        </div>
+
+                                        <!-- Company Director -->
+                                        <div class="form-group company_director">
+                                            <label for="company_director">Are you a company director?</label>
+                                            <select class="form-control" id="company_director" name="company_director">
+                                                <option value=""/>
+                                                <option value="one_applicant_only"
+                                                        t-att-selected="fact_find.company_director == 'one_applicant_only'">
+                                                    One applicant only
+                                                </option>
+                                                <option value="joint"
+                                                        t-att-selected="fact_find.company_director == 'joint'">Joint
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Additional Borrowing -->
+                                        <div class="chkboxes additional_borrowing_check">
+                                            <label for="additional_borrowing">
+                                                Do you want to borrow any additional amount from this mortgage?
+                                            </label>
+                                            <input type="checkbox" id="additional_borrowing" class="form-check-input"
+                                                   name="additional_borrowing"
+                                                   t-att-checked="fact_find.additional_borrowing"/>
+                                        </div>
+
+                                        <!-- Additional Borrowing Reason -->
+                                        <div class="form-group additional_borrowing_reason_fields d-none">
+                                            <label for="additional_borrowing_reason">
+                                                The reason for additional borrowing
+                                            </label>
+                                            <select t-attf-class="form-control #{fact_find.additional_borrowing_reason and 'has-value' or ''}"
+                                                    id="additional_borrowing_reason" name="additional_borrowing_reason">
+                                                <option value=""/>
+                                                <option value="home_improvements_property"
+                                                        t-att-selected="fact_find.additional_borrowing_reason == 'home_improvements_property'">
+                                                    Home Improvements of this property
+                                                </option>
+                                                <option value="home_improvements_other_property"
+                                                        t-att-selected="fact_find.additional_borrowing_reason == 'home_improvements_other_property'">
+                                                    Home improvements of another property
+                                                </option>
+                                                <option value="deposit_buy_additional_property"
+                                                        t-att-selected="fact_find.additional_borrowing_reason == 'deposit_additional_property'">
+                                                    Deposit to buy an additional property
+                                                </option>
+                                                <option value="debt_management"
+                                                        t-att-selected="fact_find.additional_borrowing_reason == 'debt_management'">
+                                                    Debt Management
+                                                </option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Additional Borrowing Amount -->
+                                        <div class="form-group additional_borrowing_amount d-none">
+                                            <label for="additional_borrowing_amount">
+                                                The additional borrowing amount
+                                            </label>
+                                            <input type="number" class="form-control" id="additional_borrowing_amount"
+                                                   name="additional_borrowing_amount"
+                                                   t-att-value="fact_find.additional_borrowing_amount"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-md btn-dark mt-3 mb-3 btn-submit"
+                                                t-attf-data-id="new_mortgage-deposit">Next Section: Deposit
+                                            <i class="fa fa-arrow-circle-o-right ms-1"/>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </template>
 
     <!--|||||||||||||||||||||||||||||||||||||||||||-->
     <!--Get Verified-->

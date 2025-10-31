@@ -25,9 +25,7 @@
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                         </group>
                         <group>
-                            <field name="solicitor_type"
-                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
-                            <field name="referral_fee_amount"
+                            <field name="commission_fee_new"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="illustration_checklist"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
@@ -43,6 +41,10 @@
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="solicitor_name_list"
                                    attrs="{'invisible': [('change_solicitor', '!=', 'yes')], 'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
+                            <field name="solicitor_type"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)], 'invisible': [('change_solicitor', '!=', 'yes')]}"/>
+                            <field name="referral_fee_amount"
+                                   attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)], 'invisible': [('change_solicitor', '!=', 'yes')]}"/>
                             <field name="client_acknowledgment_ill"
                                    attrs="{'readonly': [('is_fma_team_leader', '=', False), ('is_fma_team_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                         </group>
@@ -176,7 +178,7 @@
                     </group>
                     <group attrs="{'invisible': [('illustration_record_details', '=', False)]}">
                         <group string="ESIS Record details">
-                            <field name="single_joint_application" string="Applicant" readonly="1"/>
+                            <field name="esis_single_joint_application" string="Applicant" readonly="1"/>
                             <field name="property_value" readonly="1"/>
                             <field name="loan_amount" readonly="1"/>
                             <field name="deposit" readonly="1"/>
@@ -184,17 +186,17 @@
                             <field name="mortgage_term" readonly="1"/>
                             <field name="illustration_date" readonly="1"/>
                             <field name="procuration_fee" readonly="1"/>
-                            <field name="lender" readonly="1"/>
+                            <field name="esis_lender" readonly="1"/>
                             <field name="repayment_method" readonly="1"/>
-                            <field name="product_term" readonly="1"/>
+                            <field name="esis_product_term" readonly="1"/>
                             <field name="rate_type" readonly="1"/>
                             <field name="initial_rate" readonly="1"/>
                             <field name="monthly_payment" readonly="1"/>
                         </group>
                         <group string="">
                             <field name="product_fee" readonly="1"/>
-                            <field name="valuation_fee_paid" readonly="1"/>
-                            <field name="application_fee_paid" readonly="1"/>
+                            <field name="esis_valuation_fee_amount" readonly="1"/>
+                            <field name="esis_application_fee_amount" readonly="1"/>
                             <field name="cashback" readonly="1"/>
                             <field name="remarks" placeholder="Note" readonly="1"/>
                             <field name="dta_life_cover_included" readonly="1"/>
@@ -214,46 +216,28 @@
                     </group>
                     <group attrs="{'invisible': [('solicitor_record_details', '=', False)]}">
                         <group string="Solicitor">
-                            <field name="solicitor_quotation_ids" widget="many2many_binary"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="selection_by"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="quote_number_index"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="solicitor_firm"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="address" attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="contact_no"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="email" attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="quote_date"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="quote_ref"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="property_address"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="total_cost"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="quote_expiry_date"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="commission"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="solicitor_quotation_ids" widget="many2many_binary"/>
+                            <field name="selection_by"/>
+                            <field name="quote_number_index"/>
+                            <field name="solicitor_firm"/>
+                            <field name="address"/>
+                            <field name="contact_no"/>
+                            <field name="email"/>
+                            <field name="quote_date"/>
+                            <field name="quote_ref"/>
+                            <field name="property_address"/>
+                            <field name="total_cost"/>
+                            <field name="quote_expiry_date"/>
+                            <field name="commission"/>
                         </group>
                         <group string="">
-                            <field name="case_handler"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="instructed"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="instructed_date"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="instruction_ref_no"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="invoice_received"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="by_lender_field"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
-                            <field name="only_if_instructed_field"
-                                   attrs="{'invisible': [('illustration_record_details', '=', False)]}"/>
+                            <field name="case_handler"/>
+                            <field name="instructed"/>
+                            <field name="instructed_date"/>
+                            <field name="instruction_ref_no"/>
+                            <field name="invoice_received"/>
+                            <field name="by_lender_field"/>
+                            <field name="only_if_instructed_field"/>
                         </group>
                     </group>
                     <group>

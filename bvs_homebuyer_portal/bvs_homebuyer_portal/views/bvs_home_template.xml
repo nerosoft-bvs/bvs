@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--BVS portal home template-->
+    <template id="bvs_portal_home" name="BVS Portal: Home">
+        <main class="content d-none bvs_portal_home" id="home">
+            <div class="container-fluid">
+                <!-- Main Grid Layout -->
+                <div class="main-container">
+                    
+                    <!-- Left Content Area -->
+                    <div class="content-area">
+                        
+                        <!-- Fact Find Card -->
+                        <div class="fact-find modern-card">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <span class="badge complete-online">Complete Online</span>
+                                    <h1>Complete your Fact Find</h1>
+                                    <ul class="feature-list">
+                                        <li>Everything we need to know about you</li>
+                                        <li>Secure and confidential information</li>
+                                        <li>Real-time progress tracking</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <img src="/bvs_homebuyer_portal/static/src/img/factfind.png"
+                                         alt="Fact Find Process" 
+                                         class="fact-find-image"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Alert -->
+                        <div class="modern-alert">
+                            <h4>
+                                <i class="fa fa-user me-2"></i>
+                                Mortgage Portfolio
+                            </h4>
+                            <p>View your complete mortgage history and current applications</p>
+                            <button type="button" 
+                                    class="btn btn-outline-light" 
+                                    onclick="$('.sidebar-portfolio').trigger('click')">
+                                View Portfolio
+                                <i class="fa fa-arrow-circle-o-right ms-2"></i>
+                            </button>
+                        </div>
+
+                        <!-- Applications Alert -->
+                        <div class="modern-alert">
+                            <h4>
+                                <i class="fa fa-bars me-2"></i>
+                                Ongoing Applications
+                            </h4>
+                            <p>Track the progress of your current mortgage applications</p>
+                            <button type="button" 
+                                    class="btn btn-outline-light" 
+                                    onclick="$('.sidebar-applications').trigger('click')">
+                                View Applications
+                                <i class="fa fa-arrow-circle-o-right ms-2"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Sidebar - Contact Adviser -->
+                    <div class="contact-adviser">
+                        <h2>
+                            <i class="fa fa-user-circle me-2"></i>
+                            Contact your adviser
+                        </h2>
+                        
+                        <!-- Adviser Avatar -->
+                        <div class="adviser-profile">
+                            <img t-if="leads.mortgage_advisor.image_1920"
+                                 t-att-src="image_data_uri(leads.mortgage_advisor.image_1920)"
+                                 class="advisor-avatar"
+                                 alt="Your Mortgage Advisor"/>
+                            <div t-if="not leads.mortgage_advisor.image_1920" 
+                                 class="advisor-avatar-placeholder">
+                                <i class="fa fa-user fa-3x"></i>
+                            </div>
+                        </div>
+
+                        <!-- Adviser Name -->
+                        <div class="user-name">
+                            <span t-field="leads.mortgage_advisor.name"/>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="contact-info">
+                            
+                            <div t-if="leads.mortgage_advisor.mobile" class="contact-item">
+                                <i class="fa fa-mobile"></i>
+                                <span t-field="leads.mortgage_advisor.mobile"/>
+                            </div>
+
+                            <div t-if="leads.mortgage_advisor.phone" class="contact-item">
+                                <i class="fa fa-phone"></i>
+                                <span t-field="leads.mortgage_advisor.phone"/>
+                            </div>
+
+                            <div t-if="leads.mortgage_advisor.login" class="contact-item">
+                                <i class="fa fa-envelope"></i>
+                                <span t-field="leads.mortgage_advisor.login"/>
+                            </div>
+
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="quick-actions mt-4">
+                            <button class="btn btn-outline-light btn-sm me-2" 
+                                    t-if="leads.mortgage_advisor.phone"
+                                    t-att-href="'tel:' + leads.mortgage_advisor.phone">
+                                <i class="fa fa-phone me-1"></i>
+                                Call Now
+                            </button>
+                            <button class="btn btn-outline-light btn-sm"
+                                    t-if="leads.mortgage_advisor.login"
+                                    t-att-href="'mailto:' + leads.mortgage_advisor.login">
+                                <i class="fa fa-envelope me-1"></i>
+                                Email
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+                
+            </div>
+        </main>
+    </template>
+
+</odoo>

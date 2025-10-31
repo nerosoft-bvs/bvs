@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--BVS portal applications template-->
+    <template id="bvs_portal_applications" name="BVS Portal: Applications">
+        <main class="content px-3 py-2 d-none" id="applications">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <div class="main-container mc-applications">
+                        <div class="content profile-container">
+                            <h1 class="applications-heading">Applications</h1>
+                            <div class="col-lg-5 d-flex flex-column mb64" style="opacity: 0.8;">
+                                <t t-if="leads">
+                                    <div class="row d-flex flex-wrap no-gutters mb64">
+                                        <div class="col-12" style="opacity: 0.8;">
+                                            <div class="profile-header">
+                                                <h2>My Leads</h2>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-lg-12 d-flex flex-column border-md-right report-card"
+                                             style="opacity: 0.8;">
+                                            <!--leads-->
+                                            <t t-foreach="leads" t-as="lead">
+                                                <a t-attf-href="/application/form/{{ lead.id }}"
+                                                   class="d-flex flex-column profile_dashboard_line"
+                                                   style="background-color: grey; padding: 10px; margin-bottom: 5px; border-radius: 5px; text-decoration: none; color: black;">
+                                                    <div class="profile_dashboard_line_content">
+                                                        <h5 class="profile_dashboard_line_title" style="margin: 0;">
+                                                            <span t-esc="lead.registration_no"/>
+                                                        </h5>
+                                                    </div>
+                                                </a>
+                                            </t>
+                                        </div>
+
+
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </template>
+
+</odoo>
