@@ -15,7 +15,6 @@
         'views/bvs_lead.xml',
         'views/fact_find_view.xml',
         'views/address_history.xml',
-        'views/renting_authority.xml',
         'views/financial_dependants.xml',
         'views/employement_details.xml',
         'views/self_employed.xml',
@@ -33,7 +32,6 @@
         'views/protection.xml',
         'views/property_portfolio.xml',
         'views/fact_find_document.xml',
-
     ],
     'assets': {
         'web.assets_frontend': [
