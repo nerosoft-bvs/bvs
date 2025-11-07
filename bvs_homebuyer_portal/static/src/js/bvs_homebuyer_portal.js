@@ -837,9 +837,13 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
             // Find fields within the parent form
             const monthlyChildcareCostField = $parentForm.find('.monthly_childcare_cost')[0];
+            console.log('monthlyChildcareCostField:', monthlyChildcareCostField);
             const childcareCostReasonField = $parentForm.find('.childcare_cost_reason')[0];
+            console.log('childcareCostReasonField:', childcareCostReasonField);
             const dependencyPeriodField = $parentForm.find('.dependency_period')[0];
+            console.log('dependencyPeriodField:', dependencyPeriodField);
             const additionalCostField = $parentForm.find('.additional_cost')[0];
+            console.log('additionalCostField:', additionalCostField);
 
             // Log field existence
             console.debug('Field existence:', {
@@ -2819,6 +2823,13 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             const $addressHistoryForm = $('.address-history-form');
             const addressId = $addressHistoryForm.find('#address_id').val();
             const isNewAddress = addressId === 'new-address';
+            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
+
+            if (!factFindId) {
+                alert('Could not find fact_find_id. Please refresh the page and try again.');
+                $button.prop('disabled', false);
+                return;
+            }
 
             // Get the action type from the button
             let actionType = $(el.currentTarget).hasClass('btn-address-cancel') ? 'cancel' : 'save';
@@ -2902,7 +2913,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 this._rpc({
                     route: '/update/fact-find/address',
                     params: {
-                        fact_find_id: this.factFindId,
+                        fact_find_id: factFindId,
                         data: {
                             address_id: addressId,
                             residential_status: residentialStatus,
@@ -4901,7 +4912,10 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         },
 
         _onchangeEmploymentStatus: function(ev) {
-            const employmentStatus = $(ev.target).val();
+            let employmentStatus = $(ev.target).val();
+            if (employmentStatus === 'self-employed') {
+                employmentStatus = 'self_employed';
+            }
             const $employmentDetailsForm = $('.employment-details-form');
             const $retiredSection = $('.retired');
             const $employmentDetailsSection = $('.employment-details');
@@ -5196,7 +5210,10 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             const self = this;
 
             // Get the current employment status value
-            const employmentStatus = $('select[name="employment-status"]').val();
+            let employmentStatus = $('select[name="employment-status"]').val();
+            if (employmentStatus === 'self-employed') {
+                employmentStatus = 'self_employed';
+            }
 
             console.log('Save and Continue clicked - Employment Status:', employmentStatus);
 
@@ -5207,8 +5224,10 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 return;
             }
 
+            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
+
             // Check if factFindId exists
-            if (!this.factFindId) {
+            if (!factFindId) {
                 alert('Error: No fact find ID available. Please refresh the page and try again.');
                 console.error('No factFindId available');
                 return;
@@ -5223,7 +5242,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             this._rpc({
                 route: '/update/fact-find/employment-status',
                 params: {
-                    fact_find_id: this.factFindId,
+                    fact_find_id: factFindId,
                     data: {
                         employment_status: employmentStatus
                     }
@@ -5236,9 +5255,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
                 if (response.success) {
                     console.log('Employment status saved successfully:', response.employment_status);
-
-                    // Show success message (optional)
-                    // alert('Employment status saved successfully!');
 
                     // You can add logic here to navigate to the next section
                     // For example, if you have a function to show the next section:

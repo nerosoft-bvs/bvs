@@ -179,10 +179,13 @@ class PersonalDetails(http.Controller):
         }
 
     @http.route('/update/fact-find/address', methods=['POST'], type='json', auth='public')
-    def ff_update_address(self, fact_find_id, **kwargs):
+    def ff_update_address(self, **kwargs):
         """
         @public - update addresses
         """
+        fact_find_id = kwargs.get('fact_find_id')
+        if not fact_find_id:
+            return {'error': 'fact_find_id not provided'}
         fact_find_id = request.env['fact.find'].with_user(SUPERUSER_ID).browse(int(fact_find_id))
         address_history_data = kwargs.get('data')
         address_id = address_history_data.get('address_id')  # Get the address_id from the data
