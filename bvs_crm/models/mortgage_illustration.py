@@ -4,6 +4,8 @@ from odoo import models, fields, _
 class BVSLead(models.Model):
     _inherit = 'bvs.lead'
 
+    commission_fee_new = fields.Float(string="Commission Fee")
+
     fma_tl_allocation = fields.Many2one('res.users', string='Team Member')
     fma_tm_acknowledgement = fields.Boolean(string='Team Member Acknowledgement')
     esis_record_ids = fields.Many2one('esis.record.details', string='Esis Record')

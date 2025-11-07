@@ -11,8 +11,6 @@
                     <field name="first_name"/>
                     <field name="surname"/>
                     <field name="mobile_number"/>
-                    <field name="lead_id"/>
-                    <field name="id"/>
                 </tree>
             </field>
         </record>

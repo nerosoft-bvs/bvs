@@ -24,7 +24,7 @@
                     </tree>
                 </field>
             </xpath>
-            <xpath expr="//group[@name='cl_note']" position="before">
+            <xpath expr="//group[@name='cl_note']" position="after">
                 <field name="document_ids" string="Further Document Request">
                     <form>
                         <group>
@@ -54,11 +54,11 @@
                     </tree>
                 </field>
             </xpath>
-            <xpath expr="//field[@name='lender_offer_date_picker']" position="after">
-                <field name="document_ids" string="Further Document Request">
+            <xpath expr="//group[@name='pre_note']" position="before">
+                <field name="document_ids">
                     <form>
                         <group>
-                            <field name="partner_id" invisble="1"/>
+                            <field name="partner_id" String="Client"/>
                             <field name="document_list_id" required="1"/>
                             <field name="attachment_ids" widget="many2many_binary"/>
                         </group>
@@ -69,6 +69,7 @@
                     </tree>
                 </field>
             </xpath>
+
         </field>
     </record>
 </odoo>

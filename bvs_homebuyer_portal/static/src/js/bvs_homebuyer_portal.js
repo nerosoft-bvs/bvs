@@ -163,15 +163,9 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         },
 
          _onClickSidebarFactFind: function(ev) {
-            const $link = $(ev.currentTarget);
-
-            // Don't interfere with Bootstrap collapse toggles
-            if ($link.attr('data-bs-toggle') === 'collapse') {
-                return; // Let Bootstrap handle it
-            }
-
             ev.preventDefault();
 
+            const $link = $(ev.currentTarget);
             const factFindId = parseInt($link.attr("href").replace("#", ""));
 
             if (factFindId && !isNaN(factFindId)) {
@@ -2291,48 +2285,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 }
             }
 
-
-            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
-            if (factFindId && (activeMainMenu === 'new_mortgage' || activeMainMenu === 'outgoings' )) {
-                    const self = this;
-                    let $targetForm;
-
-                    // Determine which form to populate based on activeSubMenu
-                    if (activeMainMenu === 'new_mortgage') {
-                        $targetForm = $("#ff_ynm_building_n_contents_insurance .ff-expenditure-submit.ff-form");
-
-                    } else if (activeMainMenu === 'outgoings') {
-                        $targetForm = $("#ff_yo_expenditure .ff-expenditure-submit.ff-form");
-                    }
-
-                    // Only proceed if we have a target form
-                    if ($targetForm && $targetForm.length > 0) {
-                        // Show loading indicator
-                        self._showInsuranceLoader($targetForm);
-
-                        this._rpc({
-                            route: "/fact_find/get_details",
-                            params: { fact_find_id: parseInt(factFindId) },
-                        }).then(function(data) {
-                            // Hide loading indicator
-                            self._hideInsuranceLoader($targetForm);
-
-                            if (data) {
-                                // Populate based on active submenu
-                                if (activeMainMenu === 'new_mortgage') {
-                                    self._populateInsuranceForm($targetForm, data);
-                                } else if (activeMainMenu === 'outgoings') {
-                                    self._populateExpenditureForm($targetForm, data);
-                                }
-                            }
-                        }).catch(function(error) {
-                            // Hide loading indicator on error
-                            self._hideInsuranceLoader($targetForm);
-                            console.error('Failed to fetch fact find data:', error);
-                        });
-                    }
-                }
-
         },
 
 
@@ -2479,8 +2431,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
             this._applyCssStyle();
             this._initAddressNowInput();
-            this._cardVisibility();
-            this._applicantVisibility();
 
             // Conditional initialization for address history - Current Address Checkbox
             const currentAddressCheckbox = this.$('#current_address_name_checkbox')[0];
@@ -2515,79 +2465,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             });
             $("select").each(function () {
                 $(this).parent("div").addClass('form-field-container');
-            });
-        },
-
-        _applicantVisibility : function(){
-             const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
-
-            // Validate factFindId before making RPC call
-            if (!factFindId) {
-                console.warn('_applicantVisibility: factFindId is missing');
-                return;
-            }
-
-            this._rpc({
-                route: '/bvs/has_applicants',
-                params: {
-                    fact_find_id: parseInt(factFindId)
-                }
-            }).then((hasApplicants) => {
-                if(!hasApplicants){
-                    $('.applicant-share-box').addClass('d-none');
-                }
-            }).catch((error) => {
-                console.error('Failed to fetch applicants:', error);
-            });
-
-
-        },
-
-        _cardVisibility: function () {
-            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
-
-            // Validate factFindId before making RPC call
-            if (!factFindId) {
-                console.warn('_cardVisibility: factFindId is missing');
-                return;
-            }
-
-            this._rpc({
-                route: '/get/fact-find/financial-dependants',
-                params: {
-                    fact_find_id: parseInt(factFindId)
-                }
-            }).then((dependantsData) => {
-                // Check if dependantsData is an array with items
-                if (dependantsData && Array.isArray(dependantsData) && dependantsData.length > 0) {
-                    const $dependantCard = $('.dependant-card');
-                    const $qDependants = $('.q-dependants');
-
-                    // Show dependant card
-                    $('.have-dependants').click();
-
-
-                    // Hide question section
-                    $qDependants.fadeOut(400, function() {
-                        $(this).addClass('d-none');
-                    });
-                }
-            }).catch((error) => {
-                console.error('Failed to fetch financial dependants:', error);
-            });
-
-            this._rpc({
-                route: '/get/ff/employment-details',
-                params: {
-                    'employment_details_id': parseInt(factFindId)
-                }
-            }).then((employmentDetailsData) => {
-                // Check if dependantsData is an array with items
-                if (employmentDetailsData && Array.isArray(employmentDetailsData) && employmentDetailsData.length > 0) {
-                    $("select[name='employment-status']").val("employed");
-                }
-            }).catch((error) => {
-                console.error('Failed to fetch employment details:', error);
             });
         },
 
@@ -2640,8 +2517,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 const control = new pca.Address([
                     { element: inputId, field: "", mode: pca.fieldMode.SEARCH }
                 ], {
-//                    key: "dc41-rg84-pn42-rp92",
-                    key: "wg99-xt34-xk15-ge18",
+                    key: "dc41-rg84-pn42-rp92",
+//                    key: "yg97-yz29-ky74-wf98",
                     countries: {
                         codesList: "GBR"  // Restrict to UK only to avoid CORS issues
                     },
