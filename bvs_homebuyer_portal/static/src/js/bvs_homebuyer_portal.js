@@ -3006,6 +3006,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         _onclickNoDependants(ev) {
             // Show the confirmation popup instead of immediately hiding the section
             $('#no-dependants-popup').removeClass('d-none');
+
             console.log('No dependants clicked - showing confirmation popup');
         },
 
@@ -3015,6 +3016,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             // Remove highlight from "no dependants" button and add to "have dependants"
             $('.no-dependants').removeClass('btn-selected');
             $('.have-dependants').addClass('btn-selected');
+            $('.no-dependants').removeClass('yes-btn');
+            $('.have-dependants').addClass('yes-btn');
 
             console.log('Have dependants selected - button highlighted');
         },
@@ -4777,10 +4780,12 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         _onclickEmploymentDetailsAdd: function(ev) {
             const $employmentDetailsForm = $('.employment-details-form');
             // Target the form and reset all input fields
-            $employmentDetailsForm.find('input[type="text"], input[type="number"], select, textarea').val('');
+            $employmentDetailsForm.find('input[type="text"], input[type="number"], input[type="date"], select, textarea').val('');
             $employmentDetailsForm.find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
             // Reset hidden field for new employment details record
             $employmentDetailsForm.find('#employment_details_id').val('new-employment-details');
+
+            $employmentDetailsForm.find('.student_loans, .post_graduate_loan, .gym_membership, .childcare, .other').addClass('d-none');
             $employmentDetailsForm.removeClass('d-none').fadeIn(400);
         },
 
@@ -6218,8 +6223,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $('.dependants-history-details').addClass('d-none');
 
             // Add highlight to "no dependants" button
-            $('.no-dependants').addClass('btn-selected');
-            $('.have-dependants').removeClass('btn-selected');
+            $('.no-dependants').addClass('yes-btn');
+            $('.have-dependants').removeClass('yes-btn');
 
             console.log('Confirmed no dependants - button highlighted and section hidden');
 

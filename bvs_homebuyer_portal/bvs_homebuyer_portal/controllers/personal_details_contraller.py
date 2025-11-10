@@ -2783,7 +2783,7 @@ class PersonalDetails(http.Controller):
                 })
 
             # Redirect after successful submission
-            return request.redirect(f'/my/bvs/home?nextEl=cover&ffId={fact_find_id}&parentEl=safeguards')
+            return request.redirect(f'/my/bvs/home?nextEl=protection&ffId={fact_find_id}&parentEl=safeguards')
 
     @http.route(['/fact_find/protection/submit/<int:fact_find_id>'], type='http', auth='user', methods=['POST'],
                 website=True)
