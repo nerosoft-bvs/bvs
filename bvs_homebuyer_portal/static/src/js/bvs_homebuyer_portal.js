@@ -2189,7 +2189,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 "finances": [
                     //                    ["employment", "General"],
                     ["current", "Employment"],
-                    ["self", "Self Employment"],
+                    //["self", "Self Employment"],
                     ["income", "Other Income"],
                     ["credit_f", "Advers Credit"],
                     ["banking", "Banking"],
@@ -4917,13 +4917,14 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         },
 
         _onchangeEmploymentStatus: function(ev) {
-            let employmentStatus = $(ev.target).val();
+           let employmentStatus = $(ev.target).val();
             if (employmentStatus === 'self-employed') {
                 employmentStatus = 'self_employed';
             }
             const $employmentDetailsForm = $('.employment-details-form');
             const $retiredSection = $('.retired');
             const $employmentDetailsSection = $('.employment-details');
+            const $selfEmploymentSection = $('.self-employment');
             const self = this;
 
             console.log('Employment status changed to:', employmentStatus);
@@ -4932,11 +4933,14 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $employmentDetailsForm.addClass('d-none');
             $retiredSection.addClass('d-none');
             $employmentDetailsSection.addClass('d-none');
+            $selfEmploymentSection.addClass('d-none');
 
             // Show relevant section based on status
             if (employmentStatus === 'employed') {
 //                $employmentDetailsForm.removeClass('d-none');
                 $employmentDetailsSection.removeClass('d-none');
+            } else if (employmentStatus === 'self_employed') {
+                $selfEmploymentSection.removeClass('d-none');
             } else if (employmentStatus === 'retired') {
                 $retiredSection.removeClass('d-none');
                 // Load existing retirement income data

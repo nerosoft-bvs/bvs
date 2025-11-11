@@ -706,18 +706,18 @@
                                         <input type="text" id="address-search" name="address-search"/>
                                     </div>
 
-<!--                                    <div class="form-group col-md-12 pt-3">-->
-<!--                                        <label for="hello-search">Hello Address</label>-->
-<!--                                        <input type="text" id="hello-search" name="hello-search"/>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="form-group col-md-12 pt-3">-->
+                                    <!--                                        <label for="hello-search">Hello Address</label>-->
+                                    <!--                                        <input type="text" id="hello-search" name="hello-search"/>-->
+                                    <!--                                    </div>-->
                                     <div class="form-group col-md-12">
                                         <label for="flat-number" class="form-label">Flat Number</label>
                                         <input type="text" class="form-control" id="flat-number" name="flat-number"/>
                                     </div>
-<!--                                    <div class="form-group col-md-12">-->
-<!--                                        <label for="hello" class="form-label">Hello My one</label>-->
-<!--                                        <input type="text" class="form-control" id="hello" name="hello"/>-->
-<!--                                    </div>-->
+                                    <!--                                    <div class="form-group col-md-12">-->
+                                    <!--                                        <label for="hello" class="form-label">Hello My one</label>-->
+                                    <!--                                        <input type="text" class="form-control" id="hello" name="hello"/>-->
+                                    <!--                                    </div>-->
                                     <div class="form-group col-md-12">
                                         <label for="house-number" class="form-label">House Number</label>
                                         <input type="text" class="form-control" id="house-number" name="house-number"/>
@@ -961,7 +961,8 @@
                                                             <label for="current_landlord_name" class="form-label">
                                                                 Current Landlord Name
                                                             </label>
-                                                            <input type="text" id="current_landlord_name" name="current_landlord_name"
+                                                            <input type="text" id="current_landlord_name"
+                                                                   name="current_landlord_name"
                                                                    class="form-control"/>
                                                         </div>
 
@@ -969,15 +970,19 @@
                                                             <label for="landlord-address-search" class="form-label">
                                                                 Search Landlord Address
                                                             </label>
-                                                            <input type="text" id="landlord-address-search" name="landlord-address-search"
-                                                                   class="form-control" placeholder="Start typing address or postcode..."/>
+                                                            <input type="text" id="landlord-address-search"
+                                                                   name="landlord-address-search"
+                                                                   class="form-control"
+                                                                   placeholder="Start typing address or postcode..."/>
                                                         </div>
 
                                                         <div class="form-group col-md-12">
                                                             <label for="current_landlord_address" class="form-label">
                                                                 Current Landlord Address
                                                             </label>
-                                                            <textarea style="font-size:0.8rem; " name="current_landlord_address" id="current_landlord_address"
+                                                            <textarea style="font-size:0.8rem; "
+                                                                      name="current_landlord_address"
+                                                                      id="current_landlord_address"
                                                                       class="form-control" rows="3"/>
                                                         </div>
 
@@ -1012,7 +1017,8 @@
                                                             <label for="local_authority_name" class="form-label">
                                                                 Local Authority Name
                                                             </label>
-                                                            <input type="text" name="local_authority_name" id="local_authority_name"
+                                                            <input type="text" name="local_authority_name"
+                                                                   id="local_authority_name"
                                                                    class="form-control"/>
                                                         </div>
 
@@ -1020,15 +1026,19 @@
                                                             <label for="authority-address-search" class="form-label">
                                                                 Search Authority Address
                                                             </label>
-                                                            <input type="text" id="authority-address-search" name="authority-address-search"
-                                                                   class="form-control" placeholder="Start typing address or postcode..."/>
+                                                            <input type="text" id="authority-address-search"
+                                                                   name="authority-address-search"
+                                                                   class="form-control"
+                                                                   placeholder="Start typing address or postcode..."/>
                                                         </div>
 
                                                         <div class="form-group col-md-12">
                                                             <label for="local_authority_address" class="form-label">
                                                                 Local Authority Address
                                                             </label>
-                                                            <textarea style="font-size:0.8rem;" name="local_authority_address" id="local_authority_address"
+                                                            <textarea style="font-size:0.8rem;"
+                                                                      name="local_authority_address"
+                                                                      id="local_authority_address"
                                                                       class="form-control" rows="3"/>
                                                         </div>
 
@@ -1048,7 +1058,9 @@
                                             <div class="col-12 mt-4">
                                                 <div class="d-flex pt-2 pb-3">
                                                     <div class="text-center">
-                                                        <button type="button" class="btn btn-outline-warning btn-save-landlord-authority" id="btn-save-landlord-authority">
+                                                        <button type="button"
+                                                                class="btn btn-outline-warning btn-save-landlord-authority"
+                                                                id="btn-save-landlord-authority">
                                                             Save Landlord and Authority details
                                                         </button>
                                                     </div>
@@ -1450,17 +1462,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-section mt-3 self-employment d-none">
-                                    <h2 class="ms-1">Self Employment Details</h2>
-                                    <div class="self-employment-details-container"/>
-                                    <div class="button-group">
-                                        <button class="add-address self-add-employment-details-details"><i
-                                                class="fa fa-plus-circle me-1"/>Add Self Employment
-                                        </button>
-                                    </div>
-                                </div>
-
-
                                 <form class=" employment-details-form d-none">
                                     <input type="hidden" name="employment_details_id" id="employment_details_id"/>
                                     <div class="chkboxes is_current_employment">
@@ -1836,16 +1837,240 @@
                                     </div>
                                 </form>
 
+                                <div class="form-section mt-3 self-employment d-none">
+                                    <h2 class="ms-1">Self Employment 1 Details</h2>
+                                    <div class="self-employment-container"/>
+                                    <div class="button-group">
+                                        <button class="add-address add-self-employment-details"><i
+                                                class="fa fa-plus-circle me-1"/>Self Employment
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <form class="self-employment-details-form d-none">
+                                    <input type="hidden" name="self_employment_details_id"
+                                           id="self_employment_details_id"/>
+                                    <div class="form-group self_employment_details">
+                                        <div class="form-group col-12 self_employment_details_project">
+                                            <div class="form-group self_employment_type">
+                                                <label for="self_employment_type">Self Employment
+                                                    Type
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <select class="form-control"
+                                                        id="self_employment_type"
+                                                        name="self_employment_type">
+                                                    <option value=""/>
+                                                    <option value="sole_trader">Sole Trader</option>
+                                                    <option value="company_director">Company
+                                                        Director (>20%
+                                                        shares)
+                                                    </option>
+                                                    <option value="partnership">Partnership</option>
+                                                    <option value="btl_income">BTL Income</option>
+                                                    <option value="contractor">Contractor</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group business_name_field">
+                                                <label for="business_name">Business Name
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       id="business_name"
+                                                       name="business_name"/>
+                                            </div>
+                                            <div class="form-group occupation_field">
+                                                <label for="self_employed_occupation">Occupation
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       id="self_employed_occupation"
+                                                       name="self_employed_occupation"/>
+                                            </div>
+                                            <div class="form-group start_date_field">
+                                                <label for="self_employment_start_date">Self
+                                                    Employment
+                                                    Start Date
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="date" class="form-control"
+                                                       id="self_employment_start_date"
+                                                       name="self_employment_start_date"/>
+                                                <div id="start_date_error" class="invalid-feedback"
+                                                     style="display: none;">Start date must be at
+                                                    least 6 months before the current date.If you have another
+                                                    self-employment add that employment
+                                                </div>
+                                            </div>
+
+                                            <!-- Tax Year 1 Details -->
+                                            <div class="form-group ">
+                                                <label for="tax_year_1">Tax Year 1
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       id="tax_year_1"
+                                                       name="tax_year_1"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="year_1_tax_income">Year 1 Tax Income
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="year_1_tax_income"
+                                                       name="year_1_tax_income"/>
+                                            </div>
+
+                                            <!-- Tax Year 2 Details -->
+                                            <div class="form-group">
+                                                <label for="tax_year_2">Tax Year 2
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       id="tax_year_2"
+                                                       name="tax_year_2"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="year_2_tax_income">Year 2 Tax Income
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="year_2_tax_income"
+                                                       name="year_2_tax_income"/>
+                                            </div>
+
+                                            <!-- Business Details -->
+                                            <div class="card bg-white business_address_field">
+                                                <label for="business-address-search">Business Address
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="text" class="form-control"
+                                                       id="business-address-search"
+                                                       name="business-address-search"
+                                                       placeholder="Start typing to search address..."/>
+                                            </div>
+                                            <div class="card bg-white business_address_field">
+                                                <label for="business_address">Full Business Address</label>
+                                                <textarea class="form-control" id="business_address"
+                                                          style="font-size:0.75rem;"
+                                                          name="business_address"></textarea>
+                                            </div>
+
+                                            <div>
+                                                <label for="business_contact">Business Contact
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="business_contact"
+                                                       name="business_contact"/>
+                                                <div class="invalid-feedback">
+                                                    Please enter a valid 11-digit Telephone number.
+                                                </div>
+                                            </div>
+
+                                            <!-- Business Bank Account -->
+                                            <div class="has_accountant">
+                                                <label class="form-check-label" for="has_business_bank_account">
+                                                    Do you have a business bank account?
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input"
+                                                           id="business_bank_account_yes"
+                                                           name="business_bank_account"
+                                                           value="true"/>
+                                                    <label class="form-check-label" for="business_bank_account_yes">
+                                                        Yes
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input"
+                                                           id="business_bank_account_no"
+                                                           name="business_bank_account"
+                                                           value="false"/>
+                                                    <label class="form-check-label" for="business_bank_account_no">No
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Accountant Details -->
+                                            <div class="business_bank_account_field">
+                                                <label class="form-check-label" for="has_accountant">
+                                                    Do you have an accountant for tax purposes?
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input"
+                                                           id="accountant_yes"
+                                                           name="has_accountant" value="true"/>
+                                                    <label class="form-check-label" for="accountant_yes">Yes</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input type="radio" class="form-check-input"
+                                                           id="accountant_no"
+                                                           name="has_accountant" value="false"/>
+                                                    <label class="form-check-label" for="accountant_no">No</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- Accountant Details -->
+                                            <div class="accountant_firm_name d-none">
+                                                <label for="self_firm_name">Firm Name</label>
+                                                <input type="text" class="form-control" name="self_firm_name"
+                                                       id="self_firm_name"/>
+                                            </div>
+                                            <div class="accountant_accountant_address d-none">
+                                                <label for="self_accountant_address">Accountant Address</label>
+                                                <input type="text" class="form-control" name="self_accountant_address"
+                                                       id="self_accountant_address"/>
+                                            </div>
+                                            <div class="accountant_contact_number d-none">
+                                                <label for="self_contact_number">Contact Number</label>
+                                                <input type="text" class="form-control" name="self_contact_number"
+                                                       id="self_contact_number"/>
+                                            </div>
+                                            <div class="accountant_qualification d-none">
+                                                <label for="self_qualification">Qualification</label>
+                                                <input type="text" class="form-control" name="self_qualification"
+                                                       id="self_qualification"/>
+                                            </div>
+
+                                            <!-- Let Properties Count -->
+                                            <div class="let_properties d-none">
+                                                <label for="self_let_properties_count_new">
+                                                    Number of Let Properties Currently Owned
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <input type="number" class="form-control"
+                                                       id="self_let_properties_count_new"
+                                                       name="self_let_properties_count_new"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex pb-3">
+                                        <div style="padding-right: 15px;">
+                                            <button type="button"
+                                                    class="btn btn-outline-warning btn-self-employment-cancel">Cancel
+                                            </button>
+                                        </div>
+                                        <div>
+                                            <button type="button"
+                                                    class="btn btn-outline-warning btn-self-employment-save">Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
                                 <div class="retired d-none">
                                     <div class="retirement-container card shadow-sm p-4 mb-4">
                                         <div class="card-body">
-                                            <h5 class="card-title mb-4" style="color: var(--primary-gold-dark); font-weight: 600;">
+                                            <h5 class="card-title mb-4"
+                                                style="color: var(--primary-gold-dark); font-weight: 600;">
                                                 <i class="fa fa-piggy-bank me-2"></i>Retirement Income Details
                                             </h5>
 
                                             <!-- Loading indicator (optional) -->
                                             <div class="loading-indicator d-none mb-3">
-                                                <div class="spinner-border text-warning spinner-border-sm me-2" role="status">
+                                                <div class="spinner-border text-warning spinner-border-sm me-2"
+                                                     role="status">
                                                     <span class="visually-hidden">Loading...</span>
                                                 </div>
                                                 <span class="text-muted">Loading retirement data...</span>
@@ -1853,12 +2078,16 @@
 
                                             <div class="retirement-form">
                                                 <div class="form-group mb-4">
-                                                    <label for="gross_monthly_retirement_income" class="form-label" style="color: #4b5563; font-weight: 600;">
+                                                    <label for="gross_monthly_retirement_income" class="form-label"
+                                                           style="color: #4b5563; font-weight: 600;">
                                                         Gross Monthly Retirement Income:
                                                         <span class="required text-danger">*</span>
                                                     </label>
                                                     <div class="input-group">
-                                                        <span class="input-group-text bg-light" style="color: var(--primary-gold-dark); font-weight: 600;">£</span>
+                                                        <span class="input-group-text bg-light"
+                                                              style="color: var(--primary-gold-dark); font-weight: 600;">
+                                                            £
+                                                        </span>
                                                         <input
                                                                 type="number"
                                                                 id="gross_monthly_retirement_income"
@@ -1871,16 +2100,21 @@
                                                         />
                                                     </div>
                                                     <small class="form-text text-muted">
-                                                        <i class="fa fa-info-circle me-1"></i>Enter your gross monthly retirement income in pounds
+                                                        <i class="fa fa-info-circle me-1"></i>Enter your gross monthly
+                                                        retirement income in pounds
                                                     </small>
                                                 </div>
 
                                                 <div class="form-group mb-4">
-                                                    <label for="annual_retirement_income" class="form-label" style="color: #4b5563; font-weight: 600;">
+                                                    <label for="annual_retirement_income" class="form-label"
+                                                           style="color: #4b5563; font-weight: 600;">
                                                         Annual Retirement Income (Calculated):
                                                     </label>
                                                     <div class="input-group">
-                                                        <span class="input-group-text bg-light" style="color: var(--primary-gold-dark); font-weight: 600;">£</span>
+                                                        <span class="input-group-text bg-light"
+                                                              style="color: var(--primary-gold-dark); font-weight: 600;">
+                                                            £
+                                                        </span>
                                                         <input
                                                                 type="number"
                                                                 id="annual_retirement_income"
@@ -1893,30 +2127,37 @@
                                                         />
                                                     </div>
                                                     <small class="form-text text-muted">
-                                                        <i class="fa fa-calculator me-1"></i>Automatically calculated (Monthly × 12)
+                                                        <i class="fa fa-calculator me-1"></i>Automatically calculated
+                                                        (Monthly × 12)
                                                     </small>
                                                 </div>
 
                                                 <div class="form-actions d-flex gap-2 mt-4">
-                                                    <button type="button" class="btn btn-outline-gold btn-yes-save btn-save-retirement-income">
+                                                    <button type="button"
+                                                            class="btn btn-outline-gold btn-yes-save btn-save-retirement-income">
                                                         <i class="fa fa-check me-2"></i>Save Retirement Income
                                                     </button>
-                                                    <button type="button" class="btn btn-outline-gold btn-no-cancel btn-cancel-retirement">
+                                                    <button type="button"
+                                                            class="btn btn-outline-gold btn-no-cancel btn-cancel-retirement">
                                                         <i class="fa fa-times me-2"></i>Cancel
                                                     </button>
                                                 </div>
                                             </div>
 
                                             <!-- Success message container (optional) -->
-                                            <div class="alert alert-success d-none mt-3" id="retirement-success-message" style="border-left: 4px solid #10b981;">
+                                            <div class="alert alert-success d-none mt-3" id="retirement-success-message"
+                                                 style="border-left: 4px solid #10b981;">
                                                 <i class="fa fa-check-circle me-2"></i>
-                                                <strong>Success!</strong> Retirement income saved successfully!
+                                                <strong>Success!</strong>
+                                                Retirement income saved successfully!
                                             </div>
 
                                             <!-- Error message container (optional) -->
-                                            <div class="alert alert-danger d-none mt-3" id="retirement-error-message" style="border-left: 4px solid #ef4444;">
+                                            <div class="alert alert-danger d-none mt-3" id="retirement-error-message"
+                                                 style="border-left: 4px solid #ef4444;">
                                                 <i class="fa fa-exclamation-triangle me-2"></i>
-                                                <strong>Error!</strong> <span class="error-text"></span>
+                                                <strong>Error!</strong>
+                                                <span class="error-text"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -1960,8 +2201,8 @@
 
                             </div>
                             <button type="button" class="btn btn-md btn-dark mt-4 mb-3 btn-next btn-employment"
-                                    t-attf-data-id="self">Save and Continue:
-                                Self Employment
+                                    t-attf-data-id="finances-income">Save and Continue:
+                                Other Income
                                 <i class="fa fa-arrow-circle-o-right ms-1"/>
                             </button>
                         </div>
@@ -2193,7 +2434,7 @@
                                 </form>
 
                                 <div class="form-section mt-1 self-employment">
-<!--                                    <h2 class="ms-1">Self Employment</h2>-->
+                                    <!--                                    <h2 class="ms-1">Self Employment</h2>-->
                                     <div class="self-employment-container"/>
                                     <div class="button-group">
                                         <button class="add-address add-self-employment-details"><i
@@ -2478,7 +2719,8 @@
 
                                         <div class="d-flex mt-3">
                                             <div>
-                                                <button type="button" class="btn btn-primary btn-outline-gold btn-save-all-questions">
+                                                <button type="button"
+                                                        class="btn btn-primary btn-outline-gold btn-save-all-questions">
                                                     Save
                                                 </button>
                                             </div>
@@ -3322,7 +3564,8 @@
                                             <label for="street_address">Street Address
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <textarea class="form-control" style="font-size:0.75rem;" id="street_address_yep"
+                                            <textarea class="form-control" style="font-size:0.75rem;"
+                                                      id="street_address_yep"
                                                       name="street_address_existing_properties"/>
                                         </div>
                                         <div class="form-group county">
@@ -4531,7 +4774,6 @@
                                             <input type="text" class="form-control" id="post_code3" name="post_code3"
                                                    t-att-value="fact_find.post_code"/>
                                         </div>
-
 
 
                                         <!-- Building Name -->
