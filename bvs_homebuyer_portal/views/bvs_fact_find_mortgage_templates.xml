@@ -498,33 +498,6 @@
                                             <select class="form-control" id="ownership_percentage_existing"
                                                     name="ownership_percentage_existing">
                                                 <option value=""/>
-                                                <option value="20"
-                                                        t-att-selected="fact_find.ownership_percentage == 20">20%
-                                                </option>
-                                                <option value="25"
-                                                        t-att-selected="fact_find.ownership_percentage == 25">25%
-                                                </option>
-                                                <option value="30"
-                                                        t-att-selected="fact_find.ownership_percentage == 30">30%
-                                                </option>
-                                                <option value="35"
-                                                        t-att-selected="fact_find.ownership_percentage == 35">35%
-                                                </option>
-                                                <option value="40"
-                                                        t-att-selected="fact_find.ownership_percentage == 40">40%
-                                                </option>
-                                                <option value="45"
-                                                        t-att-selected="fact_find.ownership_percentage == 45">45%
-                                                </option>
-                                                <option value="50"
-                                                        t-att-selected="fact_find.ownership_percentage == 50">50%
-                                                </option>
-                                                <option value="55"
-                                                        t-att-selected="fact_find.ownership_percentage == 55">55%
-                                                </option>
-                                                <option value="60"
-                                                        t-att-selected="fact_find.ownership_percentage == 60">60%
-                                                </option>
                                                 <option value="65"
                                                         t-att-selected="fact_find.ownership_percentage == 65">65%
                                                 </option>
@@ -547,14 +520,16 @@
                                         </div>
 
                                         <!-- Help to Buy Loan Details -->
-                                        <div class="chkboxes form-check d-none">
-                                            <input type="checkbox" class="form-check-input" id="help_to_buy_loan"
-                                                   name="help_to_buy_loan"/>
-                                            <label class="form-check-label" for="help_to_buy_loan"
-                                                   t-att-checked="fact_find.help_to_buy_loan">
-                                                Do you have help to buy loan for this property?
+                                        <div class="chkboxes help_buy_loan_existing form-check d-none">
+                                            <label class="form-check-label" for="help_buy_loan_existing">Do you have Help to Buy Loan for this property?
                                             </label>
+                                            <input type="checkbox"
+                                                   id="help_buy_loan_existing"
+                                                   class="form-check-input help_buy_loan_existing_checked"
+                                                   name="help_buy_loan_existing"
+                                                   t-att-checked="fact_find.help_to_buy_loan"/>
                                         </div>
+
                                         <!-- Help to Buy Loan Type -->
                                         <div class="form-group d-none">
                                             <label for="help_to_buy_loan_type">Loan type</label>
