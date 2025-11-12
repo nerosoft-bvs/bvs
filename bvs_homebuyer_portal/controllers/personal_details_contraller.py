@@ -2472,6 +2472,8 @@ class PersonalDetails(http.Controller):
                     ('sharecode_immigration_status', 'Sharecode for Immigration Status downloaded by HMRC')
                 ]),
                 ('address', [
+                    ('utility_bill_past_3_months',
+                     'One of the following documents issued within last 3 months (Electricity Bill / Gas bill / Land phone bill / Credit card bill / Bank statement) / Latest Council tax bill'),
                     ('electricity_bill',
                      'One of the following documents issued within last 3 months (Electricity Bill / Gas bill / Land phone bill / Credit card bill / Bank statement) / Latest Council tax bill'),
                     ('gas_bill',
