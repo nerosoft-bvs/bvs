@@ -357,7 +357,7 @@
 
                         <!--Bank Statements-->
                         <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_your_health_information"/>
-
+                        <!--Existing Cover-->
                         <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_existing_cover"/>
                         <!--Protection Policies-->
                         <t t-call="bvs_homebuyer_portal.bvs_portal_ff_ypp_protection_policies"/>

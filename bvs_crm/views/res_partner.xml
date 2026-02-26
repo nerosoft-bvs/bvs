@@ -13,13 +13,9 @@
                 <button class="oe_stat_button" type="object" name="view_reference_leads" icon="fa-file-text-o" attrs="{'invisible': [('reference_lead_count', '=', 0)]}">
                     <field string="Ref Leads" name="reference_lead_count" widget="statinfo"/>
                 </button>
-<!--                <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o" attrs="{'invisible': [('applicant_form_count', '=', 0)]}">-->
-<!--                    <field string="Applications" name="applicant_form_count" widget="statinfo"/>-->
-<!--                </button>-->
-                <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o" invisible="1">
+                <button class="oe_stat_button" type="object" name="view_applicant_forms" icon="fa-files-o" attrs="{'invisible': [('applicant_form_count', '=', 0)]}">
                     <field string="Applications" name="applicant_form_count" widget="statinfo"/>
                 </button>
-
             </div>
             <xpath expr="//field[@name='street']" position='before'>
                 <field name="title"/>

@@ -1,0 +1,64 @@
+.mc-applications {
+
+  .applications-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #b68c1a;
+  }
+
+  .profile-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .report-card {
+    opacity: 0.8;
+     background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  .profile_dashboard_line {
+    background: linear-gradient(145deg, #ececec, #ffffff);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    color: #333;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+
+  .profile_dashboard_line:hover {
+    background-color: #e0e0e0;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .profile_dashboard_line_content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile_dashboard_line_title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 5px;
+  }
+
+  .profile_dashboard_line_title span {
+    font-size: 18px;
+    color: #444;;
+  }
+
+}

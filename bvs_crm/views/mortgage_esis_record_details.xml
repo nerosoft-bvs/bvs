@@ -7,9 +7,12 @@
                 <form>
                     <header>
                         <button string="Confirm" type="object" class="oe_highlight"
-                                name="action_confirm" attrs="{'invisible': [('state', '=', 'confirmed')]}"/>
+                                name="action_confirm" attrs="{'invisible': [('state', 'in', ['confirmed', 'waiting_approval'])]}"/>
+                        <button string="Approve" type="object" class="oe_highlight"
+                                name="action_approve" attrs="{'invisible': ['|', ('state', '!=', 'waiting_approval'), ('is_current_user_advisor', '=', False)]}"/>
 
                         <field name="state" widget="statusbar" options="{'clickable': '1'}"/>
+                        <field name="is_current_user_advisor" invisible="1"/>
                     </header>
                     <sheet>
                         <group string="ESIS Record details">
@@ -29,8 +32,8 @@
                             <field name="initial_rate"/>
                             <field name="monthly_payment"/>
                             <field name="product_fee"/>
-                            <field name="valuation_fee"/>
-                            <field name="application_fee"/>
+                            <field name="valuation_fee_amount"/>
+                            <field name="application_fee_amount"/>
                             <field name="cashback"/>
                             <field name="remarks"/>
                             <field name="upload_esis"/>

@@ -23,11 +23,11 @@
                                    attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False), ('is_advisor_support', '=', False)]}"/>
                             <field name="post_offer_checklist"
                                    attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
-                            <field name="survey_acknowledgement"
-                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
                             <field name="mortgage_offer_details_acknowledgement"
                                    attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
                             <field name="client_acknowledgement_of_new_offer"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <field name="survey_acknowledgement"
                                    attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
                             <field name="survey_rd"
                                    attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
@@ -234,8 +234,16 @@
                     <group string="">
                         <field name="exchange_date"
                                attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
-                        <field name="completion_date"
-                               attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                        <label for="completion_date"/>
+                        <div class="o_row">
+                            <field name="completion_date" nolabel="1"
+                                   attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
+                            <button name="action_send_completion_date_email"
+                                    type="object"
+                                    string="Notify Client"
+                                    class="oe_highlight"
+                                    attrs="{'invisible': [('completion_date', '=', False)]}"/>
+                        </div>
                         <field name="product_end_date"
                                attrs="{'readonly': [('is_post_offer_leader', '=', False), ('is_post_offer_member', '=', False)]}"/>
                     </group>

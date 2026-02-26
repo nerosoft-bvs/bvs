@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="email_template_mortgage_advisor_completion_reminder" model="mail.template">
+            <field name="name">Mortgage Advisor Completion Reminder</field>
+            <field name="model_id" ref="bvs_crm.model_bvs_lead"/>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{object.mortgage_advisor.login}}</field>
+            <field name="subject">Reminder: Case {{ object.display_name }} has been verified</field>
+            <field name="body_html" type="html">
+                <p>Hello <t t-out="object.mortgage_advisor.name"/>,</p>
+                <p>This is a reminder that case <b><t t-out="object.display_name"/></b> has been verified.</p>
+                <p>Please take the necessary actions.</p>
+                <p>Thank you.</p>
+            </field>
+        </record>
+    </data>
+</odoo>

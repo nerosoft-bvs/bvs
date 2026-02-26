@@ -11,8 +11,10 @@ class BVSApplicantsForms(models.Model):
 
     lead_id = fields.Many2one('bvs.lead', string="Lead")
     partner_id = fields.Many2one("res.partner", string="Customer", tracking=True)
-    first_name = fields.Char('First Name', related='partner_id.first_name', tracking=True)
-    last_name = fields.Char('Last Name', related='partner_id.last_name', tracking=True)
+    # Changes done by Kovida Opatha start
+    first_name = fields.Char('First Name', related='partner_id.first_name', tracking=True, readonly=False)
+    last_name = fields.Char('Last Name', related='partner_id.last_name', tracking=True, readonly=False)
+    # Changes done by Kovida Opatha end
     email = fields.Char(string="Email", related='partner_id.email', readonly=False, tracking=True)
     client_acknowledgment = fields.Boolean(string='Client Acknowledgment of Affordability Assessment')
     contact_number = fields.Char(string="Contact Number", related='partner_id.mobile', readonly=False, tracking=True)
@@ -46,10 +48,3 @@ class BVSApplicantsForms(models.Model):
         ('mortgage', 'Mortgage'),
         ('protection', 'Protection')],
         default='mortgage', string='Service Type', related='lead_id.product_type')
-
-
-
-
-
-
-

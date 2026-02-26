@@ -10,6 +10,7 @@
                     <group>
                         <field name="firm_name"/>
                         <field name="firm_email"/>
+                        <field name="firm_address"/>
                         <field name="contactable_person"/>
                         <field name="contactable_person_mobile"/>
                     </group>
