@@ -179,10 +179,13 @@ class PersonalDetails(http.Controller):
         }
 
     @http.route('/update/fact-find/address', methods=['POST'], type='json', auth='public')
-    def ff_update_address(self, fact_find_id, **kwargs):
+    def ff_update_address(self, **kwargs):
         """
         @public - update addresses
         """
+        fact_find_id = kwargs.get('fact_find_id')
+        if not fact_find_id:
+            return {'error': 'fact_find_id not provided'}
         fact_find_id = request.env['fact.find'].with_user(SUPERUSER_ID).browse(int(fact_find_id))
         address_history_data = kwargs.get('data')
         address_id = address_history_data.get('address_id')  # Get the address_id from the data
@@ -2469,6 +2472,8 @@ class PersonalDetails(http.Controller):
                     ('sharecode_immigration_status', 'Sharecode for Immigration Status downloaded by HMRC')
                 ]),
                 ('address', [
+                    ('utility_bill_past_3_months',
+                     'One of the following documents issued within last 3 months (Electricity Bill / Gas bill / Land phone bill / Credit card bill / Bank statement) / Latest Council tax bill'),
                     ('electricity_bill',
                      'One of the following documents issued within last 3 months (Electricity Bill / Gas bill / Land phone bill / Credit card bill / Bank statement) / Latest Council tax bill'),
                     ('gas_bill',
@@ -2649,16 +2654,16 @@ class PersonalDetails(http.Controller):
                     'personal_goods': values.get('personal_goods'),
                     'household_goods': values.get('household_goods'),
                     'entertainment': values.get('entertainment'),
-                    # 'childcare': values.get('childcare_cost'),
+                    'childcare': values.get('childcare_cost'),
                     'annual_council_tax': values.get('annual_council_tax'),
                     'home_insurance': values.get('home_insurance'),
                     'life_insurance': values.get('life_insurance'),
                     'car_insurance': values.get('car_insurance'),
                     'education_fees': values.get('education_fees'),
-                    'ground_rent': values.get('ground_rent_1'),
+                    'ground_rent': values.get('ground_rent'),
                     'service_charge': values.get('service_charge'),
                     'services_charge': values.get('services_charge'),
-                    'total_monthly_expenses': values.get('total_expenses')
+                    'total_monthly_expenses': values.get('total_monthly_expenses')
                 })
 
             # Redirect after successful submission
@@ -2729,7 +2734,7 @@ class PersonalDetails(http.Controller):
                     'ground_rent': values.get('ground_rent'),
                     'shared_ownership': values.get('shared_ownership_existing') == 'on',  # Checkbox to boolean
                     'ownership_percentage': values.get('ownership_percentage_existing'),
-                    'help_to_buy_loan': values.get('help_to_buy_loan_type') is not None,
+                    'help_to_buy_loan': values.get('help_buy_loan_existing') == 'on', #previously, is not None
                     'help_to_buy_loan_type': values.get('help_to_buy_loan_type'),
                     'estimated_monthly_rental_income': values.get('estimated_monthly_rental_income'),
                     'current_monthly_rental_income': values.get('current_monthly_rental_income'),
@@ -2783,6 +2788,7 @@ class PersonalDetails(http.Controller):
                     'contactable_person_mobile': values.get('es_mobile'),
                     'contactable_person': values.get('contactable_person'),
                     'firm_email': values.get('es_email'),
+                    'firm_address': values.get('es_address'),
                 })
 
             # Redirect after successful submission
@@ -2812,7 +2818,7 @@ class PersonalDetails(http.Controller):
                 })
 
             # Redirect after successful submission
-            return request.redirect(f'/my/bvs/home?nextEl=cover&ffId={fact_find_id}&parentEl=safeguards')
+            return request.redirect(f'/my/bvs/home?nextEl=protection&ffId={fact_find_id}&parentEl=safeguards')
 
     @http.route(['/fact_find/protection/submit/<int:fact_find_id>'], type='http', auth='user', methods=['POST'],
                 website=True)
@@ -3305,7 +3311,7 @@ class PersonalDetails(http.Controller):
                 'contactable_person': fact_find.contactable_person,
                 'contactable_person_mobile': fact_find.contactable_person_mobile,
                 'country_id': fact_find.country_id,
-                'country_of_birth': fact_find.country_of_birth.id if fact_find.country_of_birth else False,
+                'country_of_birth': fact_find.country_of_birth,
                 'county': fact_find.county,
                 'create_date': fact_find.create_date,
                 'create_uid': fact_find.create_uid,
@@ -3329,7 +3335,7 @@ class PersonalDetails(http.Controller):
                 'driving_license': fact_find.driving_license,
                 'driving_license_proof_address': fact_find.driving_license_proof_address,
                 'dual_nationality': fact_find.dual_nationality,
-                'dual_nationality_id': fact_find.dual_nationality_id.id if fact_find.dual_nationality_id else False,
+                'dual_nationality_id': fact_find.dual_nationality_id,
                 'education_fees': fact_find.education_fees,
                 'electricity_bill': fact_find.electricity_bill,
                 'email': fact_find.email,
@@ -3445,7 +3451,7 @@ class PersonalDetails(http.Controller):
                 'other_expenses_bank_statements': fact_find.other_expenses_bank_statements,
                 'other_income_bank_statements': fact_find.other_income_bank_statements,
                 'other_nationality': fact_find.other_nationality,
-                'other_nationality_id': fact_find.other_nationality_id.id if fact_find.other_nationality_id else False,
+                'other_nationality_id': fact_find.other_nationality_id,
                 'outstanding_amount': fact_find.outstanding_amount,
                 'ownership_percentage': fact_find.ownership_percentage,
                 'p60': fact_find.p60,
@@ -3561,13 +3567,5 @@ class PersonalDetails(http.Controller):
     def is_protection(self):
         """Return True if current user is in System Administrator group"""
         return request.env.user.has_group('base.group_system')
-
-    @http.route('/bvs/has_applicants', type='json', auth='user')
-    def has_applicants(self, fact_find_id):
-        fact_find = request.env['fact.find'].sudo().browse(int(fact_find_id))
-        if fact_find.lead_id.applicant_ids:
-            return True
-        else:
-            return False
 
 

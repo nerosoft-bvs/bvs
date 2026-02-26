@@ -23,6 +23,9 @@ class AdverseCreditDetails(models.Model):
 
     fact_find_id = fields.Many2one('fact.find', 'Fact Find')
     adverse_credit_type = fields.Selection([
+        ('type1', 'Type 1'),
+        ('type2', 'Type 2'),
+        ('type3', 'Type 3'),
         ('type4', 'Missed Payment / Arrears'),
         ('ccj', 'CCJ'),
         ('default', 'Default'),

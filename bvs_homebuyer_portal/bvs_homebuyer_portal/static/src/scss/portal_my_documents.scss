@@ -1,0 +1,126 @@
+.mc-documents {
+  .container, .container-fluid, > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    height: 83vh;
+    border-radius: 8px;
+    overflow-y: scroll;
+    max-height: 75vh;
+  }
+
+  .doc-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #b68c1a;
+  }
+
+  .folder {
+    background-color: #fff;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.8rem;
+  }
+
+  .folder:hover {
+    background-color: #f1f1f1;
+  }
+
+  .content {
+    display: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+    background-color: #fff;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    height: 50vh;
+    overflow-y: scroll;
+  }
+
+  .side-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-left: 20px;
+    width: 35%;
+    height: 83vh;
+    border-radius: 8px;
+    background-color: #EEECDF;
+    padding: 20px;
+  }
+
+  .side-panel button {
+    background-color: #b68c1a;
+    color: white;
+    padding: 10px;
+    border: none;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .side-panel button:hover {
+    background-color: #b68c1a;
+  }
+
+  .f-right {
+    float: right;
+    margin-top: 0.5%;
+  }
+
+  .folder.open .f-right {
+    transform: rotate(180deg);
+  }
+
+  .edit-docs,
+  .download-docs,
+  .delete-docs {
+    cursor: pointer;
+    padding: 3px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .document-content {
+    padding-left: 3% !important;
+    font-weight: lighter;
+    font-size: 0.7rem !important;
+    padding-right: 3% !important;
+    cursor: pointer;
+  }
+
+  .document-header {
+    background-color: #d2d2d2;
+    font-size: 0.7rem !important;
+  }
+
+  .doc-alerts {
+    font-size: 75%;
+    padding: 1%;
+
+    .delete-confirm{
+      font-size: 1.5rem;
+      position: absolute;
+      right: 2.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #937f82;
+      font-weight: 200;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    button {
+      padding-top: 1%
+    }
+  }
+}

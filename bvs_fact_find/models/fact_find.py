@@ -132,19 +132,6 @@ class FactFind(models.Model):
     is_private_lead = fields.Boolean(related='lead_id.is_private', string="Is Private Lead?", store=True)
     have_dependants = fields.Boolean(string="Have Dependants", store=True, default=True)
 
-    def name_get(self):
-        """Custom name display showing Lead Case Number and Partner Name."""
-        result = []
-        for record in self:
-            if record.lead_id and record.lead_id.registration_no:
-                name = f"[{record.lead_id.registration_no}] {record.partner_id.name or 'No Partner'}"
-            elif record.lead_id:
-                name = f"[Lead ID: {record.lead_id.id}] {record.partner_id.name or 'No Partner'}"
-            else:
-                name = f"{record.partner_id.name or 'Fact Find'} (ID: {record.id})"
-            result.append((record.id, name))
-        return result
-
     def generate_pdf_report(self):
         report_name = 'fact_find_report.pdf'
         pdf_content = self.env.ref('bvs_fact_find.report_fact_find_template').render({'record': self})

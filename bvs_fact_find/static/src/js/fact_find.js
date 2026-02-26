@@ -89,6 +89,8 @@ odoo.define('bvs_fact_find.fact_find', function (require) {
             'keydown input[name="building_number3"]': '_onchangeBuildingDetails',
             'keydown input[name="building_name3"]': '_onchangeBuildingDetails',
             'change input[name="is_current_address"]': '_onchangeCurrentAddress',
+            'change #residential_status_ah': '_onchangeResidentialStatus',
+
 
         },
 
@@ -116,6 +118,7 @@ odoo.define('bvs_fact_find.fact_find', function (require) {
                 $('.existing_mortgage_div').find('input, select, textarea').attr('readonly', true);
                 $('.protection_div').find('input, select, textarea').attr('readonly', true);
             }
+
        },
 
        _onAddressPopulated: function (address) {
@@ -155,6 +158,18 @@ odoo.define('bvs_fact_find.fact_find', function (require) {
             }
         },
 
+_onchangeResidentialStatus: function(ev) {
+    // The landlord field to show/hide
+    const landlordField = document.querySelector('.current_landlord_name');
+    if (!landlordField) return;
+
+    // Show landlord field only if 'renting_private' is selected
+    if (ev.target.value === 'renting_private') {
+        landlordField.classList.remove('d-none'); // show
+    } else {
+        landlordField.classList.add('d-none');    // hide
+    }
+},
 
 
     _onchangeIndefiniteLeaveToRemain: function (ev) {
@@ -911,7 +926,7 @@ odoo.define('bvs_fact_find.fact_find', function (require) {
             }
         },
 
-       _onchangeNewBuild: function () {
+       _onchangeNewBuild1: function () {
           const isNewBuildCheckbox = this.$('#is_new_build');
           const peaRateSection = this.$('.pea_rate');
           const epcPredictedEpcRateSection = this.$('.epc_predicted_epc_rate');
@@ -926,6 +941,23 @@ odoo.define('bvs_fact_find.fact_find', function (require) {
           }
 
         },
+
+        _onchangeNewBuild: function () {
+    var isNewBuildCheckbox = this.$('#is_new_build')[0]; // get DOM element
+    var peaRateSection = this.$('.pea_rate');
+    var epcPredictedEpcRateSection = this.$('.epc_predicted_epc_rate');
+    var estimatedBuiltYearSelect = this.$('#estimated_built_year');
+
+    if (isNewBuildCheckbox.checked) {
+        peaRateSection.removeClass('d-none');                 // show PEA Rate
+        epcPredictedEpcRateSection.addClass('d-none');        // hide EPC Predicted
+        estimatedBuiltYearSelect.val(2024);                  // set default year
+    } else {
+        peaRateSection.addClass('d-none');                   // hide PEA Rate
+        epcPredictedEpcRateSection.removeClass('d-none');    // show EPC Predicted
+    }
+},
+
 
         _onchangeAdditionalBorrowing: function () {
             const additionalBorrowingCheckbox = this.$('.additional_borrowing_check input[type="checkbox"]');

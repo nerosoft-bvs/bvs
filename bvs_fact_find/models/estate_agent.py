@@ -6,6 +6,7 @@ class FactFindEstateAgent(models.Model):
 
     firm_name = fields.Char('Firm Name')
     firm_email = fields.Char('Email')
+    firm_address = fields.Char('Address')
     contactable_person = fields.Char('Contactable Person')
     contactable_person_mobile = fields.Char('Contact Number')
-   
+

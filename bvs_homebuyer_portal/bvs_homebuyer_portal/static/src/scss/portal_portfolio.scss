@@ -1,0 +1,61 @@
+.mc-portfolio {
+
+  .portfolio-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #b68c1a;
+  }
+
+  .portfolio-content {
+    overflow-x: auto;
+  }
+
+  .table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+
+    .table {
+      min-width: 1300px; // Wider base width to avoid collapsing
+
+      th, td {
+        padding: 12px 15px;
+        font-size: 14px;
+        vertical-align: middle;
+      }
+
+      th {
+        white-space: nowrap;
+        background-color: #f9f9f9;
+        font-weight: 600;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 2;
+      }
+
+      td {
+        word-break: break-word;
+        text-align: center;
+      }
+    }
+  }
+
+  .properties-container {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .properties-container .edit-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+
+    img {
+      cursor: pointer;
+      margin-left: 5px;
+    }
+  }
+}

@@ -40,9 +40,6 @@ class BVSAddApplicantWizard(models.TransientModel):
                 'email': self.email,
                 'contact_number': self.mobile,
             })
-
-            lead_id.action_send_portal_invitation()
-            lead_id.action_create_fact_find()
         else:
 
             raise UserError("Cannot add more than 4 applicants")

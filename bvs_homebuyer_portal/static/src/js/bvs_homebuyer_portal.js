@@ -163,15 +163,9 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         },
 
          _onClickSidebarFactFind: function(ev) {
-            const $link = $(ev.currentTarget);
-
-            // Don't interfere with Bootstrap collapse toggles
-            if ($link.attr('data-bs-toggle') === 'collapse') {
-                return; // Let Bootstrap handle it
-            }
-
             ev.preventDefault();
 
+            const $link = $(ev.currentTarget);
             const factFindId = parseInt($link.attr("href").replace("#", ""));
 
             if (factFindId && !isNaN(factFindId)) {
@@ -843,9 +837,13 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
             // Find fields within the parent form
             const monthlyChildcareCostField = $parentForm.find('.monthly_childcare_cost')[0];
+            console.log('monthlyChildcareCostField:', monthlyChildcareCostField);
             const childcareCostReasonField = $parentForm.find('.childcare_cost_reason')[0];
+            console.log('childcareCostReasonField:', childcareCostReasonField);
             const dependencyPeriodField = $parentForm.find('.dependency_period')[0];
+            console.log('dependencyPeriodField:', dependencyPeriodField);
             const additionalCostField = $parentForm.find('.additional_cost')[0];
+            console.log('additionalCostField:', additionalCostField);
 
             // Log field existence
             console.debug('Field existence:', {
@@ -2191,7 +2189,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 "finances": [
                     //                    ["employment", "General"],
                     ["current", "Employment"],
-                    ["self", "Self Employment"],
+                    //["self", "Self Employment"],
                     ["income", "Other Income"],
                     ["credit_f", "Advers Credit"],
                     ["banking", "Banking"],
@@ -2290,48 +2288,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                     this._onclickSubStep({ currentTarget: $savedSubstepEl[0] });
                 }
             }
-
-
-            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
-            if (factFindId && (activeMainMenu === 'new_mortgage' || activeMainMenu === 'outgoings' )) {
-                    const self = this;
-                    let $targetForm;
-
-                    // Determine which form to populate based on activeSubMenu
-                    if (activeMainMenu === 'new_mortgage') {
-                        $targetForm = $("#ff_ynm_building_n_contents_insurance .ff-expenditure-submit.ff-form");
-
-                    } else if (activeMainMenu === 'outgoings') {
-                        $targetForm = $("#ff_yo_expenditure .ff-expenditure-submit.ff-form");
-                    }
-
-                    // Only proceed if we have a target form
-                    if ($targetForm && $targetForm.length > 0) {
-                        // Show loading indicator
-                        self._showInsuranceLoader($targetForm);
-
-                        this._rpc({
-                            route: "/fact_find/get_details",
-                            params: { fact_find_id: parseInt(factFindId) },
-                        }).then(function(data) {
-                            // Hide loading indicator
-                            self._hideInsuranceLoader($targetForm);
-
-                            if (data) {
-                                // Populate based on active submenu
-                                if (activeMainMenu === 'new_mortgage') {
-                                    self._populateInsuranceForm($targetForm, data);
-                                } else if (activeMainMenu === 'outgoings') {
-                                    self._populateExpenditureForm($targetForm, data);
-                                }
-                            }
-                        }).catch(function(error) {
-                            // Hide loading indicator on error
-                            self._hideInsuranceLoader($targetForm);
-                            console.error('Failed to fetch fact find data:', error);
-                        });
-                    }
-                }
 
         },
 
@@ -2479,8 +2435,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
             this._applyCssStyle();
             this._initAddressNowInput();
-            this._cardVisibility();
-            this._applicantVisibility();
 
             // Conditional initialization for address history - Current Address Checkbox
             const currentAddressCheckbox = this.$('#current_address_name_checkbox')[0];
@@ -2515,79 +2469,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             });
             $("select").each(function () {
                 $(this).parent("div").addClass('form-field-container');
-            });
-        },
-
-        _applicantVisibility : function(){
-             const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
-
-            // Validate factFindId before making RPC call
-            if (!factFindId) {
-                console.warn('_applicantVisibility: factFindId is missing');
-                return;
-            }
-
-            this._rpc({
-                route: '/bvs/has_applicants',
-                params: {
-                    fact_find_id: parseInt(factFindId)
-                }
-            }).then((hasApplicants) => {
-                if(!hasApplicants){
-                    $('.applicant-share-box').addClass('d-none');
-                }
-            }).catch((error) => {
-                console.error('Failed to fetch applicants:', error);
-            });
-
-
-        },
-
-        _cardVisibility: function () {
-            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
-
-            // Validate factFindId before making RPC call
-            if (!factFindId) {
-                console.warn('_cardVisibility: factFindId is missing');
-                return;
-            }
-
-            this._rpc({
-                route: '/get/fact-find/financial-dependants',
-                params: {
-                    fact_find_id: parseInt(factFindId)
-                }
-            }).then((dependantsData) => {
-                // Check if dependantsData is an array with items
-                if (dependantsData && Array.isArray(dependantsData) && dependantsData.length > 0) {
-                    const $dependantCard = $('.dependant-card');
-                    const $qDependants = $('.q-dependants');
-
-                    // Show dependant card
-                    $('.have-dependants').click();
-
-
-                    // Hide question section
-                    $qDependants.fadeOut(400, function() {
-                        $(this).addClass('d-none');
-                    });
-                }
-            }).catch((error) => {
-                console.error('Failed to fetch financial dependants:', error);
-            });
-
-            this._rpc({
-                route: '/get/ff/employment-details',
-                params: {
-                    'employment_details_id': parseInt(factFindId)
-                }
-            }).then((employmentDetailsData) => {
-                // Check if dependantsData is an array with items
-                if (employmentDetailsData && Array.isArray(employmentDetailsData) && employmentDetailsData.length > 0) {
-                    $("select[name='employment-status']").val("employed");
-                }
-            }).catch((error) => {
-                console.error('Failed to fetch employment details:', error);
             });
         },
 
@@ -2640,8 +2521,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 const control = new pca.Address([
                     { element: inputId, field: "", mode: pca.fieldMode.SEARCH }
                 ], {
-//                    key: "dc41-rg84-pn42-rp92",
-                    key: "wg99-xt34-xk15-ge18",
+                    key: "dc41-rg84-pn42-rp92",
+//                    key: "yg97-yz29-ky74-wf98",
                     countries: {
                         codesList: "GBR"  // Restrict to UK only to avoid CORS issues
                     },
@@ -2942,6 +2823,13 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             const $addressHistoryForm = $('.address-history-form');
             const addressId = $addressHistoryForm.find('#address_id').val();
             const isNewAddress = addressId === 'new-address';
+            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
+
+            if (!factFindId) {
+                alert('Could not find fact_find_id. Please refresh the page and try again.');
+                $button.prop('disabled', false);
+                return;
+            }
 
             // Get the action type from the button
             let actionType = $(el.currentTarget).hasClass('btn-address-cancel') ? 'cancel' : 'save';
@@ -3025,7 +2913,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 this._rpc({
                     route: '/update/fact-find/address',
                     params: {
-                        fact_find_id: this.factFindId,
+                        fact_find_id: factFindId,
                         data: {
                             address_id: addressId,
                             residential_status: residentialStatus,
@@ -3118,6 +3006,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         _onclickNoDependants(ev) {
             // Show the confirmation popup instead of immediately hiding the section
             $('#no-dependants-popup').removeClass('d-none');
+
             console.log('No dependants clicked - showing confirmation popup');
         },
 
@@ -3127,6 +3016,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             // Remove highlight from "no dependants" button and add to "have dependants"
             $('.no-dependants').removeClass('btn-selected');
             $('.have-dependants').addClass('btn-selected');
+            $('.no-dependants').removeClass('yes-btn');
+            $('.have-dependants').addClass('yes-btn');
 
             console.log('Have dependants selected - button highlighted');
         },
@@ -4889,10 +4780,12 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         _onclickEmploymentDetailsAdd: function(ev) {
             const $employmentDetailsForm = $('.employment-details-form');
             // Target the form and reset all input fields
-            $employmentDetailsForm.find('input[type="text"], input[type="number"], select, textarea').val('');
+            $employmentDetailsForm.find('input[type="text"], input[type="number"], input[type="date"], select, textarea').val('');
             $employmentDetailsForm.find('input[type="radio"], input[type="checkbox"]').prop('checked', false);
             // Reset hidden field for new employment details record
             $employmentDetailsForm.find('#employment_details_id').val('new-employment-details');
+
+            $employmentDetailsForm.find('.student_loans, .post_graduate_loan, .gym_membership, .childcare, .other').addClass('d-none');
             $employmentDetailsForm.removeClass('d-none').fadeIn(400);
         },
 
@@ -5024,10 +4917,14 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
         },
 
         _onchangeEmploymentStatus: function(ev) {
-            const employmentStatus = $(ev.target).val();
+           let employmentStatus = $(ev.target).val();
+            if (employmentStatus === 'self-employed') {
+                employmentStatus = 'self_employed';
+            }
             const $employmentDetailsForm = $('.employment-details-form');
             const $retiredSection = $('.retired');
             const $employmentDetailsSection = $('.employment-details');
+            const $selfEmploymentSection = $('.self-employment');
             const self = this;
 
             console.log('Employment status changed to:', employmentStatus);
@@ -5036,11 +4933,14 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $employmentDetailsForm.addClass('d-none');
             $retiredSection.addClass('d-none');
             $employmentDetailsSection.addClass('d-none');
+            $selfEmploymentSection.addClass('d-none');
 
             // Show relevant section based on status
             if (employmentStatus === 'employed') {
 //                $employmentDetailsForm.removeClass('d-none');
                 $employmentDetailsSection.removeClass('d-none');
+            } else if (employmentStatus === 'self_employed') {
+                $selfEmploymentSection.removeClass('d-none');
             } else if (employmentStatus === 'retired') {
                 $retiredSection.removeClass('d-none');
                 // Load existing retirement income data
@@ -5319,7 +5219,10 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             const self = this;
 
             // Get the current employment status value
-            const employmentStatus = $('select[name="employment-status"]').val();
+            let employmentStatus = $('select[name="employment-status"]').val();
+            if (employmentStatus === 'self-employed') {
+                employmentStatus = 'self_employed';
+            }
 
             console.log('Save and Continue clicked - Employment Status:', employmentStatus);
 
@@ -5330,8 +5233,10 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
                 return;
             }
 
+            const factFindId = this.factFindId || localStorage.getItem("bvs_ff_id");
+
             // Check if factFindId exists
-            if (!this.factFindId) {
+            if (!factFindId) {
                 alert('Error: No fact find ID available. Please refresh the page and try again.');
                 console.error('No factFindId available');
                 return;
@@ -5346,7 +5251,7 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             this._rpc({
                 route: '/update/fact-find/employment-status',
                 params: {
-                    fact_find_id: this.factFindId,
+                    fact_find_id: factFindId,
                     data: {
                         employment_status: employmentStatus
                     }
@@ -5359,9 +5264,6 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
 
                 if (response.success) {
                     console.log('Employment status saved successfully:', response.employment_status);
-
-                    // Show success message (optional)
-                    // alert('Employment status saved successfully!');
 
                     // You can add logic here to navigate to the next section
                     // For example, if you have a function to show the next section:
@@ -6325,8 +6227,8 @@ odoo.define('bvs_homebuyer_portal.bvs_homebuyer_portal', function(require) {
             $('.dependants-history-details').addClass('d-none');
 
             // Add highlight to "no dependants" button
-            $('.no-dependants').addClass('btn-selected');
-            $('.have-dependants').removeClass('btn-selected');
+            $('.no-dependants').addClass('yes-btn');
+            $('.have-dependants').removeClass('yes-btn');
 
             console.log('Confirmed no dependants - button highlighted and section hidden');
 

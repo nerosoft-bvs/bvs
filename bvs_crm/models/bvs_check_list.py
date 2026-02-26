@@ -1052,4 +1052,5 @@ class Checklist(models.Model):
         ('no', 'No'),
         ('not', 'N/A'),
         ], string='Vitality Optimized cover is not selected')
+    valuation_fee_check = fields.Char(string='Valuation Fee Check', store=False)
 

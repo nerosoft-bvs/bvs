@@ -61,6 +61,7 @@ odoo.define('bvs_homebuyer_portal.fact_find_conditions_optimized', function (req
             'change input[id="medical_conditions"]': '_onchangeMedicalCondition',
             'change input[id="taking_medicines"]': '_onchangeTakingMeds',
             'change select[name="health_conditions"]': '_onchangeHealthConditions',
+            'change input[id="shared_ownership_existing"]': '_onchangeSharedOwnershipAvailable',
 
             // Expense calculations
             'change input#rent': '_calculateTotalExpenses',
